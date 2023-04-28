@@ -49,11 +49,11 @@ cmake_ninja_workdir = /Users/tonevanda/Documents/GitHub/Projeto-DA-2/cmake-build
 
 build cmake_object_order_depends_target_Projeto_DA_2: phony || CMakeFiles/Projeto_DA_2.dir
 
-build CMakeFiles/Projeto_DA_2.dir/main.cpp.o: CXX_COMPILER__Projeto_DA_2_Debug /Users/tonevanda/Documents/GitHub/Projeto-DA-2/main.cpp || cmake_object_order_depends_target_Projeto_DA_2
-  DEP_FILE = CMakeFiles/Projeto_DA_2.dir/main.cpp.o.d
+build CMakeFiles/Projeto_DA_2.dir/src/main.cpp.o: CXX_COMPILER__Projeto_DA_2_Debug /Users/tonevanda/Documents/GitHub/Projeto-DA-2/src/main.cpp || cmake_object_order_depends_target_Projeto_DA_2
+  DEP_FILE = CMakeFiles/Projeto_DA_2.dir/src/main.cpp.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu++17
   OBJECT_DIR = CMakeFiles/Projeto_DA_2.dir
-  OBJECT_FILE_DIR = CMakeFiles/Projeto_DA_2.dir
+  OBJECT_FILE_DIR = CMakeFiles/Projeto_DA_2.dir/src
 
 
 # =============================================================================
@@ -63,7 +63,7 @@ build CMakeFiles/Projeto_DA_2.dir/main.cpp.o: CXX_COMPILER__Projeto_DA_2_Debug /
 #############################################
 # Link the executable Projeto_DA_2
 
-build Projeto_DA_2: CXX_EXECUTABLE_LINKER__Projeto_DA_2_Debug CMakeFiles/Projeto_DA_2.dir/main.cpp.o
+build Projeto_DA_2: CXX_EXECUTABLE_LINKER__Projeto_DA_2_Debug CMakeFiles/Projeto_DA_2.dir/src/main.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
   OBJECT_DIR = CMakeFiles/Projeto_DA_2.dir
   POST_BUILD = :
