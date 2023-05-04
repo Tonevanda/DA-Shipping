@@ -3,10 +3,14 @@
 //
 
 #include <iostream>
+#include "Graph.h"
+#include "parse.h"
+#include <string>
 
 using namespace std;
 
 int main(){
-    cout << "Hello World!";
+    Graph graph;
+    string filePath = "../Project2Graphs/";
     return 0;
 }
