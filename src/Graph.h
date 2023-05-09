@@ -32,8 +32,8 @@ public:
     bool addEdge(const int &sourc, const int &dest, double w);
     bool addBidirectionalEdge(const int &sourc, const int &dest, double w);
 
-    unsigned int tspBTRec(const unsigned int **dists, unsigned int n, unsigned int path[], unsigned int min, unsigned int curCost,unsigned int curPath[], unsigned int i, unsigned int curPathSize, unsigned int visited[], bool ended);
-    unsigned int tspBT(const unsigned int **dists, unsigned int n, unsigned int path[]);
+    double tspBTRec(std::vector<Node *> path, double min, double curCost, unsigned int i, unsigned int curPathSize, bool ended);
+    double tspBT();
     int getNumNode() const;
     std::vector<Node *> getNodeSet() const;
 protected:

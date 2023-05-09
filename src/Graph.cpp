@@ -66,9 +66,38 @@ bool Graph::addBidirectionalEdge(const int &sourc, const int &dest, double w) {
     return true;
 }
 
+double Graph::tspBTRec(std::vector<Node *> path, double min, double curCost, unsigned int i, unsigned int curPathSize, bool ended){
+    if(!NodeSet[i]->isVisited()){
+        if(curPathSize == NodeSet.size()-1){
+            double sum = tspBTRec(path,min,curCost+NodeSet[i]->getAdj()[0]->getDest()->getDist(),0,curPathSize,true);
+            if(sum < min){
+                min = sum;
+                path[curPathSize] = NodeSet[i];
+            }
+            return min;
+        }
+        NodeSet[i]->setVisited(true);
+    }
+    else if(i==0 && ended){
+        min = (curCost < min) ? curCost : min;
+        return min;
+    }
+    else return min;
 
+    for(int j = 0; j < NodeSet.size()-1; j++){
+        if(i==j) continue;
+        int sum = tspBTRec(path,min,curCost+NodeSet[i]->getAdj()[j]->getDest()->getDist(),j,curPathSize+1,false);
+        if(sum < min){
+            min = sum;
+            path[curPathSize] = NodeSet[i];
+        }
+    }
+    NodeSet[i]->setVisited(false);
+    return min;
+}
+
+/*
 unsigned int tspBTRec(const unsigned int **dists, unsigned int n, unsigned int path[], unsigned int min, unsigned int curCost,unsigned int curPath[], unsigned int i, unsigned int curPathSize, unsigned int visited[], bool ended) {
-
     if(visited[i] == 0){
         visited[i] = 1;
         if(curPathSize == (n-1)){
@@ -100,7 +129,17 @@ unsigned int tspBTRec(const unsigned int **dists, unsigned int n, unsigned int p
     visited[i] = 0;
     return min;
 }
+*/
 
+double Graph::tspBT(){
+    std::vector<Node *> path;
+    for(int i = 0; i < NodeSet.size()-1; i++){
+        NodeSet[i]->setVisited(false);
+    }
+    return tspBTRec(path,INT_MAX,0,0,0,false);
+}
+
+/*
 unsigned int tspBT(const unsigned int **dists, unsigned int n, unsigned int path[]) {
     unsigned int visited[n];
     unsigned int curPath[n];
@@ -111,7 +150,7 @@ unsigned int tspBT(const unsigned int **dists, unsigned int n, unsigned int path
     }
 
     return tspBTRec(dists,n,path,INT_MAX,0, curPath, 0, 0, visited, false);
-}
+}*/
 
 
 void deleteMatrix(int **m, int n) {
