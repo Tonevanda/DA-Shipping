@@ -24,6 +24,8 @@ public:
      */
     bool addNode(const int &id);
 
+    void sortNodes();
+
     /*
      * Adds an edge to a graph (this), given the contents of the source and
      * destination nodes and the edge weight (w).
@@ -32,8 +34,9 @@ public:
     bool addEdge(const int &sourc, const int &dest, double w);
     bool addBidirectionalEdge(const int &sourc, const int &dest, double w);
 
-    double tspBTRec(std::vector<Node *> path, double min, double curCost, unsigned int i, unsigned int curPathSize, bool ended);
-    double tspBT();
+
+    double tspBTRec(std::vector<Node *>& path, double min, double curCost, unsigned int i, unsigned int curPathSize, bool ended);
+    double tspBT(std::vector<Node *>& path);
     int getNumNode() const;
     std::vector<Node *> getNodeSet() const;
 protected:

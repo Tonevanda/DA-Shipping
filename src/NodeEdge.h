@@ -38,6 +38,8 @@ public:
     Edge * addEdge(Node *dest, double w);
     bool removeEdge(int destID);
 
+    void sortEdges();
+
 protected:
     int id;                // identifier
     std::vector<Edge *> adj;  // outgoing edges

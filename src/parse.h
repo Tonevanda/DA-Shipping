@@ -36,6 +36,29 @@ vector<string> read(const string textLine){
     return info;
 }
 
+bool isAlreadyInEdges(int id, std::vector<Edge*> adj){
+    if(adj.empty()){
+        return false;
+    }
+    for(int i = 0; i < adj.size()-1; i++){
+        if(id == adj[i]->getDest()->getId()) return true;
+    }
+    return false;
+}
+
+void fillInBlanks(Graph* graph){
+    for(int i = 0; i < graph->getNumNode(); i++){
+        for(int j = 0; j < graph->getNumNode(); j++){
+            if(i==j) graph->addEdge(i,j,0);
+            else if (isAlreadyInEdges(j,graph->getNodeSet()[i]->getAdj())) continue;
+            else{
+                graph->addEdge(i,j,std::numeric_limits<double>::infinity());
+            }
+        }
+        graph->getNodeSet()[i]->sortEdges();
+    }
+}
+
 /**
  * Opens the file, parse the nodes from the provided file and closes the file.
  * @param graph
@@ -52,6 +75,30 @@ void readNodes(Graph* graph, string file){
     }
 
 
+    fout.close();
+}
+
+
+void read2CommaNodes(Graph* graph, string file){
+    ifstream fout;
+    fout.open(file);
+    if(!fout.is_open()) {
+        cout << "Error when opening file " << file << endl;
+        return;
+    }
+    string tempstream,origem, destino, distancia;
+    getline(fout, tempstream);
+    while (getline (fout, tempstream)) {
+        vector<string> info = read(tempstream);
+        origem = info[0];
+        destino = info[1];
+        distancia = info[2];
+        graph->addNode(stoi(origem));
+        graph->addNode(stoi(destino));
+        graph->addEdge(stoi(origem),stoi(destino), stod(distancia));
+    }
+    graph->sortNodes();
+    fillInBlanks(graph);
     fout.close();
 }
 

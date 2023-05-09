@@ -110,6 +110,12 @@ void Node::setPath(Edge *path) {
     this->path = path;
 }
 
+void Node::sortEdges(){
+    std::sort(adj.begin(),adj.end(),[](Edge* a, Edge* b){
+        return a->getDest()->getId() < b->getDest()->getId();
+    });
+}
+
 /********************** Edge  ****************************/
 
 Edge::Edge(Node *orig, Node *dest, double w): orig(orig), dest(dest), weight(w) {}
