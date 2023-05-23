@@ -46,6 +46,7 @@ bool isAlreadyInEdges(int id, std::vector<Edge*> adj){
     return false;
 }
 
+
 void fillInBlanks(Graph* graph){
     for(int i = 0; i < graph->getNumNode(); i++){
         for(int j = 0; j < graph->getNumNode(); j++){
@@ -95,10 +96,31 @@ void read2CommaNodes(Graph* graph, string file){
         distancia = info[2];
         graph->addNode(stoi(origem));
         graph->addNode(stoi(destino));
-        graph->addEdge(stoi(origem),stoi(destino), stod(distancia));
+        graph->addBidirectionalEdge(stoi(origem),stoi(destino), stod(distancia));
     }
     graph->sortNodes();
-    fillInBlanks(graph);
+    //fillInBlanks(graph);
+    fout.close();
+}
+
+void read2CommaNodesNoHeader(Graph* graph, string file){
+    ifstream fout;
+    fout.open(file);
+    if(!fout.is_open()) {
+        cout << "Error when opening file " << file << endl;
+        return;
+    }
+    string tempstream,origem, destino, distancia;
+    while (getline (fout, tempstream)) {
+        vector<string> info = read(tempstream);
+        origem = info[0];
+        destino = info[1];
+        distancia = info[2];
+        graph->addNode(stoi(origem));
+        graph->addNode(stoi(destino));
+        graph->addBidirectionalEdge(stoi(origem),stoi(destino), stod(distancia));
+    }
+    graph->sortNodes();
     fout.close();
 }
 

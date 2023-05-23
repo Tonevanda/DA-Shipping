@@ -72,11 +72,19 @@ bool Graph::addBidirectionalEdge(const int &sourc, const int &dest, double w) {
     return true;
 }
 
+bool Graph::zeroHasNoEdgesLeft(){
+    for(Edge* edge : NodeSet[0]->getAdj()){
+        if(!edge->getDest()->isVisited()) return false;
+        return true;
+    }
+};
+
 double Graph::tspBTRec(std::vector<Node *>& path, double min, double curCost, unsigned int i, unsigned int curPathSize, bool ended){
+    if(zeroHasNoEdgesLeft()) return min;
     if(!NodeSet[i]->isVisited()){
-        if(i == NodeSet.size()-1){
+        if(curPathSize == NodeSet.size()-1){
             double sum = tspBTRec(path,min,curCost+NodeSet[i]->getAdj()[0]->getWeight(),0,curPathSize,true);
-            if(sum < min){
+            if(sum < min && NodeSet[i]->getAdj()[0]->getDest()->getId()==0){
                 min = sum;
                 path[curPathSize] = NodeSet[i];
             }
@@ -84,20 +92,22 @@ double Graph::tspBTRec(std::vector<Node *>& path, double min, double curCost, un
         }
         NodeSet[i]->setVisited(true);
     }
-    else if(i==0 && ended){
+    else if(ended){
         min = (curCost < min) ? curCost : min;
         return min;
     }
     else return min;
 
-    for(int j = 0; j < NodeSet.size(); j++){
-        if(i==j || NodeSet[i]->getAdj()[j]->getWeight() == std::numeric_limits<double>::infinity()) continue;
-        double sum = tspBTRec(path,min,curCost+NodeSet[i]->getAdj()[j]->getWeight(),j,curPathSize+1,false);
-        if(sum < min){
+    for(Edge* edge: NodeSet[i]->getAdj()){
+        Node* node = edge->getDest();
+        if(curCost+edge->getWeight() > min) continue;
+        double sum = tspBTRec(path,min,curCost+edge->getWeight(),node->getId(),curPathSize+1,false);
+        if (sum < min){
             min = sum;
             path[curPathSize] = NodeSet[i];
         }
     }
+
     NodeSet[i]->setVisited(false);
     return min;
 }
@@ -138,7 +148,9 @@ unsigned int tspBTRec(const unsigned int **dists, unsigned int n, unsigned int p
 */
 
 double Graph::tspBT(std::vector<Node *>& path){
+    path = std::vector<Node *>(NodeSet.size(), 0);
     for(int i = 0; i < NodeSet.size()-1; i++){
+        path[i] = 0;
         NodeSet[i]->setVisited(false);
     }
     return tspBTRec(path,INT_MAX,0,0,0,false);

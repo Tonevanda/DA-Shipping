@@ -112,7 +112,7 @@ void Node::setPath(Edge *path) {
 
 void Node::sortEdges(){
     std::sort(adj.begin(),adj.end(),[](Edge* a, Edge* b){
-        return a->getDest()->getId() < b->getDest()->getId();
+        return a->getWeight() < b->getWeight();
     });
 }
 

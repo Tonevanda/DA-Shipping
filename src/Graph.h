@@ -34,7 +34,7 @@ public:
     bool addEdge(const int &sourc, const int &dest, double w);
     bool addBidirectionalEdge(const int &sourc, const int &dest, double w);
 
-
+    bool zeroHasNoEdgesLeft();
     double tspBTRec(std::vector<Node *>& path, double min, double curCost, unsigned int i, unsigned int curPathSize, bool ended);
     double tspBT(std::vector<Node *>& path);
     int getNumNode() const;
