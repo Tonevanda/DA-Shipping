@@ -17,7 +17,7 @@ class Edge;
 
 class Node {
 public:
-    Node(int id);
+    Node(int id, double longitude, double latitude);
     bool operator<(Node & node) const; // // required by MutablePriorityQueue
 
     int getId() const;
@@ -50,6 +50,8 @@ protected:
     unsigned int indegree; // used by topsort
     double dist = 0;
     Edge *path = nullptr;
+    double latitude = 0;
+    double longitude = 0;
 
     std::vector<Edge *> incoming; // incoming edges
 

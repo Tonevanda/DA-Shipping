@@ -33,10 +33,10 @@ int Graph::findNodeIdx(const int &id) const {
  *  Adds a Node with a given content or info (in) to a graph (this).
  *  Returns true if successful, and false if a Node with that content already exists.
  */
-bool Graph::addNode(const int &id) {
+bool Graph::addNode(const int &id, double longitude, double latitude) {
     if (findNode(id) != nullptr)
         return false;
-    NodeSet.push_back(new Node(id));
+    NodeSet.push_back(new Node(id, longitude, latitude));
     return true;
 }
 
@@ -75,9 +75,9 @@ bool Graph::addBidirectionalEdge(const int &sourc, const int &dest, double w) {
 bool Graph::zeroHasNoEdgesLeft(){
     for(Edge* edge : NodeSet[0]->getAdj()){
         if(!edge->getDest()->isVisited()) return false;
-        return true;
     }
-};
+    return true;
+}
 
 double Graph::tspBTRec(std::vector<Node *>& path, double min, double curCost, unsigned int i, unsigned int curPathSize, bool ended){
     if(zeroHasNoEdgesLeft()) return min;
@@ -112,62 +112,13 @@ double Graph::tspBTRec(std::vector<Node *>& path, double min, double curCost, un
     return min;
 }
 
-/*
-unsigned int tspBTRec(const unsigned int **dists, unsigned int n, unsigned int path[], unsigned int min, unsigned int curCost,unsigned int curPath[], unsigned int i, unsigned int curPathSize, unsigned int visited[], bool ended) {
-    if(visited[i] == 0){
-        visited[i] = 1;
-        if(curPathSize == (n-1)){
-            visited[i] = 0;
-            int sum = tspBTRec(dists,n,path,min,curCost+dists[i][0],curPath,0,curPathSize,visited, true);
-            if(sum < min){
-                min = sum;
-                path[curPathSize] = i;
-            }
-            return min;
-        }
-    }
-    else if(i==0 && ended){
-        min = (curCost < min) ? curCost : min;
-        return min;
-    }
-    else return min;
-
-    unsigned int localCost;
-
-    for(int j = 0; j < n; j++){
-        if(i==j) continue;
-        localCost=tspBTRec(dists,n,path,min,curCost+dists[i][j],curPath,j,curPathSize+1, visited, false);
-        if(localCost < min){
-            min = localCost;
-            path[curPathSize] = i;
-        }
-    }
-    visited[i] = 0;
-    return min;
-}
-*/
-
 double Graph::tspBT(std::vector<Node *>& path){
     path = std::vector<Node *>(NodeSet.size(), 0);
     for(int i = 0; i < NodeSet.size()-1; i++){
-        path[i] = 0;
         NodeSet[i]->setVisited(false);
     }
     return tspBTRec(path,INT_MAX,0,0,0,false);
 }
-
-/*
-unsigned int tspBT(const unsigned int **dists, unsigned int n, unsigned int path[]) {
-    unsigned int visited[n];
-    unsigned int curPath[n];
-    for(int i = 0; i < n; i++){
-        visited[i]=0;
-        curPath[i] = 0;
-        path[i] = 0;
-    }
-
-    return tspBTRec(dists,n,path,INT_MAX,0, curPath, 0, 0, visited, false);
-}*/
 
 
 void deleteMatrix(int **m, int n) {

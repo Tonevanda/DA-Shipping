@@ -4,7 +4,7 @@
 
 /************************* Node  **************************/
 
-Node::Node(int id): id(id) {}
+Node::Node(int id, double longitude, double latitude): id(id), longitude(longitude), latitude(latitude) {}
 
 /*
  * Auxiliary function to add an outgoing edge to a Node (this),

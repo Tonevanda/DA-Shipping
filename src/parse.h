@@ -46,20 +46,6 @@ bool isAlreadyInEdges(int id, std::vector<Edge*> adj){
     return false;
 }
 
-
-void fillInBlanks(Graph* graph){
-    for(int i = 0; i < graph->getNumNode(); i++){
-        for(int j = 0; j < graph->getNumNode(); j++){
-            if(i==j) graph->addEdge(i,j,0);
-            else if (isAlreadyInEdges(j,graph->getNodeSet()[i]->getAdj())) continue;
-            else{
-                graph->addEdge(i,j,std::numeric_limits<double>::infinity());
-            }
-        }
-        graph->getNodeSet()[i]->sortEdges();
-    }
-}
-
 /**
  * Opens the file, parse the nodes from the provided file and closes the file.
  * @param graph
@@ -79,8 +65,46 @@ void readNodes(Graph* graph, string file){
     fout.close();
 }
 
+void readRealWorldNodes(Graph* graph, string file){
+    ifstream fout;
+    fout.open(file);
+    if(!fout.is_open()) {
+        cout << "Error when opening file " << file << endl;
+        return;
+    }
+    string tempstream,id, longitude, latitude;
+    getline(fout, tempstream);
+    while (getline (fout, tempstream)) {
+        vector<string> info = read(tempstream);
+        id = info[0];
+        longitude = info[1];
+        latitude = info[2];
+        graph->addNode(stoi(id), stod(longitude), stod(latitude));
+    }
+    fout.close();
+}
 
-void read2CommaNodes(Graph* graph, string file){
+void readRealWorldEdges(Graph* graph, string file){
+    ifstream fout;
+    fout.open(file);
+    if(!fout.is_open()) {
+        cout << "Error when opening file " << file << endl;
+        return;
+    }
+    string tempstream,node1,node2, dist;
+    getline(fout, tempstream);
+    while (getline (fout, tempstream)) {
+        vector<string> info = read(tempstream);
+        node1 = info[0];
+        node2 = info[1];
+        dist = info[2];
+        graph->addBidirectionalEdge(stoi(node1), stoi(node2), stod(dist));
+    }
+    fout.close();
+}
+
+
+void readToyGraph(Graph* graph, string file){
     ifstream fout;
     fout.open(file);
     if(!fout.is_open()) {
@@ -99,11 +123,10 @@ void read2CommaNodes(Graph* graph, string file){
         graph->addBidirectionalEdge(stoi(origem),stoi(destino), stod(distancia));
     }
     graph->sortNodes();
-    //fillInBlanks(graph);
     fout.close();
 }
 
-void read2CommaNodesNoHeader(Graph* graph, string file){
+void readExtraFullyConnectedGraph(Graph* graph, string file){
     ifstream fout;
     fout.open(file);
     if(!fout.is_open()) {

@@ -22,7 +22,7 @@ public:
      *  Adds a Node with a given content or info (in) to a graph (this).
      *  Returns true if successful, and false if a Node with that content already exists.
      */
-    bool addNode(const int &id);
+    bool addNode(const int &id, double longitude = 0, double latitude=0);
 
     void sortNodes();
 
