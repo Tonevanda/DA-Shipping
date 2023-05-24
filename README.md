@@ -53,6 +53,11 @@ of the algorithms developed.
 
 ------
 
+### Class Notes
+- Calcular desvio padrão para provar distâncias equivalentes e utilizar triangular approach no 3 exercicio
+- Adicionar opção de escolher o ficheiro para abrir.
+- Explicar o que o n significa no doxygen
+
 ### Developed by 🧑🏻‍💻
 
 - **Tiago Cruz** - [@Tiago27Cruz](https://www.github.com/Tiago27Cruz)

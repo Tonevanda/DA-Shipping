@@ -37,6 +37,8 @@ public:
     bool zeroHasNoEdgesLeft();
     double tspBTRec(std::vector<Node *>& path, double min, double curCost, unsigned int i, unsigned int curPathSize, bool ended);
     double tspBT(std::vector<Node *>& path);
+    std::vector<Node*> kruskal();
+
     int getNumNode() const;
     std::vector<Node *> getNodeSet() const;
 protected:

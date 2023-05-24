@@ -65,6 +65,12 @@ void readNodes(Graph* graph, string file){
     fout.close();
 }
 
+/**
+ * Opens the file given, parses the nodes from the provided file, assuming it's in the Real World graphs' format and closes the file
+ * @param graph
+ * @param file
+ * @note Time-complexity -> O(n)
+ */
 void readRealWorldNodes(Graph* graph, string file){
     ifstream fout;
     fout.open(file);
@@ -83,7 +89,12 @@ void readRealWorldNodes(Graph* graph, string file){
     }
     fout.close();
 }
-
+/**
+ * Opens the file given, parses the edges from the provided file, assuming it's in the Real World graphs' format and closes the file
+ * @param graph
+ * @param file
+ * @note Time-complexity -> O(n)
+ */
 void readRealWorldEdges(Graph* graph, string file){
     ifstream fout;
     fout.open(file);
@@ -103,7 +114,12 @@ void readRealWorldEdges(Graph* graph, string file){
     fout.close();
 }
 
-
+/**
+ * Opens the file given, parses the nodes and edges from the provided file, assuming it's in the Toy graphs' format, orders the nodes through their id's and closes the file
+ * @param graph
+ * @param file
+ * @note Time-complexity -> O( n log(n) )
+ */
 void readToyGraph(Graph* graph, string file){
     ifstream fout;
     fout.open(file);
@@ -125,7 +141,11 @@ void readToyGraph(Graph* graph, string file){
     graph->sortNodes();
     fout.close();
 }
-
+/**
+ * Opens the file given, parses the nodes and edges from the provided file, assuming it's in the Extra Fully Connected graphs' format, orders the nodes through their id's and closes the file
+ * @param graph
+ * @param file
+ */
 void readExtraFullyConnectedGraph(Graph* graph, string file){
     ifstream fout;
     fout.open(file);

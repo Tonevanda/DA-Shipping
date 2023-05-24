@@ -100,7 +100,7 @@ double Graph::tspBTRec(std::vector<Node *>& path, double min, double curCost, un
 
     for(Edge* edge: NodeSet[i]->getAdj()){
         Node* node = edge->getDest();
-        if(curCost+edge->getWeight() > min) continue;
+        if(curCost+edge->getWeight() >= min) break;
         double sum = tspBTRec(path,min,curCost+edge->getWeight(),node->getId(),curPathSize+1,false);
         if (sum < min){
             min = sum;
@@ -119,6 +119,37 @@ double Graph::tspBT(std::vector<Node *>& path){
     }
     return tspBTRec(path,INT_MAX,0,0,0,false);
 }
+
+std::vector<Node*> Graph::kruskal() {
+    UFDS ufds(vertexSet.size());
+    std::vector<Edge*> sortedEdges;
+
+    for (auto v : vertexSet) {
+        for (auto e : v->getAdj()) {
+            if(!e->isSelected()){
+                sortedEdges.push_back(e);
+                e->setSelected(true);
+                Edge* e2 = e->getReverse();
+                e2->setSelected(true);
+            }
+        }
+    }
+
+    std::sort(sortedEdges.begin(), sortedEdges.end(), [](const Edge* e1, const Edge* e2) {
+        return e1->getWeight() < e2->getWeight();
+    });
+
+    for(auto e :sortedEdges){
+        if(!ufds.isSameSet(e->getDest()->getId(), e->getOrig()->getId())){
+            Vertex* v = e->getDest();
+            Vertex* u = e->getOrig();
+            v->setPath(e);
+            ufds.linkSets(u->getId(),v->getId());
+        }
+    }
+    return vertexSet;
+}
+
 
 
 void deleteMatrix(int **m, int n) {
