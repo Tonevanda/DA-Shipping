@@ -47,25 +47,6 @@ bool isAlreadyInEdges(int id, std::vector<Edge*> adj){
 }
 
 /**
- * Opens the file, parse the nodes from the provided file and closes the file.
- * @param graph
- * @param file
- * @note Time-complexity -> O(n)
- */
-void readNodes(Graph* graph, string file){
-    ifstream fout;
-    file= "../" +file;
-    fout.open(file);
-    if(!fout.is_open()){
-        cout << "Error when opening file " << file << endl;
-        return;
-    }
-
-
-    fout.close();
-}
-
-/**
  * Opens the file given, parses the nodes from the provided file, assuming it's in the Real World graphs' format and closes the file
  * @param graph
  * @param file
@@ -145,6 +126,7 @@ void readToyGraph(Graph* graph, string file){
  * Opens the file given, parses the nodes and edges from the provided file, assuming it's in the Extra Fully Connected graphs' format, orders the nodes through their id's and closes the file
  * @param graph
  * @param file
+ * @note Time-complexity -> O(n log(n))
  */
 void readExtraFullyConnectedGraph(Graph* graph, string file){
     ifstream fout;
@@ -164,24 +146,6 @@ void readExtraFullyConnectedGraph(Graph* graph, string file){
         graph->addBidirectionalEdge(stoi(origem),stoi(destino), stod(distancia));
     }
     graph->sortNodes();
-    fout.close();
-}
-
-/**
- * Opens the network file, parse the Network from the provided file and closes the file.
- * @param graph
- * @param file
- * @note Time-complexity -> O(n)
- */
-void readNetwork(Graph* graph, string file){
-    ifstream fout;
-    file="../"+file;
-    fout.open(file);
-    if(!fout.is_open()){
-        cout << "Error when opening file " << file << endl;
-        return;
-    }
-
     fout.close();
 }
 

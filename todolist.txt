@@ -1,5 +1,0 @@
--Need to parse and read the data, simple but need different functions depending on the file being read:
-    - The given Real-Word-Graphs are the same, structure wise, so we just need to read the nodes file and the edges file.
-    - However, the Toy-Graphs have no nodes file, just the edges file, because the only information about the nodes is their ID number
-    except "tourism.csv", which has 2 additional columns, referring to the name of both the origin node and the destination node.
--Adapt the brute-force solution to use vector instead of arrays and pointers like ew disgusting.

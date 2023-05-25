@@ -1,6 +1,7 @@
 // By: Gonçalo Leão
 
 #include "Graph.h"
+#include "UFDS.h"
 
 int Graph::getNumNode() const {
     return NodeSet.size();
@@ -120,11 +121,23 @@ double Graph::tspBT(std::vector<Node *>& path){
     return tspBTRec(path,INT_MAX,0,0,0,false);
 }
 
-std::vector<Node*> Graph::kruskal() {
-    UFDS ufds(vertexSet.size());
+void Graph::TriangularApproximationHeuristic(){
+    for(auto node : NodeSet){
+        node->setPath(nullptr);
+    }
+
+    kruskal();
+
+
+}
+
+
+
+void Graph::kruskal() {
+    UFDS ufds(NodeSet.size());
     std::vector<Edge*> sortedEdges;
 
-    for (auto v : vertexSet) {
+    for (auto v : NodeSet) {
         for (auto e : v->getAdj()) {
             if(!e->isSelected()){
                 sortedEdges.push_back(e);
@@ -141,13 +154,12 @@ std::vector<Node*> Graph::kruskal() {
 
     for(auto e :sortedEdges){
         if(!ufds.isSameSet(e->getDest()->getId(), e->getOrig()->getId())){
-            Vertex* v = e->getDest();
-            Vertex* u = e->getOrig();
+            Node* v = e->getDest();
+            Node* u = e->getOrig();
             v->setPath(e);
             ufds.linkSets(u->getId(),v->getId());
         }
     }
-    return vertexSet;
 }
 
 
