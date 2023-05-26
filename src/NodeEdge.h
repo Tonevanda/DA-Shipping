@@ -28,6 +28,8 @@ public:
     double getDist() const;
     Edge *getPath() const;
     std::vector<Edge *> getIncoming() const;
+    double getLon() const;
+    double getLat() const;
 
     void setId(int info);
     void setVisited(bool visited);
@@ -37,8 +39,11 @@ public:
     void setPath(Edge *path);
     Edge * addEdge(Node *dest, double w);
     bool removeEdge(int destID);
+    void setLon(double lon);
+    void setLat(double lat);
 
     void sortEdges();
+    void sortEdgesByID();
 
 protected:
     int id;                // identifier

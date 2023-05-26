@@ -150,6 +150,11 @@ double Graph::TriangularApproximationHeuristic(std::vector<Node*>& mst){
     double weight = 0;
     preOrder(NodeSet[0],mst,weight);
 
+    for(Node* node : NodeSet){
+        if(node->getPath()== nullptr) std::cout << node->getId() << std::endl;
+        else std::cout << node->getId() << " path: " << node->getPath()->getOrig()->getId() << std::endl;
+    }
+
     return weight;
 }
 

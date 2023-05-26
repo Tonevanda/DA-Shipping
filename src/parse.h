@@ -7,8 +7,39 @@
 #include "Graph.h"
 #include <fstream>
 #include <sstream>
+#include <cmath>
 
 using namespace std;
+
+/**
+ * Converts from degrees to radians.
+ * @param coord
+ * @return
+ * @note Time-complexity -> O(1)
+ */
+double convertToRadians(double coord){
+    return (coord*M_PI)/180;
+}
+/**
+ * Calculates the distance between two points using the haversine formula
+ * @param lon1
+ * @param lat1
+ * @param lon2
+ * @param lat2
+ * @return
+ * @note Time-complexity -> O(1)
+ */
+double haversineDistance(double lon1, double lat1, double lon2, double lat2){
+    double radLon1 = convertToRadians(lon1), radLat1 = convertToRadians(lat1), radLon2 = convertToRadians(lon2), radLat2 = convertToRadians(lat2);
+
+    double deltaLon = radLon2 - radLon1, deltaLat = radLat2 - radLat1;
+
+    double aux = pow(sin(deltaLat/2),2) + cos(radLat1) * cos(radLat2) * pow(sin(deltaLon/2),2);
+
+    double c = 2 * atan2(sqrt(aux), sqrt(1-aux));
+
+    return 6371000 * c;
+}
 
 /**
  * Parses the information read in every line to make sure each field is correctly divided.
@@ -44,6 +75,42 @@ bool isAlreadyInEdges(int id, std::vector<Edge*> adj){
         if(id == adj[i]->getDest()->getId()) return true;
     }
     return false;
+}
+
+void fillInBlanks(Graph* graph) {
+    for (int i = 0; i < graph->getNumNode(); i++) {
+        for (int j = i+1; j < graph->getNumNode(); j++) {
+            //if (i == j) graph->addEdge(i, j, 0);
+            if (isAlreadyInEdges(j, graph->getNodeSet()[i]->getAdj())) continue;
+            else {
+                Node* node1 = graph->findNode(i);
+                Node* node2 = graph->findNode(j);
+
+                double distance = haversineDistance(node1->getLon(), node1->getLat(), node2->getLon(),node2->getLat());
+                graph->addBidirectionalEdge(i, j, distance);
+            }
+        }
+        graph->getNodeSet()[i]->sortEdges();
+    }
+}
+
+void fillInBlanksWithOne(Graph* graph) {
+    int numNodes = graph->getNumNode();
+    std::vector<Node*> nodeSet = graph->getNodeSet();
+
+    for (int i = 0; i < numNodes; i++) {
+        Node* currentNode = nodeSet[i];
+
+        for (int j = 0; j < numNodes; j++) {
+            if (i == j) continue;  // Skip self-loop
+
+            Node* destinationNode = nodeSet[j];
+
+            if (!isAlreadyInEdges(destinationNode->getId(), currentNode->getAdj())) {
+                graph->addBidirectionalEdge(currentNode->getId(), destinationNode->getId(), 1);
+            }
+        }
+    }
 }
 
 /**
@@ -92,20 +159,8 @@ void readRealWorldEdges(Graph* graph, string file){
         dist = info[2];
         graph->addBidirectionalEdge(stoi(node1), stoi(node2), stod(dist));
     }
+    fillInBlanks(graph);
     fout.close();
-}
-
-void fillInBlanks(Graph* graph) {
-    for (int i = 0; i < graph->getNumNode(); i++) {
-        for (int j = 0; j < graph->getNumNode(); j++) {
-            if (i == j) graph->addEdge(i, j, 0);
-            else if (isAlreadyInEdges(j, graph->getNodeSet()[i]->getAdj())) continue;
-            else {
-                graph->addBidirectionalEdge(i, j, 1);
-            }
-        }
-        graph->getNodeSet()[i]->sortEdges();
-    }
 }
 
 /**
@@ -130,10 +185,10 @@ void readToyGraph(Graph* graph, string file){
         distancia = info[2];
         graph->addNode(stoi(origem));
         graph->addNode(stoi(destino));
-        graph->addBidirectionalEdge(stoi(origem),stoi(destino), stod(distancia));
-        //graph->addBidirectionalEdge(stoi(origem),stoi(destino), 1);
+        //graph->addBidirectionalEdge(stoi(origem),stoi(destino), stod(distancia));
+        graph->addBidirectionalEdge(stoi(origem),stoi(destino), 1);
     }
-    //fillInBlanks(graph);
+    fillInBlanksWithOne(graph);
     graph->sortNodes();
     fout.close();
 }
@@ -164,8 +219,5 @@ void readExtraFullyConnectedGraph(Graph* graph, string file){
     graph->sortNodes();
     fout.close();
 }
-
-
-
 
 #endif //PROJETO_DA_1_PARSE

@@ -86,6 +86,13 @@ std::vector<Edge *> Node::getIncoming() const {
     return this->incoming;
 }
 
+double Node::getLon() const{
+    return this->longitude;
+}
+double Node::getLat() const{
+    return this->latitude;
+}
+
 void Node::setId(int id) {
     this->id = id;
 }
@@ -110,9 +117,22 @@ void Node::setPath(Edge *path) {
     this->path = path;
 }
 
+void Node::setLon(double lon){
+    this->longitude=lon;
+}
+void Node::setLat(double lat){
+    this->latitude=lat;
+}
+
 void Node::sortEdges(){
     std::sort(adj.begin(),adj.end(),[](Edge* a, Edge* b){
         return a->getWeight() < b->getWeight();
+    });
+}
+
+void Node::sortEdgesByID(){
+    std::sort(adj.begin(),adj.end(),[](Edge* a, Edge* b){
+        return a->getOrig()->getId() < b->getOrig()->getId();
     });
 }
 
