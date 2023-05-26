@@ -71,7 +71,7 @@ bool isAlreadyInEdges(int id, std::vector<Edge*> adj){
     if(adj.empty()){
         return false;
     }
-    for(int i = 0; i < adj.size()-1; i++){
+    for(int i = 0; i < adj.size(); i++){
         if(id == adj[i]->getDest()->getId()) return true;
     }
     return false;
