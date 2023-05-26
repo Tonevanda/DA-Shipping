@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Graph.h"
 #include "parse.h"
+#include "print.h"
 #include <string>
 
 using namespace std;
@@ -22,22 +23,24 @@ int main(){
     string real_graph1_nodes = "../Project2Graphs/Real-World-Graphs/graph1/nodes.csv";
     string real_graph1_edges = "../Project2Graphs/Real-World-Graphs/graph1/edges.csv";
 
-    readToyGraph(&graph,toy_shipping); // min: 86.7 | 0 -> 1 -> 11 -> 10 -> 12 -> 13 -> 3 -> 2 -> 4 -> 6 -> 9 -> 7 -> 8 -> 5
+    //readToyGraph(&graph,toy_shipping); // min: 86.7 | 0 -> 1 -> 11 -> 10 -> 12 -> 13 -> 3 -> 2 -> 4 -> 6 -> 9 -> 7 -> 8 -> 5
     //readToyGraph(&graph,toy_stadiums); // min: 341 | 0 -> 1 -> 9 -> 6 -> 8 -> 4 -> 7 -> 5 -> 10 -> 2 -> 3
     //readToyGraph(&graph,toy_tourism); // min: 2600 | 0 -> 3 -> 2 -> 1 -> 4
 
-    //readExtraFullyConnectedGraph(&graph, extra_fc);
+    readExtraFullyConnectedGraph(&graph, extra_fc);
 
-    //readRealWorldEdges(&graph,real_graph1_edges);
     //readRealWorldNodes(&graph,real_graph1_nodes);
-
+    //readRealWorldEdges(&graph,real_graph1_edges);
+    /*
     double min;
     std::vector<Node *> path;
     min = graph.tspBT(path);
-    for(int i = 0; i < path.size();i++) {
-        if(i == path.size()-1) cout << path[i]->getId() << endl;
-        else cout << path[i]->getId() << " -> ";
-    }
-    cout << "min: " << min << endl;
+    printPath(path,min);
+    */
+
+    std::vector<Node*> mst;
+    double min = graph.TriangularApproximationHeuristic(mst);
+    printPath(mst,min);
+
     return 0;
 }

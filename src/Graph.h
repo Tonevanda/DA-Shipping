@@ -17,7 +17,7 @@ public:
     /*
     * Auxiliary function to find a Node with a given ID.
     */
-    Node *findNode(const int &id) const;
+    Node* findNode(const int &id) const;
     /*
      *  Adds a Node with a given content or info (in) to a graph (this).
      *  Returns true if successful, and false if a Node with that content already exists.
@@ -37,7 +37,10 @@ public:
     bool zeroHasNoEdgesLeft();
     double tspBTRec(std::vector<Node *>& path, double min, double curCost, unsigned int i, unsigned int curPathSize, bool ended);
     double tspBT(std::vector<Node *>& path);
+    void preOrder(Node* node,std::vector<Node*>& mst, double& weight);
+    double TriangularApproximationHeuristic(std::vector<Node*>& mst);
     void kruskal();
+    void dfsKruskalPath(Node *v);
 
     int getNumNode() const;
     std::vector<Node *> getNodeSet() const;

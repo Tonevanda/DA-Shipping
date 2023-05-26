@@ -95,6 +95,19 @@ void readRealWorldEdges(Graph* graph, string file){
     fout.close();
 }
 
+void fillInBlanks(Graph* graph) {
+    for (int i = 0; i < graph->getNumNode(); i++) {
+        for (int j = 0; j < graph->getNumNode(); j++) {
+            if (i == j) graph->addEdge(i, j, 0);
+            else if (isAlreadyInEdges(j, graph->getNodeSet()[i]->getAdj())) continue;
+            else {
+                graph->addBidirectionalEdge(i, j, 1);
+            }
+        }
+        graph->getNodeSet()[i]->sortEdges();
+    }
+}
+
 /**
  * Opens the file given, parses the nodes and edges from the provided file, assuming it's in the Toy graphs' format, orders the nodes through their id's and closes the file
  * @param graph
@@ -118,7 +131,9 @@ void readToyGraph(Graph* graph, string file){
         graph->addNode(stoi(origem));
         graph->addNode(stoi(destino));
         graph->addBidirectionalEdge(stoi(origem),stoi(destino), stod(distancia));
+        //graph->addBidirectionalEdge(stoi(origem),stoi(destino), 1);
     }
+    //fillInBlanks(graph);
     graph->sortNodes();
     fout.close();
 }
@@ -145,8 +160,12 @@ void readExtraFullyConnectedGraph(Graph* graph, string file){
         graph->addNode(stoi(destino));
         graph->addBidirectionalEdge(stoi(origem),stoi(destino), stod(distancia));
     }
+
     graph->sortNodes();
     fout.close();
 }
+
+
+
 
 #endif //PROJETO_DA_1_PARSE

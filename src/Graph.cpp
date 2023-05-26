@@ -1,5 +1,6 @@
 // By: Gonçalo Leão
 
+#include <sstream>
 #include "Graph.h"
 #include "UFDS.h"
 
@@ -121,29 +122,56 @@ double Graph::tspBT(std::vector<Node *>& path){
     return tspBTRec(path,INT_MAX,0,0,0,false);
 }
 
-void Graph::TriangularApproximationHeuristic(){
-    for(auto node : NodeSet){
+void Graph::preOrder(Node* node,std::vector<Node*>& mst, double& weight){
+    if(node== nullptr)return;
+    if(node->getId()==0) mst.push_back(node);
+
+    for (Edge* edge : node->getAdj()) {
+        Node* nextNode = edge->getDest();
+
+        if(nextNode->getPath() != nullptr){
+            if(nextNode->getPath()->getOrig() == node){
+                mst.push_back(nextNode);
+                weight += edge->getWeight();
+                preOrder(nextNode, mst, weight);
+            }
+        }
+
+    }
+
+}
+
+double Graph::TriangularApproximationHeuristic(std::vector<Node*>& mst){
+    for(Node* node : NodeSet){
         node->setPath(nullptr);
     }
 
     kruskal();
+    double weight = 0;
+    preOrder(NodeSet[0],mst,weight);
 
-
+    return weight;
 }
 
-
+void Graph::dfsKruskalPath(Node *v) {
+    v->setVisited(true);
+    for (auto e : v->getAdj()) {
+        if (e->isSelected() && !e->getDest()->isVisited()) {
+            e->getDest()->setPath(e);
+            dfsKruskalPath(e->getDest());
+        }
+    }
+}
 
 void Graph::kruskal() {
     UFDS ufds(NodeSet.size());
     std::vector<Edge*> sortedEdges;
 
-    for (auto v : NodeSet) {
-        for (auto e : v->getAdj()) {
-            if(!e->isSelected()){
+    for (auto v: NodeSet) {
+        for (auto e: v->getAdj()) {
+            e->setSelected(false);
+            if (e->getOrig()->getId() < e->getDest()->getId()) {
                 sortedEdges.push_back(e);
-                e->setSelected(true);
-                Edge* e2 = e->getReverse();
-                e2->setSelected(true);
             }
         }
     }
@@ -152,15 +180,33 @@ void Graph::kruskal() {
         return e1->getWeight() < e2->getWeight();
     });
 
-    for(auto e :sortedEdges){
-        if(!ufds.isSameSet(e->getDest()->getId(), e->getOrig()->getId())){
-            Node* v = e->getDest();
-            Node* u = e->getOrig();
-            v->setPath(e);
-            ufds.linkSets(u->getId(),v->getId());
+    unsigned selectedEdges = 0;
+    for (Edge* e: sortedEdges) {
+        Node* orig = e->getOrig();
+        Node* dest = e->getDest();
+
+        if (!ufds.isSameSet(orig->getId(), dest->getId())) {
+
+            ufds.linkSets(orig->getId(), dest->getId());
+
+            e->setSelected(true);
+            e->getReverse()->setSelected(true);
+
+            if (++selectedEdges == NodeSet.size() - 1) {
+                break;
+            }
         }
     }
+
+    for (auto v: NodeSet) {
+        v->setVisited(false);
+    }
+    NodeSet[0]->setPath(nullptr);
+
+    dfsKruskalPath(NodeSet[0]);
+
 }
+
 
 
 
