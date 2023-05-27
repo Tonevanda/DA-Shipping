@@ -36,7 +36,7 @@ int main(){
     //readRealWorldEdges(&graph,real_graph1_edges); // min: 656113
 
     readRealWorldNodes(&graph,real_graph2_nodes);
-    readRealWorldEdges(&graph,real_graph2_edges); // min: 1.58291e+06
+    readRealWorldEdges(&graph,real_graph2_edges); // min: 1.58349e+06
 
     /*
     double min;
