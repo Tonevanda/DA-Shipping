@@ -3,6 +3,7 @@
 #include <sstream>
 #include "Graph.h"
 #include "UFDS.h"
+#include "parse.h"
 
 int Graph::getNumNode() const {
     return NodeSet.size();
@@ -122,7 +123,7 @@ double Graph::tspBT(std::vector<Node *>& path){
     return tspBTRec(path,INT_MAX,0,0,0,false);
 }
 
-void Graph::preOrder(Node* node,std::vector<Node*>& mst, double& weight){
+void Graph::preOrder(Node* node,std::vector<Node*>& mst){
     if(node== nullptr)return;
     if(node->getId()==0) mst.push_back(node);
 
@@ -132,8 +133,7 @@ void Graph::preOrder(Node* node,std::vector<Node*>& mst, double& weight){
         if(nextNode->getPath() != nullptr){
             if(nextNode->getPath()->getOrig() == node){
                 mst.push_back(nextNode);
-                weight += edge->getWeight();
-                preOrder(nextNode, mst, weight);
+                preOrder(nextNode, mst);
             }
         }
 
@@ -141,19 +141,20 @@ void Graph::preOrder(Node* node,std::vector<Node*>& mst, double& weight){
 
 }
 
-double Graph::TriangularApproximationHeuristic(std::vector<Node*>& mst){
+double Graph::TriangularApproximationHeuristic(std::vector<Node*>& L){
     for(Node* node : NodeSet){
         node->setPath(nullptr);
     }
 
-    kruskal();
-    double weight = 0;
-    preOrder(NodeSet[0],mst,weight);
 
-    for(Node* node : NodeSet){
-        if(node->getPath()== nullptr) std::cout << node->getId() << std::endl;
-        else std::cout << node->getId() << " path: " << node->getPath()->getOrig()->getId() << std::endl;
-    }
+    double weight = kruskal();
+    preOrder(NodeSet[0],L);
+
+    Node* last = L.back();
+    Node* zero = L.front();
+    L.push_back(zero);
+    cout << haversineDistance(last->getLon(),last->getLat(),zero->getLon(),zero->getLat()) << endl;
+    weight+=haversineDistance(last->getLon(),last->getLat(),zero->getLon(),zero->getLat());
 
     return weight;
 }
@@ -168,7 +169,7 @@ void Graph::dfsKruskalPath(Node *v) {
     }
 }
 
-void Graph::kruskal() {
+double Graph::kruskal() {
     UFDS ufds(NodeSet.size());
     std::vector<Edge*> sortedEdges;
 
@@ -186,6 +187,7 @@ void Graph::kruskal() {
     });
 
     unsigned selectedEdges = 0;
+    double totalWeight = 0.0;
     for (Edge* e: sortedEdges) {
         Node* orig = e->getOrig();
         Node* dest = e->getDest();
@@ -196,6 +198,7 @@ void Graph::kruskal() {
 
             e->setSelected(true);
             e->getReverse()->setSelected(true);
+            totalWeight += e->getWeight();
 
             if (++selectedEdges == NodeSet.size() - 1) {
                 break;
@@ -210,6 +213,7 @@ void Graph::kruskal() {
 
     dfsKruskalPath(NodeSet[0]);
 
+    return totalWeight;
 }
 
 

@@ -37,9 +37,9 @@ public:
     bool zeroHasNoEdgesLeft();
     double tspBTRec(std::vector<Node *>& path, double min, double curCost, unsigned int i, unsigned int curPathSize, bool ended);
     double tspBT(std::vector<Node *>& path);
-    void preOrder(Node* node,std::vector<Node*>& mst, double& weight);
+    void preOrder(Node* node,std::vector<Node*>& mst);
     double TriangularApproximationHeuristic(std::vector<Node*>& mst);
-    void kruskal();
+    double kruskal();
     void dfsKruskalPath(Node *v);
 
     int getNumNode() const;
