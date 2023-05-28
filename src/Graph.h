@@ -8,6 +8,8 @@
 #include <queue>
 #include <limits>
 #include <algorithm>
+#include "calculations.h"
+
 
 #include "NodeEdge.h"
 
@@ -33,6 +35,12 @@ public:
      */
     bool addEdge(const int &sourc, const int &dest, double w);
     bool addBidirectionalEdge(const int &sourc, const int &dest, double w);
+
+    /**
+    * Calculates and adds the missing edges to turn a toy graph into a fully connected graph. Bases the calculations on the triangular inequality property, the sum of the lengths of any two sides must be greater than or equal to the length of the remaining side.
+    * @param graph
+    */
+    void calculateMissingToyDistances();
 
     bool zeroHasNoEdgesLeft();
     double tspBTRec(std::vector<Node *>& path, double min, double curCost, unsigned int i, unsigned int curPathSize, bool ended);

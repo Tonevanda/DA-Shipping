@@ -30,24 +30,24 @@ int main(){
     //readToyGraph(&graph,toy_stadiums); // min: 341 | 0 -> 1 -> 9 -> 6 -> 8 -> 4 -> 7 -> 5 -> 10 -> 2 -> 3
     //readToyGraph(&graph,toy_tourism); // min: 2600 | 0 -> 3 -> 2 -> 1 -> 4
 
-    //readExtraFullyConnectedGraph(&graph, extra_fc); // min: 210875 | 0 -> 22 -> 4 -> 24 -> 8 -> 17 -> 7 -> 11 -> 6 -> 20 -> 12 -> 9 -> 5 -> 15 -> 18 -> 10 -> 19 -> 3 -> 21 -> 13 -> 1 -> 2 -> 16 -> 14 -> 23
+    //readExtraFullyConnectedGraph(&graph, extra_fc); // min: 213766 | 0 -> 22 -> 4 -> 24 -> 8 -> 17 -> 7 -> 11 -> 6 -> 20 -> 12 -> 9 -> 5 -> 15 -> 18 -> 10 -> 19 -> 3 -> 21 -> 13 -> 1 -> 2 -> 16 -> 14 -> 23 -> 0
 
     //readRealWorldNodes(&graph,real_graph1_nodes);
-    //readRealWorldEdges(&graph,real_graph1_edges); // min: 656113
+    //readRealWorldEdges(&graph,real_graph1_edges); // min: 655537
 
-    readRealWorldNodes(&graph,real_graph2_nodes);
-    readRealWorldEdges(&graph,real_graph2_edges); // min: 1.58349e+06
+    //readRealWorldNodes(&graph,real_graph2_nodes);
+    //readRealWorldEdges(&graph,real_graph2_edges); // min: 1.58349e+06
 
-    /*
+
     double min;
     std::vector<Node *> path;
-    min = graph.tspBT(path);
-    printPath(path,min);
-    */
+    //min = graph.tspBT(path);
+    //printPath(path,min);
+
 
     std::vector<Node*> mst;
-    double min = graph.TriangularApproximationHeuristic(mst);
-    printPath(mst,min);
+    double min2 = graph.TriangularApproximationHeuristic(mst);
+    printPath(mst,min2);
 
     return 0;
 }

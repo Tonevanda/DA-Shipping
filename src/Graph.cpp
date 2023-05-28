@@ -1,9 +1,45 @@
 // By: Gonçalo Leão
 
-#include <sstream>
 #include "Graph.h"
 #include "UFDS.h"
+#include "calculations.h"
 #include "parse.h"
+
+void Graph::calculateMissingToyDistances(){
+    vector<Node*> unconnectedNodes = this->getNodeSet();
+    int isEverythingConnected = 0;
+    int i = 0;
+    while(isEverythingConnected != unconnectedNodes.size()){
+        Node* curNode = unconnectedNodes[i];
+
+        if(curNode->getAdj().size()==this->getNumNode()-1 && !curNode->isVisited()){
+            isEverythingConnected++;
+            if(isEverythingConnected == unconnectedNodes.size()) return;
+            curNode->setVisited(true);
+            continue;
+        }
+
+        for(auto adj : unconnectedNodes[i]->getAdj()){
+            Node* nextNode = adj->getDest();
+
+            for(auto nextAdj : nextNode->getAdj()){
+                Node* finalNode = nextAdj->getDest();
+
+                if(curNode == finalNode) continue;
+
+                if(!isAlreadyInEdges(finalNode->getId(), unconnectedNodes[i]->getAdj())){
+                    double weight = adj->getWeight() + nextAdj->getWeight();
+                    //cout << "Adding edge from " << curNode->getId() << " to " << finalNode->getId() << " with weight: " << weight << endl;
+                    this->addBidirectionalEdge(curNode->getId(),finalNode->getId(), weight);
+                }
+            }
+        }
+
+        if(i==unconnectedNodes.size()-1) i = 0; // se chegar ao i = 13 volta ao inicio
+        else i++;
+
+    }
+}
 
 int Graph::getNumNode() const {
     return NodeSet.size();
@@ -144,6 +180,13 @@ void Graph::preOrder(Node* node,std::vector<Node*>& mst){
 double Graph::TriangularApproximationHeuristic(std::vector<Node*>& L){
     for(Node* node : NodeSet){
         node->setPath(nullptr);
+        node->setVisited(false);
+    }
+
+    //calculateMissingToyDistances();
+
+    for(Node* node : NodeSet){
+        node->setVisited(false);
     }
 
 
@@ -153,8 +196,12 @@ double Graph::TriangularApproximationHeuristic(std::vector<Node*>& L){
     Node* last = L.back();
     Node* zero = L.front();
     L.push_back(zero);
-    cout << haversineDistance(last->getLon(),last->getLat(),zero->getLon(),zero->getLat()) << endl;
-    weight+=haversineDistance(last->getLon(),last->getLat(),zero->getLon(),zero->getLat());
+    for(auto e : last->getAdj()){
+        if(e->getDest()==zero){
+            weight+=e->getWeight();
+        }
+    }
+    //weight+=haversineDistance(last->getLon(),last->getLat(),zero->getLon(),zero->getLat());
 
     return weight;
 }

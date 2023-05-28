@@ -4,29 +4,9 @@
 
 #include "parse.h"
 #include "Graph.h"
-#include <fstream>
 #include <sstream>
-#include <cmath>
 
 using namespace std;
-
-
-double convertToRadians(double coord){
-    return (coord*M_PI)/180;
-}
-
-double haversineDistance(double lon1, double lat1, double lon2, double lat2){
-    double radLon1 = convertToRadians(lon1), radLat1 = convertToRadians(lat1), radLon2 = convertToRadians(lon2), radLat2 = convertToRadians(lat2);
-
-    double deltaLon = radLon2 - radLon1, deltaLat = radLat2 - radLat1;
-
-    double aux = pow(sin(deltaLat/2),2) + cos(radLat1) * cos(radLat2) * pow(sin(deltaLon/2),2);
-
-    double c = 2 * atan2(sqrt(aux), sqrt(1-aux));
-
-    return 6371000 * c;
-}
-
 
 vector<string> read(const string textLine){
     vector<string> info;
@@ -158,6 +138,7 @@ void readRealWorldEdges(Graph* graph, string file){
 
 
 void readToyGraph(Graph* graph, string file){
+    cout << "reading toy graph\n";
     ifstream fout;
     fout.open(file);
     if(!fout.is_open()) {
@@ -173,13 +154,36 @@ void readToyGraph(Graph* graph, string file){
         distancia = info[2];
         graph->addNode(stoi(origem));
         graph->addNode(stoi(destino));
-        //graph->addBidirectionalEdge(stoi(origem),stoi(destino), stod(distancia));
+        graph->addBidirectionalEdge(stoi(origem),stoi(destino), stod(distancia));
+    }
+    graph->sortNodes();
+    fout.close();
+}
+
+void readToyGraphWith1Distance(Graph* graph, string file){
+    cout << "reading toy graph\n";
+    ifstream fout;
+    fout.open(file);
+    if(!fout.is_open()) {
+        cout << "Error when opening file " << file << endl;
+        return;
+    }
+    string tempstream,origem, destino, distancia;
+    getline(fout, tempstream);
+    while (getline (fout, tempstream)) {
+        vector<string> info = read(tempstream);
+        origem = info[0];
+        destino = info[1];
+        distancia = info[2];
+        graph->addNode(stoi(origem));
+        graph->addNode(stoi(destino));
         graph->addBidirectionalEdge(stoi(origem),stoi(destino), 1);
     }
     fillInBlanksWithOne(graph);
     graph->sortNodes();
     fout.close();
 }
+
 
 void readExtraFullyConnectedGraph(Graph* graph, string file){
     ifstream fout;
