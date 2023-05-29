@@ -263,13 +263,13 @@ double Graph::kruskal() {
     return totalWeight;
 }
 
-
-//uhhh tp isto nn pode estar assim, preciso de pensar mais nisto, ou tentem resolver vcs
 vector<Node*> Graph::joinSolvedTSP(vector<Node*> solved, vector<Node*> add){
     if(solved.empty()) return add;
 
-    double min = std::numeric_limits<double>::max(), secondMin = std::numeric_limits<double>::max();
-    int minNode, secondMinNode;
+    double min = std::numeric_limits<double>::max();
+    int minNode;
+    vector<Node*> joined;
+    int i = 0, k = 0, j=0, l = 0;
 
     //maybe there's a better way
     for(Node* first : solved){
@@ -277,12 +277,39 @@ vector<Node*> Graph::joinSolvedTSP(vector<Node*> solved, vector<Node*> add){
             double dist = haversineDistance(first->getLon(), first->getLat(), second->getLon(), second->getLat());
             if(dist < min){
                 min = dist;
+                k=i;
                 minNode = first->getId();
-            } else if (dist <= secondMin){
-                secondMin = dist;
+                l = j;
             }
+            j++;
+        }
+        i++;
+        j=0;
+    }
+
+    i = k;
+    j = l;
+    i++; //passo um à frente para nn estar no node que faz a connecção
+    while(true){
+        if(i==solved.size())i=0;
+        if(solved[i]->getId()==minNode){
+            joined.push_back(solved[i]); //node que liga do solved
+            joined.push_back(add[j]); //node que liga do add
+            while(true){
+                j++;
+                if(j==l)break;
+                if(j==add.size())j=0;
+                joined.push_back(add[j]);
+            }
+            break;
+        }
+        else{
+            joined.push_back(solved[i]);
+            i++;
         }
     }
+
+    return joined;
 }
 
 //acho q isto nn vai ser preciso ngl, nem ig está correto
@@ -385,8 +412,8 @@ vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters){
     for(Node* c : centroids){
         vector<Node*> cluster = getCentroidCluster(c);
         vector<Node*> recursion;
-        recursion = kMeansDivideAndConquer(sqrt(k),cluster);
-        //solved = joinSolvedTSP(solved,
+        recursion = kMeansDivideAndConquer(k/2,cluster);
+        solved = joinSolvedTSP(solved,recursion);
     }
     return solved;
 }
