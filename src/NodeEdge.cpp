@@ -92,6 +92,9 @@ double Node::getLon() const{
 double Node::getLat() const{
     return this->latitude;
 }
+int Node::getClusterID() const{
+    return this->clusterID;
+}
 
 void Node::setId(int id) {
     this->id = id;
@@ -122,6 +125,9 @@ void Node::setLon(double lon){
 }
 void Node::setLat(double lat){
     this->latitude=lat;
+}
+void Node::setCluster(double clusterID){
+    this->clusterID = clusterID;
 }
 
 void Node::sortEdges(){

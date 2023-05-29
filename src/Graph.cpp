@@ -264,6 +264,133 @@ double Graph::kruskal() {
 }
 
 
+//uhhh tp isto nn pode estar assim, preciso de pensar mais nisto, ou tentem resolver vcs
+vector<Node*> Graph::joinSolvedTSP(vector<Node*> solved, vector<Node*> add){
+    if(solved.empty()) return add;
+
+    double min = std::numeric_limits<double>::max(), secondMin = std::numeric_limits<double>::max();
+    int minNode, secondMinNode;
+
+    //maybe there's a better way
+    for(Node* first : solved){
+        for(Node* second : add){
+            double dist = haversineDistance(first->getLon(), first->getLat(), second->getLon(), second->getLat());
+            if(dist < min){
+                min = dist;
+                minNode = first->getId();
+            } else if (dist <= secondMin){
+                secondMin = dist;
+            }
+        }
+    }
+}
+
+//acho q isto nn vai ser preciso ngl, nem ig está correto
+Node* Graph::findCentroid(vector<Node*> cluster){
+    Node* centroid;
+
+    double totalLon = 0, totalLat = 0;
+
+    for(const Node* node : cluster){
+        totalLon += node->getLon();
+        totalLat += node->getLat();
+    }
+
+    centroid->setLon(totalLon);
+    centroid->setLat(totalLat);
+
+    return centroid;
+}
+
+void Graph::makeClusters(vector<Node*>centroids){
+    for(Node* centroid : centroids){
+        for(Node* node : NodeSet){
+            double dist = haversineDistance(centroid->getLon(), centroid->getLat(), node->getLon(), node->getLat());
+            if(dist < node->getDist()){
+                node->setDist(dist);
+                node->setCluster(centroid->getClusterID());
+            }
+        }
+    }
+}
+
+vector<Node*> Graph::getCentroidCluster(Node* centroid){
+    vector<Node*> cluster;
+    for(auto node : NodeSet){
+        if(node->getClusterID()==centroid->getClusterID()) cluster.push_back(node);
+    }
+    return cluster;
+}
+
+//ver exemplo: https://github.com/aditya1601/kmeans-clustering-cpp/blob/master/kmeans.cpp
+//este algoritmo é baseado neste: https://reasonabledeviations.com/2019/10/02/k-means-in-cpp/
+vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters){
+    if(k <= 0) return clusters;
+
+    if(clusters.size()<=3){
+        double weight = TriangularApproximationHeuristic(clusters);
+        return clusters;
+    }
+
+    //Declaro aqui os centroids e escolho k pontos aleatorios
+    vector<Node*> centroids;
+    srand(time(0));  // need to set the random seed
+    for (int i = 0; i < k; ++i) {
+        Node* centroid = NodeSet[rand() % NodeSet.size()-1];
+        centroid->setCluster(i);
+        centroids.push_back(centroid);
+    }
+
+    //Faço os clusters -> Duvida: eu na função em si declaro tp setCluster, dps estarei a dar override e pode dar mal ao fazer em recursão não?
+    makeClusters(centroids);
+
+    vector<int> nNodes;
+    vector<double> sumLon, sumLat;
+    bool doing = true;
+
+    //este loop seria até deixar de encontrar mudanças. No site onde estava a ver nn falam disto, mas no exemplo e no chat gpt fazem uma cena q eu presumo q seja basicamente isto
+    while(doing){
+        // Initialise with zeroes
+        for (int j = 0; j < k; ++j) {
+            nNodes.push_back(0);
+            sumLon.push_back(0.0);
+            sumLat.push_back(0.0);
+        }
+
+        // Iterate over points to append data to centroids
+        for (Node* node : NodeSet) {
+            int clusterId = node->getClusterID();
+            nNodes[clusterId] += 1;
+            sumLon[clusterId] += node->getLon();
+            sumLat[clusterId] += node->getLat();
+
+            node->setDist(std::numeric_limits<double>::max());  // reset distance
+        }
+
+        // Compute the new centroids
+        doing = false;
+        for(Node* c : centroids){
+            int clusterId = c->getClusterID();
+            double oldLon = c->getLon();
+            double oldLat = c->getLat();
+
+            c->setLon(sumLon[clusterId]/nNodes[clusterId]);
+            c->setLat(sumLat[clusterId]/nNodes[clusterId]);
+
+            if(oldLat!=c->getLat() || oldLon!=c->getLon())doing=true;
+        }
+    }
+
+    vector<Node*> solved;
+    for(Node* c : centroids){
+        vector<Node*> cluster = getCentroidCluster(c);
+        vector<Node*> recursion;
+        recursion = kMeansDivideAndConquer(sqrt(k),cluster);
+        //solved = joinSolvedTSP(solved,
+    }
+    return solved;
+}
+
 
 
 void deleteMatrix(int **m, int n) {

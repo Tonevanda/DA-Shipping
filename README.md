@@ -63,7 +63,10 @@ of the algorithms developed.
 - O ex2 teoricamente está correto, mas pareceme que dá valores diferentes dos obtidos por outros grupos no 
 discord do leic ptt idk
 - Ver o algoritmo do Christofides (dá para o ex2, talvez nos dê mais pontos por complexidade, mas o stor só sugeriu o da teorica ptt idk)
-
+#### Estratégia para o 3:
+1. Dar cluster através do divide & conquer por nodes com distância similar (para tentar garantir a cena dos triângulos)
+2. Resolver o TSP para cada cluster com o algoritmo do exercício 2
+3. Resolver o tsp entre clusters (?)
 
 #### Results
 - Toy Shipping:

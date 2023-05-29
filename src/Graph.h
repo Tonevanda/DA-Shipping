@@ -50,8 +50,14 @@ public:
     double kruskal();
     void dfsKruskalPath(Node *v);
 
+    vector<Node*> joinSolvedTSP(vector<Node*> solved, vector<Node*> add);
+    Node* findCentroid(vector<Node*> cluster);
+    void makeClusters(vector<Node*>centroids);
+    vector<Node*> getCentroidCluster(Node* centroid);
+
     int getNumNode() const;
     std::vector<Node *> getNodeSet() const;
+    vector<Node*> kMeansDivideAndConquer(int k, vector<Node*> clusters);
 protected:
     std::vector<Node *> NodeSet;    // Node set
 

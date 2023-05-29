@@ -30,6 +30,7 @@ public:
     std::vector<Edge *> getIncoming() const;
     double getLon() const;
     double getLat() const;
+    int getClusterID() const;
 
     void setId(int info);
     void setVisited(bool visited);
@@ -41,6 +42,7 @@ public:
     bool removeEdge(int destID);
     void setLon(double lon);
     void setLat(double lat);
+    void setCluster(double clusterID);
 
     void sortEdges();
     void sortEdgesByID();
@@ -53,10 +55,11 @@ protected:
     bool visited = false; // used by DFS, BFS, Prim ...
     bool processing = false; // used by isDAG (in addition to the visited attribute)
     unsigned int indegree; // used by topsort
-    double dist = 0;
+    double dist = std::numeric_limits<double>::max();
     Edge *path = nullptr;
     double latitude = 0;
     double longitude = 0;
+    int clusterID;
 
     std::vector<Edge *> incoming; // incoming edges
 
