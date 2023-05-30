@@ -75,7 +75,7 @@ public:
 
     int getNumNode() const;
     std::vector<Node *> getNodeSet() const;
-    vector<Node*> kMeansDivideAndConquer(int k, std::vector<Node*> clusters);
+    vector<Node*> kMeansDivideAndConquer(int k, std::vector<Node*> clusters, double& totalMin);
 protected:
     std::vector<Node *> NodeSet;    // Node set
 

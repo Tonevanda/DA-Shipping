@@ -210,21 +210,21 @@ int main(){
     //readRealWorldEdges(&graph,real_graph2_edges); // min: 1.58349e+06
 
 
-    double min;
+    double min = 0;
     std::vector<Node *> path;
     //min = graph.tspBT(path);
     //printPath(path,min);
 
 
     std::vector<Node*> mst;
-    //double min2 = graph.TriangularApproximationHeuristic(graph.getNodeSet(),mst,"toy","2");
-    //printPath(mst,min2);
+    double min2 = graph.TriangularApproximationHeuristic(graph.getNodeSet(),mst,"real","2");
+    printPath(mst,min2);
 
     vector<Node*> emptyCluster;
-    path = graph.kMeansDivideAndConquer(sqrt(graph.getNumNode()), emptyCluster);
-    printPath(path, 0);
+    path = graph.kMeansDivideAndConquer(sqrt(graph.getNumNode()), emptyCluster, min);
+    printPath(path, min);
 
     auto end = chrono::steady_clock::now();
-    cout << chrono::duration_cast<chrono::milliseconds > (end - start).count();
+    cout << "Finished in: " <<  chrono::duration_cast<chrono::milliseconds > (end - start).count() << " ms";
     return 0;
 }

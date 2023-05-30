@@ -288,8 +288,6 @@ double Graph::kruskalEx3(vector<Node*>& nodeSet){
     UFDS ufds(NodeSet.size());
     std::vector<Edge*> sortedEdges;
 
-    cout << "Inside ex3 kruskal now\n";
-
     for (auto v: nodeSet) {
         for (auto e: v->getAdj()) {
             e->setSelected(false);
@@ -311,8 +309,6 @@ double Graph::kruskalEx3(vector<Node*>& nodeSet){
 
         int origId = orig->getId();
         int destId = dest->getId();
-
-        cout << "orig id: " << origId << " | dest id: " << destId <<endl;
 
         if (!ufds.isSameSet(origId, destId)) {
 
@@ -429,7 +425,8 @@ vector<Node*> Graph::getCentroidCluster(Node* centroid, vector<Node*> const clus
 
 bool Graph::haveSimilarDistance(vector<Node*> const cluster){
     if(cluster.empty()) return false;
-    return calculateStandardDeviation(cluster) < calculateMean(cluster) * 0.1;
+    cout << " Cluster sized: "<< cluster.size() << " have similar distance\n";
+    return calculateStandardDeviation(cluster) < calculateMean(cluster) * 0.2;
 }
 
 void printPath2(std::vector<Node*> path, double min){
@@ -444,14 +441,15 @@ void printPath2(std::vector<Node*> path, double min){
 
 //ver exemplo: https://github.com/aditya1601/kmeans-clustering-cpp/blob/master/kmeans.cpp
 //este algoritmo é baseado neste: https://reasonabledeviations.com/2019/10/02/k-means-in-cpp/
-vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters){
+vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters, double& totalMin){
     if(k <= 0) return clusters;
 
     if(!clusters.empty() && ((haveSimilarDistance(clusters) || clusters.size()<=3))){
         vector<Node*> result;
         double weight = TriangularApproximationHeuristic(clusters, result,"real", "3");
+        totalMin+=weight;
         clusters.clear();
-        cout << "Making the approximation, weight: " << weight << endl;
+        //cout << "Making the approximation, weight: " << weight << endl;
         return result;
     }
 
@@ -533,17 +531,19 @@ vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters){
 
     //cout << "Left loop with cluster sized " << clusters.size() << "\n";
 
-    vector<Node*> solved, cluster, recursion;
+    vector<Node*> solved, centroidCluster, recursion;
     for(Node* c : centroids){
-        cluster = getCentroidCluster(c, clusters);
-        //cout << "Starting recursion | k = " << k  << " | c = " << c->getClusterID() << " | cluster size: " << cluster.size() << endl;
-        recursion = kMeansDivideAndConquer(sqrt(cluster.size()),cluster);
-        printPath2(solved,0);
-        printPath2(recursion, 0);
-        cout << "Joining two TSP | Solved size: " << solved.size() << " recursion sized: " << recursion.size() << endl;
+        int clusterId = c->getClusterID();
+        centroidCluster = getCentroidCluster(c, clusters);
+        recursion = kMeansDivideAndConquer(sqrt(centroidCluster.size()),centroidCluster, totalMin);
+
+        for(Node* node : centroidCluster){
+            node->setCluster(clusterId);
+        }
+        //cout << "Joining two TSP | Solved size: " << solved.size() << " recursion sized: " << recursion.size() << endl;
         solved = joinSolvedTSP(solved,recursion);
-        printPath2(solved, 1);
-        cout << "Joined two TSP | Solved size: " << solved.size() << endl;
+        //printPath2(solved, 1);
+        //cout << "Joined two TSP | Solved size: " << solved.size() << endl << endl << endl;
         delete c;
     }
     centroids.clear();
