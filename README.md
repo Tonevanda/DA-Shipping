@@ -66,7 +66,12 @@ discord do leic ptt idk
 #### Estratégia para o 3:
 1. Dar cluster através do divide & conquer por nodes com distância similar (para tentar garantir a cena dos triângulos)
 2. Resolver o TSP para cada cluster com o algoritmo do exercício 2
-3. Resolver o tsp entre clusters (?)
+3. Juntar os clusters
+#### Known Problems
+- Às vezes dá bad alloc (possivelmente preso num loop)
+- O kruskal está constantemente a ser feito entre 416,462,470. Raramente é outro, possívelmente está a fazer 1000x clusters no mesmo sítio
+- Às vezes parece que faz exatamente a mesma coisa várias vezes seguidas
+- Possível stack overflow (Process finished with exit code -1073741571 (0xC00000FD))
 
 #### Results
 - Toy Shipping:

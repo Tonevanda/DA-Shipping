@@ -126,7 +126,7 @@ void Node::setLon(double lon){
 void Node::setLat(double lat){
     this->latitude=lat;
 }
-void Node::setCluster(double clusterID){
+void Node::setCluster(int clusterID){
     this->clusterID = clusterID;
 }
 
@@ -140,6 +140,13 @@ void Node::sortEdgesByID(){
     std::sort(adj.begin(),adj.end(),[](Edge* a, Edge* b){
         return a->getOrig()->getId() < b->getOrig()->getId();
     });
+}
+
+bool Node::isInsideVector(std::vector<Node*> vector){
+    for(Node* node : vector){
+        if(this->id==node->getId()) return true;
+    }
+    return false;
 }
 
 /********************** Edge  ****************************/

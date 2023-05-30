@@ -9,9 +9,12 @@
 #include <limits>
 #include <algorithm>
 #include "calculations.h"
+#include <string>
 
 
 #include "NodeEdge.h"
+
+using namespace std;
 
 class Graph {
 public:
@@ -26,6 +29,10 @@ public:
      */
     bool addNode(const int &id, double longitude = 0, double latitude=0);
 
+    /**
+     * Sorts nodes by their id from lower to bigger
+     * @note Time-complexity -> O(nlog(n))
+     */
     void sortNodes();
 
     /*
@@ -39,25 +46,33 @@ public:
     /**
     * Calculates and adds the missing edges to turn a toy graph into a fully connected graph. Bases the calculations on the triangular inequality property, the sum of the lengths of any two sides must be greater than or equal to the length of the remaining side.
     * @param graph
+    * @note Time-complexity -> O(V^2 * U) where U is the number of nodes not fully connected
     */
     void calculateMissingToyDistances();
-
+    /**
+     * Checks if node zero has any adjacent edge that is yet to be visited. Returns false if it finds any unvisited node, true if all are already visited.
+     * @return
+     * @note Time-complexity -> O(V)
+     */
     bool zeroHasNoEdgesLeft();
     double tspBTRec(std::vector<Node *>& path, double min, double curCost, unsigned int i, unsigned int curPathSize, bool ended);
     double tspBT(std::vector<Node *>& path);
-    void preOrder(Node* node,std::vector<Node*>& mst);
-    double TriangularApproximationHeuristic(std::vector<Node*>& mst);
+
+    void preOrder(Node* node,std::vector<Node*>& mst, bool firstIt);
+    double TriangularApproximationHeuristic(vector<Node*> nodeSet, std::vector<Node*>& mst,std::string type, std::string ex);
     double kruskal();
     void dfsKruskalPath(Node *v);
 
-    vector<Node*> joinSolvedTSP(vector<Node*> solved, vector<Node*> add);
-    Node* findCentroid(vector<Node*> cluster);
-    void makeClusters(vector<Node*>centroids);
+    double kruskalEx3(vector<Node*>& nodeSet);
+
+    vector<Node*> joinSolvedTSP(std::vector<Node*> solved, std::vector<Node*> add);
+    Node* findCentroid(std::vector<Node*> cluster);
+    void makeClusters(std::vector<Node*>centroids);
     vector<Node*> getCentroidCluster(Node* centroid);
 
     int getNumNode() const;
     std::vector<Node *> getNodeSet() const;
-    vector<Node*> kMeansDivideAndConquer(int k, vector<Node*> clusters);
+    vector<Node*> kMeansDivideAndConquer(int k, std::vector<Node*> clusters);
 protected:
     std::vector<Node *> NodeSet;    // Node set
 

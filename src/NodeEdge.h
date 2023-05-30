@@ -42,10 +42,15 @@ public:
     bool removeEdge(int destID);
     void setLon(double lon);
     void setLat(double lat);
-    void setCluster(double clusterID);
+    void setCluster(int clusterID);
 
+    /**
+     * Sorts edges by
+     */
     void sortEdges();
     void sortEdgesByID();
+
+    bool isInsideVector(std::vector<Node*> vector);
 
 protected:
     int id;                // identifier
