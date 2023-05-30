@@ -7,6 +7,7 @@
 
 #include <cmath>
 #include "Graph.h"
+#include "NodeEdge.h"
 
 using namespace std;
 
@@ -27,6 +28,20 @@ double convertToRadians(double value);
  * @note Time-complexity -> O(1)
  */
 double haversineDistance(double lon1, double lat1, double lon2, double lat2);
+/**
+ * Calculates the mean distance of a vector of nodes
+ * @param cluster
+ * @return
+ * @note Time-complexity -> O(V)
+ */
+double calculateMean(vector<Node*> cluster);
+/**
+ * Calculates the standard deviation of a vector of nodes.
+ * @param cluster
+ * @return
+ * @note Time-complexity -> O(V)
+ */
+double calculateStandardDeviation(vector<Node*> cluster);
 
 
 

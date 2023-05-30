@@ -22,3 +22,25 @@ double haversineDistance(double lon1, double lat1, double lon2, double lat2){
     return 6371000 * c;
 }
 
+double calculateMean(vector<Node*> cluster){
+    double mean = 0.0;
+    for(Node* node : cluster){
+        mean += node->getDist();
+    }
+    return (mean / cluster.size());
+}
+
+double calculateStandardDeviation(vector<Node*> cluster){
+
+    double variance = 0.0;
+
+    double mean = calculateMean(cluster);
+
+    for(Node* node : cluster){
+        variance += pow(node->getDist()-mean,2);
+    }
+
+    variance /= cluster.size();
+
+    return sqrt(variance);
+}

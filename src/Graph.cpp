@@ -186,7 +186,12 @@ double Graph::TriangularApproximationHeuristic(vector<Node*> nodeSet,std::vector
     } else if(nodeSet.size()==2 && type=="real"){
         L.push_back(nodeSet[0]);
         L.push_back(nodeSet[1]);
-        return haversineDistance(nodeSet[0]->getLon(),nodeSet[0]->getLat(),nodeSet[1]->getLon(),nodeSet[1]->getLat());
+        return 2*haversineDistance(nodeSet[0]->getLon(),nodeSet[0]->getLat(),nodeSet[1]->getLon(),nodeSet[1]->getLat());
+    } else if(nodeSet.size()==3 && type=="real"){
+        L.push_back(nodeSet[0]);
+        L.push_back(nodeSet[1]);
+        L.push_back(nodeSet[2]);
+        return haversineDistance(nodeSet[0]->getLon(),nodeSet[0]->getLat(),nodeSet[1]->getLon(),nodeSet[1]->getLat()) + haversineDistance(nodeSet[0]->getLon(),nodeSet[0]->getLat(),nodeSet[2]->getLon(),nodeSet[2]->getLat()) + haversineDistance(nodeSet[2]->getLon(),nodeSet[2]->getLat(),nodeSet[1]->getLon(),nodeSet[1]->getLat());
     }
 
     for(Node* node : NodeSet){
@@ -307,7 +312,7 @@ double Graph::kruskalEx3(vector<Node*>& nodeSet){
         int origId = orig->getId();
         int destId = dest->getId();
 
-        cout << "orig id: " <<origId << " | dest id: " << destId <<endl;
+        cout << "orig id: " << origId << " | dest id: " << destId <<endl;
 
         if (!ufds.isSameSet(origId, destId)) {
 
@@ -336,6 +341,7 @@ double Graph::kruskalEx3(vector<Node*>& nodeSet){
 //só funciona para o real world graph 1 por causa daquele loop que calcula a distância
 vector<Node*> Graph::joinSolvedTSP(vector<Node*> solved, vector<Node*> add){
     if(solved.empty()) return add;
+    if(add.empty()) return solved;
 
     double min = std::numeric_limits<double>::max();
     int minNode;
@@ -362,15 +368,16 @@ vector<Node*> Graph::joinSolvedTSP(vector<Node*> solved, vector<Node*> add){
     j = l;
     i++; //passo um à frente para nn estar no node que faz a connecção
     while(true){
-        if(i==solved.size())i=0;
+        i %= solved.size();
         if(solved[i]->getId()==minNode){
             joined.push_back(solved[i]); //node que liga do solved
             joined.push_back(add[j]); //node que liga do add
+            j++;
             while(true){
-                j++;
-                if(j==l)break;
-                if(j==add.size())j=0;
+                j %= add.size();
+                if(j==l) break;
                 joined.push_back(add[j]);
+                j++;
             }
             break;
         }
@@ -400,9 +407,9 @@ Node* Graph::findCentroid(vector<Node*> cluster){
     return centroid;
 }
 
-void Graph::makeClusters(vector<Node*>centroids){
+void Graph::makeClusters(vector<Node*>centroids, vector<Node*> cluster){
     for(Node* centroid : centroids){
-        for(Node* node : NodeSet){
+        for(Node* node : cluster){
             double dist = haversineDistance(centroid->getLon(), centroid->getLat(), node->getLon(), node->getLat());
             if(dist < node->getDist()){
                 node->setDist(dist);
@@ -412,12 +419,27 @@ void Graph::makeClusters(vector<Node*>centroids){
     }
 }
 
-vector<Node*> Graph::getCentroidCluster(Node* centroid){
-    vector<Node*> cluster;
-    for(auto node : NodeSet){
-        if(node->getClusterID()==centroid->getClusterID()) cluster.push_back(node);
+vector<Node*> Graph::getCentroidCluster(Node* centroid, vector<Node*> const cluster){
+    vector<Node*> result;
+    for(auto node : cluster){
+        if(node->getClusterID()==centroid->getClusterID()) result.push_back(node);
     }
-    return cluster;
+    return result;
+}
+
+bool Graph::haveSimilarDistance(vector<Node*> const cluster){
+    if(cluster.empty()) return false;
+    return calculateStandardDeviation(cluster) < calculateMean(cluster) * 0.1;
+}
+
+void printPath2(std::vector<Node*> path, double min){
+    for(int i = 0; i < path.size();i++) {
+        if(i == path.size()-1) cout << path[i]->getId() << endl;
+        else cout << path[i]->getId() << " -> ";
+    }
+    if(path.empty()){
+        cout << "Empty vector!\n";
+    }
 }
 
 //ver exemplo: https://github.com/aditya1601/kmeans-clustering-cpp/blob/master/kmeans.cpp
@@ -425,19 +447,22 @@ vector<Node*> Graph::getCentroidCluster(Node* centroid){
 vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters){
     if(k <= 0) return clusters;
 
-    if(clusters.size()<=3 && !clusters.empty()){
+    if(!clusters.empty() && ((haveSimilarDistance(clusters) || clusters.size()<=3))){
         vector<Node*> result;
         double weight = TriangularApproximationHeuristic(clusters, result,"real", "3");
+        clusters.clear();
         cout << "Making the approximation, weight: " << weight << endl;
         return result;
     }
+
+    if(clusters.empty()) clusters=NodeSet;
 
     //Declaro aqui os centroids e escolho k pontos aleatorios
     vector<Node*> centroids;
     srand(time(0));  // need to set the random seed
     for (int i = 0; i < k; i++) {
         Node* random;
-        if(clusters.empty())random = NodeSet[rand() % NodeSet.size()];
+        if(clusters.empty()) random = NodeSet[rand() % NodeSet.size()];
         else random = clusters[rand() % clusters.size()];
         Node* centroid = new Node(i, random->getLon(), random->getLat());
         centroid->setCluster(i);
@@ -445,8 +470,7 @@ vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters){
         centroids.push_back(centroid);
     }
 
-    //Faço os clusters -> Duvida: eu na função em si declaro tp setCluster, dps estarei a dar override e pode dar mal ao fazer em recursão não?
-    makeClusters(centroids);
+
 
     vector<int> nNodes;
     vector<double> sumLon, sumLat;
@@ -454,6 +478,9 @@ vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters){
 
     //este loop seria até deixar de encontrar mudanças. No site onde estava a ver nn falam disto, mas no exemplo e no chat gpt fazem uma cena q eu presumo q seja basicamente isto
     while(doing){
+
+        makeClusters(centroids,clusters);
+
         nNodes.clear();
         sumLat.clear();
         sumLon.clear();
@@ -465,7 +492,7 @@ vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters){
         }
 
         // Iterate over points to append data to centroids
-        for (Node* node : NodeSet) {
+        for (Node* node : clusters) {
             int clusterId = node->getClusterID();
             nNodes[clusterId] += 1;
             sumLon[clusterId] += node->getLon();
@@ -476,6 +503,7 @@ vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters){
 
         // Compute the new centroids
         doing = false;
+        int it = 1;
         for(Node* c : centroids){
             int clusterId = c->getClusterID();
 
@@ -483,7 +511,6 @@ vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters){
             double oldLat = c->getLat();
 
             if(nNodes[clusterId]==0){
-                //cout << "Zero, choosing another random node\n";
                 Node* random;
                 if(clusters.empty())random = NodeSet[rand() % NodeSet.size()];
                 else random = clusters[rand() % clusters.size()];
@@ -495,26 +522,29 @@ vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters){
             }
 
 
-            //cout << "Updating centroids -> " << clusterId << " (started at " << c->getIndegree() << ") | oldLon: " << oldLon << " newLon: " << c->getLon() << " | oldLat: " << oldLat << " newLat: " << c->getLat() << endl;
+            //cout << "Updating centroids -> " << clusterId << " (started at " << c->getIndegree() << ") | it: " << it << " | oldLon: " << oldLon << " newLon: " << c->getLon() << " | oldLat: " << oldLat << " newLat: " << c->getLat() << endl;
             if(oldLat!=c->getLat() || oldLon!=c->getLon())doing=true;
+
+            it++;
         }
 
-        if(doing)makeClusters(centroids);
-
     }
 
-    vector<Node*> solved;
+
+    //cout << "Left loop with cluster sized " << clusters.size() << "\n";
+
+    vector<Node*> solved, cluster, recursion;
     for(Node* c : centroids){
-        vector<Node*> cluster = getCentroidCluster(c);
-        vector<Node*> recursion;
+        cluster = getCentroidCluster(c, clusters);
+        //cout << "Starting recursion | k = " << k  << " | c = " << c->getClusterID() << " | cluster size: " << cluster.size() << endl;
         recursion = kMeansDivideAndConquer(sqrt(cluster.size()),cluster);
-        cout << "Recursion done | k = " << k  << " | c = " << c->getClusterID() << endl;
+        printPath2(solved,0);
+        printPath2(recursion, 0);
+        cout << "Joining two TSP | Solved size: " << solved.size() << " recursion sized: " << recursion.size() << endl;
         solved = joinSolvedTSP(solved,recursion);
+        printPath2(solved, 1);
         cout << "Joined two TSP | Solved size: " << solved.size() << endl;
-    }
-
-    for (Node* centroid : centroids) {
-        delete centroid;
+        delete c;
     }
     centroids.clear();
 

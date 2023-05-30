@@ -6,6 +6,7 @@
 #define PROJETO_DA_2_PRINT_H
 
 #include "Graph.h"
+#include "NodeEdge.h"
 
 using namespace std;
 /**

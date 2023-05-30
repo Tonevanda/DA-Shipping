@@ -7,6 +7,7 @@
 #include "parse.h"
 #include "print.h"
 #include <string>
+#include <chrono>
 
 using namespace std;
 
@@ -179,8 +180,9 @@ void chooseGraph(Graph* graph){
 
 int main(){
     Graph graph;
+    auto start = chrono::steady_clock::now();
 
-    chooseGraph(&graph);
+    //chooseGraph(&graph);
     string filePath = "../Project2Graphs/";
 
     string toy_shipping = "../Project2Graphs/Toy-Graphs/shipping.csv";
@@ -201,8 +203,8 @@ int main(){
 
     //readExtraFullyConnectedGraph(&graph, extra_fc); // min: 213766 | 0 -> 22 -> 4 -> 24 -> 8 -> 17 -> 7 -> 11 -> 6 -> 20 -> 12 -> 9 -> 5 -> 15 -> 18 -> 10 -> 19 -> 3 -> 21 -> 13 -> 1 -> 2 -> 16 -> 14 -> 23 -> 0
 
-    //readRealWorldNodes(&graph,real_graph1_nodes);
-    //readRealWorldEdges(&graph,real_graph1_edges); // min: 655537
+    readRealWorldNodes(&graph,real_graph1_nodes);
+    readRealWorldEdges(&graph,real_graph1_edges); // min: 655537
 
     //readRealWorldNodes(&graph,real_graph2_nodes);
     //readRealWorldEdges(&graph,real_graph2_edges); // min: 1.58349e+06
@@ -215,12 +217,14 @@ int main(){
 
 
     std::vector<Node*> mst;
-    //double min2 = graph.TriangularApproximationHeuristic(mst,"real","2");
+    //double min2 = graph.TriangularApproximationHeuristic(graph.getNodeSet(),mst,"toy","2");
     //printPath(mst,min2);
 
     vector<Node*> emptyCluster;
     path = graph.kMeansDivideAndConquer(sqrt(graph.getNumNode()), emptyCluster);
     printPath(path, 0);
 
+    auto end = chrono::steady_clock::now();
+    cout << chrono::duration_cast<chrono::milliseconds > (end - start).count();
     return 0;
 }

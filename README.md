@@ -68,10 +68,7 @@ discord do leic ptt idk
 2. Resolver o TSP para cada cluster com o algoritmo do exercício 2
 3. Juntar os clusters
 #### Known Problems
-- Às vezes dá bad alloc (possivelmente preso num loop)
-- O kruskal está constantemente a ser feito entre 416,462,470. Raramente é outro, possívelmente está a fazer 1000x clusters no mesmo sítio
-- Às vezes parece que faz exatamente a mesma coisa várias vezes seguidas
-- Possível stack overflow (Process finished with exit code -1073741571 (0xC00000FD))
+- Não acaba com 999 nodes juntos, possivel alguns nodes ficarem de fora dos clusters
 
 #### Results
 - Toy Shipping:

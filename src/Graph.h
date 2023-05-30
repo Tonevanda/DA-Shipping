@@ -35,6 +35,8 @@ public:
      */
     void sortNodes();
 
+
+
     /*
      * Adds an edge to a graph (this), given the contents of the source and
      * destination nodes and the edge weight (w).
@@ -67,8 +69,9 @@ public:
 
     vector<Node*> joinSolvedTSP(std::vector<Node*> solved, std::vector<Node*> add);
     Node* findCentroid(std::vector<Node*> cluster);
-    void makeClusters(std::vector<Node*>centroids);
-    vector<Node*> getCentroidCluster(Node* centroid);
+    void makeClusters(std::vector<Node*>centroids, vector<Node*> cluster);
+    vector<Node*> getCentroidCluster(Node* centroid, vector<Node*> const cluster);
+    bool haveSimilarDistance(vector<Node*> cluster);
 
     int getNumNode() const;
     std::vector<Node *> getNodeSet() const;
