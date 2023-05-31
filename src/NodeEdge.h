@@ -169,11 +169,22 @@ public:
     void setCluster(int clusterID);
 
     /**
-     * Sorts the node's (this) outgoing edges by their weight
+     * Sorts the node's (this) outgoing edges by their weight, in increasing order.
+     * @note Time-complexity -> O(n*log(n)) with n being the size of the NodeSet
      */
     void sortEdges();
+    /**
+     * Sorts the node's (this) outgoing edges by their ID, in increasing order.
+     * @note Time-complexity -> O(n*log(n)) with n being the size of the NodeSet
+     */
     void sortEdgesByID();
 
+    /**
+     * Checks if node (this) is inside the vector passed as parameter.
+     * @param vector Represents the vector which we wish the check the presence of the (this) node.
+     * @return True if the (this) node is inside the vector, false otherwise.
+     * @note Time-complexity -> O(n) with n being the size of the vector
+     */
     bool isInsideVector(std::vector<Node*> vector);
 
 protected:
@@ -199,17 +210,68 @@ protected:
 
 class Edge {
 public:
+    /**
+     * Default constructor of Edge class.
+     * @param orig Represents the origin node of the edge
+     * @param dest Represents the destination node of the edge
+     * @param w Represents the weight of the edge
+     * @note Time-complexity -> O(1)
+     */
     Edge(Node *orig, Node *dest, double w);
 
-    Node * getDest() const;
-    double getWeight() const;
-    bool isSelected() const;
-    Node * getOrig() const;
-    Edge *getReverse() const;
-    double getFlow() const;
-
+    /**
+     * Returns the destination node of the (this) edge.
+     * @return The destination node of (this) edge
+     * @note Time-complexity -> O(1)
+     */
+    [[nodiscard]] Node * getDest() const;
+    /**
+     * Returns the weight of the (this) edge.
+     * @return The weight of (this) edge
+     * @note Time-complexity -> O(1)
+     */
+    [[nodiscard]] double getWeight() const;
+    /**
+     * Checks if the (this) edge is selected.
+     * @return True if the edge is selected, false otherwise
+     * @note Time-complexity -> O(1)
+     */
+    [[nodiscard]] bool isSelected() const;
+    /**
+     * Returns the origin node of the (this) edge.
+     * @return The origin node of the edge
+     * @note Time-complexity -> O(1)
+     */
+    [[nodiscard]] Node * getOrig() const;
+    /**
+     * Returns the reverse of the (this) edge.
+     * @return The reverse of the edge
+     * @note Time-complexity -> O(1)
+     */
+    [[nodiscard]] Edge *getReverse() const;
+    /**
+     * Returns the flow of the (this) edge.
+     * @return The flow of the edge
+     * @note Time-complexity -> O(1)
+     */
+    [[nodiscard]] double getFlow() const;
+    /**
+     * Sets the selected field of (this) edge to the value given in the parameter.
+     * @param selected The new value of the select field
+     * @note Time-complexity -> O(1)
+     */
     void setSelected(bool selected);
+    /**
+     * Sets the reverse field of (this) edge to the value given in the parameter.
+     * @param reverse The new value of the reverse field
+     * @note Time-complexity -> O(1)
+     */
     void setReverse(Edge *reverse);
+    /**
+     * Sets the flow field of (this) edge to the value given in the parameter.
+     * @param flow The new value of the flow field
+     * @note Time-complexity -> O(1)
+     */
     void setFlow(double flow);
 protected:
     Node * dest; // destination node

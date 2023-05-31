@@ -13,8 +13,8 @@ using namespace std;
 
 /**
  * Parses the information read in every line to make sure each field is correctly divided.
- * @param line
- * @return vector with the information of a nodes.
+ * @param line Represents a line read from the csv file
+ * @return vector with the information of a node.
  * @note Time-complexity -> O(n)
  */
 vector<string> read(std::string filename);
@@ -22,11 +22,21 @@ vector<string> read(std::string filename);
  * Checks if a node with a given id is already inside the vector of adjacent edges of another node
  * @param id
  * @param adj
- * @return bool on weather it is already inside or not
- * @note Time-complexity -> O(V)
+ * @return True if the node is a destination of one of the adjacent edges, false otherwise.
+ * @note Time-complexity -> O(n) with n being the size of the vector edges
  */
 bool isAlreadyInEdges(int id, std::vector<Edge*> edges);
+/**
+ * Connects every node in a graph with each other, used to make a real-world graph fully connected.
+ * @param graph Represents a not fully connected graph
+ * @note Time-complexity -> O(n^3) with n being the number of nodes in the graph
+ */
 void fillInBlanks(Graph* graph);
+/**
+ * Connects every node in a graph with each other, with weight 1 on every edge, used to make a toy graph fully connected.
+ * @param graph Represents a not fully connected graph
+ * @note Time-complexity -> O(n^3) with n being the number of nodes in the graph
+ */
 void fillInBlanksWithOne(Graph* graph);
 /**
  * Opens the file given, parses the nodes from the provided file, assuming it's in the Real World graphs' format and closes the file

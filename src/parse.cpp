@@ -56,21 +56,7 @@ void fillInBlanks(Graph* graph) {
                 graph->addBidirectionalEdge(currentNode->getId(), destinationNode->getId(), distance);
             }
         }
-    }/*
-    for (int i = 0; i < graph->getNumNode(); i++) {
-        for (int j = 0; j < graph->getNumNode(); j++) {
-            if (i == j) continue;
-            if (isAlreadyInEdges(j, graph->getNodeSet()[i]->getAdj())) continue;
-            else {
-                Node* node1 = graph->findNode(i);
-                Node* node2 = graph->findNode(j);
-
-                double distance = haversineDistance(node1->getLon(), node1->getLat(), node2->getLon(),node2->getLat());
-                graph->addBidirectionalEdge(i, j, distance);
-            }
-        }
-        graph->getNodeSet()[i]->sortEdges();
-    }*/
+    }
 }
 
 void fillInBlanksWithOne(Graph* graph) {

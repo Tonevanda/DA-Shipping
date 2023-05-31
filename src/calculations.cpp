@@ -22,7 +22,7 @@ double haversineDistance(double lon1, double lat1, double lon2, double lat2){
     return 6371000 * c;
 }
 
-double calculateMean(vector<Node*> cluster){
+double calculateMean(const vector<Node*>& cluster){
     double mean = 0.0;
     for(Node* node : cluster){
         mean += node->getDist();
@@ -30,7 +30,7 @@ double calculateMean(vector<Node*> cluster){
     return (mean / cluster.size());
 }
 
-double calculateStandardDeviation(vector<Node*> cluster){
+double calculateStandardDeviation(const vector<Node*>& cluster){
 
     double variance = 0.0;
 
