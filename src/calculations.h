@@ -34,14 +34,14 @@ double haversineDistance(double lon1, double lat1, double lon2, double lat2);
  * @return
  * @note Time-complexity -> O(n) with n being the size of the cluster vector
  */
-double calculateMean(const vector<Node*>& cluster);
+double long calculateMean(const vector<Node*>& cluster);
 /**
  * Calculates the standard deviation of a vector of nodes.
  * @param cluster
  * @return
  * @note Time-complexity -> O(n) with n being the size of the cluster vector
  */
-double calculateStandardDeviation(const vector<Node*>& cluster);
+double long calculateStandardDeviation(const vector<Node*>& cluster);
 
 
 

@@ -185,7 +185,7 @@ public:
      * @return True if the (this) node is inside the vector, false otherwise.
      * @note Time-complexity -> O(n) with n being the size of the vector
      */
-    bool isInsideVector(std::vector<Node*> vector);
+    bool isInsideVector(const std::vector<Node*>& vector) const;
 
 protected:
     int id;                // identifier

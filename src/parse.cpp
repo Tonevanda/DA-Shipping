@@ -116,6 +116,7 @@ void readRealWorldEdges(Graph* graph, string file){
         //cout << node1 << " to " << node2 << " added \n";
     }
     //fillInBlanks(graph);
+    graph->sortEdges();
     fout.close();
 }
 
@@ -140,6 +141,7 @@ void readToyGraph(Graph* graph, string file){
         graph->addBidirectionalEdge(stoi(origem),stoi(destino), stod(distancia));
     }
     graph->sortNodes();
+    graph->sortEdges();
     fout.close();
 }
 
@@ -185,8 +187,8 @@ void readExtraFullyConnectedGraph(Graph* graph, string file){
         graph->addNode(stoi(destino));
         graph->addBidirectionalEdge(stoi(origem),stoi(destino), stod(distancia));
     }
-
     graph->sortNodes();
+    graph->sortEdges();
     fout.close();
 }
 

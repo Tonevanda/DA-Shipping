@@ -142,7 +142,7 @@ void Node::sortEdgesByID(){
     });
 }
 
-bool Node::isInsideVector(std::vector<Node*> vector){
+bool Node::isInsideVector(const std::vector<Node*>& vector) const{
     for(Node* node : vector){
         if(this->id==node->getId()) return true;
     }

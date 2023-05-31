@@ -13,7 +13,7 @@ using namespace std;
  * Iterates through path and prints it. In the end it shows the minimum value.
  * @param path
  * @param min
- * @note Time-complexity -> O(n) with n being the size of the path vector
+ * @note Time-complexity -> O(V) with V being the size of the path vector
  */
 void printPath(std::vector<Node*> path, double min){
     for(int i = 0; i < path.size();i++) {

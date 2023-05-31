@@ -85,6 +85,12 @@ void Graph::sortNodes(){
     });
 }
 
+void Graph::sortEdges(){
+    for(Node* node : NodeSet){
+        node->sortEdges();
+    }
+}
+
 /*
  * Adds an edge to a graph (this), given the contents of the source and
  * destination vertices and the edge weight (w).
@@ -159,7 +165,7 @@ double Graph::tspBT(std::vector<Node *>& path){
     return tspBTRec(path,INT_MAX,0,0,0,false);
 }
 
-void Graph::preOrder(Node* node,std::vector<Node*>& mst, bool firstIt){
+void Graph::preOrder(Node* node,std::vector<Node*>& mst, bool firstIt, double& weight){
     if(node== nullptr)return;
     if(firstIt) mst.push_back(node);
 
@@ -167,9 +173,15 @@ void Graph::preOrder(Node* node,std::vector<Node*>& mst, bool firstIt){
         Node* nextNode = edge->getDest();
 
         if(nextNode->getPath() != nullptr){
-            if(nextNode->getPath()->getOrig() == node){
+            if(nextNode->getPath()->getOrig()->getId() == node->getId()){
+                Node* last = mst.back();
                 mst.push_back(nextNode);
-                preOrder(nextNode, mst, false);
+                for(auto adj : last->getAdj()){
+                    if(nextNode->getId() == adj->getDest()->getId()){
+                        weight+=adj->getWeight();
+                    }
+                }
+                preOrder(nextNode, mst, false, weight);
             }
         }
 
@@ -177,7 +189,8 @@ void Graph::preOrder(Node* node,std::vector<Node*>& mst, bool firstIt){
 
 }
 
-double Graph::TriangularApproximationHeuristic(vector<Node*> nodeSet,std::vector<Node*>& L, string type, string ex){
+//clusters, result (empty), "real", "3"
+double Graph::TriangularApproximationHeuristic(vector<Node*> nodeSet,std::vector<Node*>& L, const string& type, const string& ex){
     if(nodeSet.size()==1&&type=="real"){
         L.push_back(nodeSet[0]);
         return 0;
@@ -203,24 +216,31 @@ double Graph::TriangularApproximationHeuristic(vector<Node*> nodeSet,std::vector
             node->setVisited(false);
         }
     }
-    double weight;
-    if(ex=="2") weight = kruskal();
-    else kruskalEx3(nodeSet);
 
-    if(ex=="2")preOrder(NodeSet[0],L,true);
-    else if(ex=="3") preOrder(nodeSet[0],L,true);
+    double weight = 0;
+
+    if (ex=="2") kruskal();
+    else{
+        kruskalEx3(nodeSet);
+    }
+
+    if(ex=="2")preOrder(NodeSet[0],L,true, weight);
+    else if(ex=="3"){
+        preOrder(nodeSet[0],L,true, weight);
+    }
 
     Node* last = L.back();
     Node* zero = L.front();
-    L.push_back(zero);
     if(type!="real"){
         for(auto e : last->getAdj()){
             if(e->getDest()==zero){
                 weight+=e->getWeight();
+                cout << "added " << e->getWeight() << endl;
             }
         }
     }
     else weight+=haversineDistance(last->getLon(),last->getLat(),zero->getLon(),zero->getLat());
+    if(ex != "3") L.push_back(zero);
 
     return weight;
 }
@@ -384,24 +404,10 @@ vector<Node*> Graph::joinSolvedTSP(vector<Node*> solved, vector<Node*> add){
     return joined;
 }
 
-//acho q isto nn vai ser preciso ngl, nem ig está correto
-Node* Graph::findCentroid(vector<Node*> cluster){
-    Node* centroid;
-
-    double totalLon = 0, totalLat = 0;
-
-    for(const Node* node : cluster){
-        totalLon += node->getLon();
-        totalLat += node->getLat();
+void Graph::makeClusters(const vector<Node*>& centroids, vector<Node*>& cluster){
+    for(Node* node : cluster){
+        node->setDist(std::numeric_limits<double>::max());  // reset distance
     }
-
-    centroid->setLon(totalLon);
-    centroid->setLat(totalLat);
-
-    return centroid;
-}
-
-void Graph::makeClusters(vector<Node*>centroids, vector<Node*> cluster){
     for(Node* centroid : centroids){
         for(Node* node : cluster){
             double dist = haversineDistance(centroid->getLon(), centroid->getLat(), node->getLon(), node->getLat());
@@ -413,7 +419,7 @@ void Graph::makeClusters(vector<Node*>centroids, vector<Node*> cluster){
     }
 }
 
-vector<Node*> Graph::getCentroidCluster(Node* centroid, vector<Node*> const cluster){
+vector<Node*> Graph::getCentroidCluster(Node* centroid, vector<Node*> const& cluster){
     vector<Node*> result;
     for(auto node : cluster){
         if(node->getClusterID()==centroid->getClusterID()) result.push_back(node);
@@ -421,10 +427,12 @@ vector<Node*> Graph::getCentroidCluster(Node* centroid, vector<Node*> const clus
     return result;
 }
 
-bool Graph::haveSimilarDistance(vector<Node*> const cluster){
+bool Graph::haveSimilarDistance(vector<Node*> const& cluster){
     if(cluster.empty()) return false;
-    cout << " Cluster sized: "<< cluster.size() << " have similar distance\n";
-    return calculateStandardDeviation(cluster) < calculateMean(cluster) * 0.2;
+    double long se = calculateStandardDeviation(cluster);
+    double long mean = calculateMean(cluster) * 0.1;
+
+    return se <= mean;
 }
 
 void printPath2(std::vector<Node*> path, double min){
@@ -442,12 +450,14 @@ void printPath2(std::vector<Node*> path, double min){
 vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters, double& totalMin){
     if(k <= 0) return clusters;
 
-    if(!clusters.empty() && ((haveSimilarDistance(clusters) || clusters.size()<=3))){
+    if(!clusters.empty() && ((clusters.size()<=3 || haveSimilarDistance(clusters) || k <= 1))){
+        if(clusters.size()>3){
+            cout << "Bigger than 3 cluster\n";
+        }
         vector<Node*> result;
         double weight = TriangularApproximationHeuristic(clusters, result,"real", "3");
         totalMin+=weight;
-        clusters.clear();
-        //cout << "Making the approximation, weight: " << weight << endl;
+        //clusters.clear();
         return result;
     }
 
@@ -465,18 +475,17 @@ vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters, doubl
         centroid->setIndegree(random->getId());
         centroids.push_back(centroid);
     }
-
+    makeClusters(centroids,clusters);
 
 
     vector<int> nNodes;
     vector<double> sumLon, sumLat;
     bool doing = true;
 
+
     //este loop seria até deixar de encontrar mudanças. No site onde estava a ver nn falam disto, mas no exemplo e no chat gpt fazem uma cena q eu presumo q seja basicamente isto
     while(doing){
-
         makeClusters(centroids,clusters);
-
         nNodes.clear();
         sumLat.clear();
         sumLon.clear();
@@ -493,13 +502,10 @@ vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters, doubl
             nNodes[clusterId] += 1;
             sumLon[clusterId] += node->getLon();
             sumLat[clusterId] += node->getLat();
-
-            node->setDist(std::numeric_limits<double>::max());  // reset distance
         }
 
         // Compute the new centroids
         doing = false;
-        int it = 1;
         for(Node* c : centroids){
             int clusterId = c->getClusterID();
 
@@ -521,31 +527,27 @@ vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters, doubl
             //cout << "Updating centroids -> " << clusterId << " (started at " << c->getIndegree() << ") | it: " << it << " | oldLon: " << oldLon << " newLon: " << c->getLon() << " | oldLat: " << oldLat << " newLat: " << c->getLat() << endl;
             if(oldLat!=c->getLat() || oldLon!=c->getLon())doing=true;
 
-            it++;
         }
-
     }
 
-
-    //cout << "Left loop with cluster sized " << clusters.size() << "\n";
 
     vector<Node*> solved, centroidCluster, recursion;
     for(Node* c : centroids){
         int clusterId = c->getClusterID();
         centroidCluster = getCentroidCluster(c, clusters);
         recursion = kMeansDivideAndConquer(sqrt(centroidCluster.size()),centroidCluster, totalMin);
-
         for(Node* node : centroidCluster){
             node->setCluster(clusterId);
         }
         //cout << "Joining two TSP | Solved size: " << solved.size() << " recursion sized: " << recursion.size() << endl;
         solved = joinSolvedTSP(solved,recursion);
         //printPath2(solved, 1);
-        //cout << "Joined two TSP | Solved size: " << solved.size() << endl << endl << endl;
+        //cout << "Joined two TSP | Solved size: " << solved.size() << endl;
+    }
+    for(auto c : centroids){
         delete c;
     }
     centroids.clear();
-
     return solved;
 }
 

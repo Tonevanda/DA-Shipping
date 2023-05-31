@@ -201,24 +201,24 @@ int main(){
     //readToyGraph(&graph,toy_stadiums); // min: 341 | 0 -> 1 -> 9 -> 6 -> 8 -> 4 -> 7 -> 5 -> 10 -> 2 -> 3
     //readToyGraph(&graph,toy_tourism); // min: 2600 | 0 -> 3 -> 2 -> 1 -> 4
 
-    //readExtraFullyConnectedGraph(&graph, extra_fc); // min: 213766 | 0 -> 22 -> 4 -> 24 -> 8 -> 17 -> 7 -> 11 -> 6 -> 20 -> 12 -> 9 -> 5 -> 15 -> 18 -> 10 -> 19 -> 3 -> 21 -> 13 -> 1 -> 2 -> 16 -> 14 -> 23 -> 0
+    //readExtraFullyConnectedGraph(&graph, extra_fc); // min: 364937 | 0, 22, 12, 23, 9, 15, 18, 10, 19, 3, 21, 13, 1, 2, 16, 14, 5, 4, 24, 8, 17, 7, 11, 6, 20, 0
 
     readRealWorldNodes(&graph,real_graph1_nodes);
-    readRealWorldEdges(&graph,real_graph1_edges); // min: 655537
+    readRealWorldEdges(&graph,real_graph1_edges); // min: 1.14169e+06
 
     //readRealWorldNodes(&graph,real_graph2_nodes);
     //readRealWorldEdges(&graph,real_graph2_edges); // min: 1.58349e+06
 
 
-    double min = 0;
+    double min = 0.0;
     std::vector<Node *> path;
     //min = graph.tspBT(path);
     //printPath(path,min);
 
 
     std::vector<Node*> mst;
-    double min2 = graph.TriangularApproximationHeuristic(graph.getNodeSet(),mst,"real","2");
-    printPath(mst,min2);
+    //double min2 = graph.TriangularApproximationHeuristic(graph.getNodeSet(),mst,"extra","2");
+    //printPath(mst,min2);
 
     vector<Node*> emptyCluster;
     path = graph.kMeansDivideAndConquer(sqrt(graph.getNumNode()), emptyCluster, min);

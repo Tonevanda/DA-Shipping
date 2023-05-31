@@ -68,7 +68,7 @@ discord do leic ptt idk
 2. Resolver o TSP para cada cluster com o algoritmo do exercício 2
 3. Juntar os clusters
 #### Known Problems
-- Não acaba com 999 nodes juntos, possivel alguns nodes ficarem de fora dos clusters
+- Exercicio 2 a dar weight errado
 
 #### Results
 - Toy Shipping:
