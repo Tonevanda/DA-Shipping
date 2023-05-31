@@ -51,9 +51,7 @@ std::vector<Node *> Graph::getNodeSet() const {
     return NodeSet;
 }
 
-/*
- * Auxiliary function to find a Node with a given content.
- */
+
 Node * Graph::findNode(const int &id) const {
     for (auto v : NodeSet)
         if (v->getId() == id)

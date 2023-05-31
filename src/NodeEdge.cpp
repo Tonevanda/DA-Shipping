@@ -104,7 +104,7 @@ void Node::setVisited(bool visited) {
     this->visited = visited;
 }
 
-void Node::setProcesssing(bool processing) {
+void Node::setProcessing(bool processing) {
     this->processing = processing;
 }
 
