@@ -181,7 +181,7 @@ public:
 
     /**
      * Checks if node (this) is inside the vector passed as parameter.
-     * @param vector Represents the vector which we wish the check the presence of the (this) node.
+     * @param vector Represents the vector which we wish to check the presence of the (this) node.
      * @return True if the (this) node is inside the vector, false otherwise.
      * @note Time-complexity -> O(n) with n being the size of the vector
      */

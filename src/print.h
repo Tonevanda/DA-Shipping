@@ -16,6 +16,7 @@ using namespace std;
  * @note Time-complexity -> O(V) with V being the size of the path vector
  */
 void printPath(std::vector<Node*> path, double min){
+    cout << "Path size: " << path.size() << endl;
     for(int i = 0; i < path.size();i++) {
         if(i == path.size()-1) cout << path[i]->getId() << endl;
         else cout << path[i]->getId() << ", ";

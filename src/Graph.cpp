@@ -189,7 +189,6 @@ void Graph::preOrder(Node* node,std::vector<Node*>& mst, bool firstIt, double& w
 
 }
 
-//clusters, result (empty), "real", "3"
 double Graph::TriangularApproximationHeuristic(vector<Node*> nodeSet,std::vector<Node*>& L, const string& type, const string& ex){
     if(nodeSet.size()==1&&type=="real"){
         L.push_back(nodeSet[0]);
@@ -197,12 +196,14 @@ double Graph::TriangularApproximationHeuristic(vector<Node*> nodeSet,std::vector
     } else if(nodeSet.size()==2 && type=="real"){
         L.push_back(nodeSet[0]);
         L.push_back(nodeSet[1]);
+        L.push_back(nodeSet[0]);
         return 2*haversineDistance(nodeSet[0]->getLon(),nodeSet[0]->getLat(),nodeSet[1]->getLon(),nodeSet[1]->getLat());
     } else if(nodeSet.size()==3 && type=="real"){
         L.push_back(nodeSet[0]);
         L.push_back(nodeSet[1]);
         L.push_back(nodeSet[2]);
-        return haversineDistance(nodeSet[0]->getLon(),nodeSet[0]->getLat(),nodeSet[1]->getLon(),nodeSet[1]->getLat()) + haversineDistance(nodeSet[0]->getLon(),nodeSet[0]->getLat(),nodeSet[2]->getLon(),nodeSet[2]->getLat()) + haversineDistance(nodeSet[2]->getLon(),nodeSet[2]->getLat(),nodeSet[1]->getLon(),nodeSet[1]->getLat());
+        L.push_back(nodeSet[0]);
+        return haversineDistance(nodeSet[0]->getLon(),nodeSet[0]->getLat(),nodeSet[1]->getLon(),nodeSet[1]->getLat()) + haversineDistance(nodeSet[0]->getLon(),nodeSet[0]->getLat(),nodeSet[2]->getLon(),nodeSet[2]->getLat()) + haversineDistance(nodeSet[2]->getLon(),nodeSet[2]->getLat(),nodeSet[1]->getLon(),nodeSet[1]->getLat()) + haversineDistance(nodeSet[0]->getLon(),nodeSet[0]->getLat(),nodeSet[2]->getLon(),nodeSet[2]->getLat());
     }
 
     for(Node* node : NodeSet){
@@ -352,20 +353,39 @@ double Graph::kruskalEx3(vector<Node*>& nodeSet){
     return totalWeight;
 }
 
+double getEdgeWeight(Node* first, Node* second){
+    for(Edge* edge : first->getAdj()){
+        if(edge->getDest()==second){
+            return edge->getWeight();
+        }
+    }
+    return INF;
+}
+
 //só funciona para o real world graph 1 por causa daquele loop que calcula a distância
-vector<Node*> Graph::joinSolvedTSP(vector<Node*> solved, vector<Node*> add){
+vector<Node*> Graph::joinSolvedTSP(vector<Node*> solved, vector<Node*> add, double& weight){
     if(solved.empty()) return add;
     if(add.empty()) return solved;
+
+    //cout << "Solved front: " << solved.front()->getId() << " solved back: " << solved.back()->getId() << endl;
+    //cout << "Add front: " << add.front()->getId() << " add back: " << add.back()->getId() << endl;
+
+    if(solved.size()!=1 && (solved.front()->getId()==solved.back()->getId()))solved.pop_back();
+    if(add.size()!=1 && (add.front()->getId()==add.back()->getId()))add.pop_back();
+
 
     double min = std::numeric_limits<double>::max();
     int minNode;
     vector<Node*> joined;
     int i = 0, k = 0, j=0, l = 0;
 
+    double curWeight = 0;
+    double dist;
     //maybe there's a better way
     for(Node* first : solved){
         for(Node* second : add){
-            double dist = haversineDistance(first->getLon(), first->getLat(), second->getLon(), second->getLat());
+            dist = getEdgeWeight(first, second);
+            //double dist = haversineDistance(first->getLon(), first->getLat(), second->getLon(), second->getLat());
             if(dist < min){
                 min = dist;
                 k=i;
@@ -380,26 +400,44 @@ vector<Node*> Graph::joinSolvedTSP(vector<Node*> solved, vector<Node*> add){
 
     i = k;
     j = l;
+    int prevI, prevJ = j;
+    bool firstIt= true;
     i++; //passo um à frente para nn estar no node que faz a connecção
     while(true){
         i %= solved.size();
+
+        if(!firstIt){
+            curWeight+= getEdgeWeight(solved[prevI], solved[i]);
+        } else firstIt=false;
+
         if(solved[i]->getId()==minNode){
             joined.push_back(solved[i]); //node que liga do solved
             joined.push_back(add[j]); //node que liga do add
+            curWeight += getEdgeWeight(solved[i],add[j]);
             j++;
             while(true){
                 j %= add.size();
+                curWeight += getEdgeWeight(add[prevJ],add[j]);
                 if(j==l) break;
                 joined.push_back(add[j]);
+                prevJ=j;
                 j++;
             }
             break;
         }
         else{
             joined.push_back(solved[i]);
+            prevI = i;
             i++;
         }
     }
+
+    curWeight+= getEdgeWeight(solved.back(), solved.front());
+    Node* newFront = solved[0];
+    solved.push_back(newFront);
+
+
+    weight = curWeight;
 
     return joined;
 }
@@ -451,12 +489,8 @@ vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters, doubl
     if(k <= 0) return clusters;
 
     if(!clusters.empty() && ((clusters.size()<=3 || haveSimilarDistance(clusters) || k <= 1))){
-        if(clusters.size()>3){
-            cout << "Bigger than 3 cluster\n";
-        }
         vector<Node*> result;
-        double weight = TriangularApproximationHeuristic(clusters, result,"real", "3");
-        totalMin+=weight;
+        TriangularApproximationHeuristic(clusters, result,"real", "3");
         //clusters.clear();
         return result;
     }
@@ -532,7 +566,9 @@ vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters, doubl
 
 
     vector<Node*> solved, centroidCluster, recursion;
+    //double curWeight;
     for(Node* c : centroids){
+        //curWeight=0;
         int clusterId = c->getClusterID();
         centroidCluster = getCentroidCluster(c, clusters);
         recursion = kMeansDivideAndConquer(sqrt(centroidCluster.size()),centroidCluster, totalMin);
@@ -540,7 +576,7 @@ vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters, doubl
             node->setCluster(clusterId);
         }
         //cout << "Joining two TSP | Solved size: " << solved.size() << " recursion sized: " << recursion.size() << endl;
-        solved = joinSolvedTSP(solved,recursion);
+        solved = joinSolvedTSP(solved,recursion,totalMin);
         //printPath2(solved, 1);
         //cout << "Joined two TSP | Solved size: " << solved.size() << endl;
     }

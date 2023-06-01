@@ -99,7 +99,7 @@ public:
 
     double kruskalEx3(vector<Node*>& nodeSet);
 
-    static vector<Node*> joinSolvedTSP(std::vector<Node*> solved, std::vector<Node*> add);
+    static vector<Node*> joinSolvedTSP(std::vector<Node*> solved, std::vector<Node*> add, double& weight);
     static void makeClusters(const std::vector<Node*>&centroids, vector<Node*>& cluster);
     static vector<Node*> getCentroidCluster(Node* centroid, vector<Node*> const& cluster);
     static bool haveSimilarDistance(const vector<Node*>& cluster);
