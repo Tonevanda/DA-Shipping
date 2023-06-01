@@ -6,10 +6,7 @@
 
 Node::Node(int id, double longitude, double latitude): id(id), longitude(longitude), latitude(latitude) {}
 
-/*
- * Auxiliary function to add an outgoing edge to a Node (this),
- * with a given destination Node (d) and edge weight (w).
- */
+
 Edge * Node::addEdge(Node *d, double w) {
     auto newEdge = new Edge(this, d, w);
     adj.push_back(newEdge);
@@ -17,11 +14,7 @@ Edge * Node::addEdge(Node *d, double w) {
     return newEdge;
 }
 
-/*
- * Auxiliary function to remove an outgoing edge (with a given destination (d))
- * from a Node (this).
- * Returns true if successful, and false if such edge does not exist.
- */
+
 bool Node::removeEdge(int destID) {
     bool removedEdge = false;
     auto it = adj.begin();
@@ -30,7 +23,6 @@ bool Node::removeEdge(int destID) {
         Node *dest = edge->getDest();
         if (dest->getId() == destID) {
             it = adj.erase(it);
-            // Also remove the corresponding edge from the incoming list
             auto it2 = dest->incoming.begin();
             while (it2 != dest->incoming.end()) {
                 if ((*it2)->getOrig()->getId() == id) {
@@ -41,7 +33,7 @@ bool Node::removeEdge(int destID) {
                 }
             }
             delete edge;
-            removedEdge = true; // allows for multiple edges to connect the same pair of vertices (multigraph)
+            removedEdge = true;
         }
         else {
             it++;

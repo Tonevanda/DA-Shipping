@@ -36,7 +36,7 @@ void Graph::calculateMissingToyDistances(){
             }
         }
 
-        if(i==unconnectedNodes.size()-1) i = 0; // se chegar ao i = 13 volta ao inicio
+        if(i==unconnectedNodes.size()-1) i = 0;
         else i++;
 
     }
@@ -66,19 +66,14 @@ Node * Graph::findNode(const int &id) const {
     return nullptr;
 }
 
-/*
- * Finds the index of the Node with a given content.
- */
+
 int Graph::findNodeIdx(const int &id) const {
     for (unsigned i = 0; i < NodeSet.size(); i++)
         if (NodeSet[i]->getId() == id)
             return i;
     return -1;
 }
-/*
- *  Adds a Node with a given content or info (in) to a graph (this).
- *  Returns true if successful, and false if a Node with that content already exists.
- */
+
 bool Graph::addNode(const int &id, double longitude, double latitude) {
     if (findNode(id) != nullptr)
         return false;
@@ -98,11 +93,7 @@ void Graph::sortEdges(){
     }
 }
 
-/*
- * Adds an edge to a graph (this), given the contents of the source and
- * destination vertices and the edge weight (w).
- * Returns true if successful, and false if the source or destination Node does not exist.
- */
+
 bool Graph::addEdge(const int &sourc, const int &dest, double w) {
     auto v1 = findNode(sourc);
     auto v2 = findNode(dest);
@@ -188,18 +179,12 @@ void Graph::preOrder(Node* node,std::vector<Node*>& mst, bool firstIt, double& w
                     weight += haversineDistance(last->getLon(), last->getLat(), nextNode->getLon(), nextNode->getLat());
                 } else{
                     weight += dist;
-                }/*
-                for(auto adj : last->getAdj()){
-                    if(nextNode->getId() == adj->getDest()->getId()){
-                        weight+=adj->getWeight();
-                    }
-                }*/
+                }
                 preOrder(nextNode, mst, false, weight, ex);
             }
         }
 
     }
-
 }
 
 double Graph::TriangularApproximationHeuristic(vector<Node*> nodeSet,std::vector<Node*>& L, const string& type, const string& ex){
@@ -390,11 +375,9 @@ vector<Node*> Graph::joinSolvedTSP(vector<Node*> solved, vector<Node*> add, doub
 
     double curWeight = 0;
     double dist;
-    //maybe there's a better way
     for(Node* first : solved){
         for(Node* second : add){
             dist = getEdgeWeight(first, second);
-            //double dist = haversineDistance(first->getLon(), first->getLat(), second->getLon(), second->getLat());
             if(dist < min){
                 min = dist;
                 k=i;
@@ -411,7 +394,7 @@ vector<Node*> Graph::joinSolvedTSP(vector<Node*> solved, vector<Node*> add, doub
     j = l;
     int prevI, prevJ = j;
     bool firstIt= true;
-    i++; //passo um à frente para nn estar no node que faz a connecção
+    i++;
     while(true){
         i %= solved.size();
 
@@ -420,8 +403,8 @@ vector<Node*> Graph::joinSolvedTSP(vector<Node*> solved, vector<Node*> add, doub
         } else firstIt=false;
 
         if(solved[i]->getId()==minNode){
-            joined.push_back(solved[i]); //node que liga do solved
-            joined.push_back(add[j]); //node que liga do add
+            joined.push_back(solved[i]);
+            joined.push_back(add[j]);
             curWeight += getEdgeWeight(solved[i],add[j]);
             j++;
             while(true){
@@ -482,25 +465,12 @@ bool Graph::haveSimilarDistance(vector<Node*> const& cluster){
     return se <= mean;
 }
 
-void printPath2(std::vector<Node*> path, double min){
-    for(int i = 0; i < path.size();i++) {
-        if(i == path.size()-1) cout << path[i]->getId() << endl;
-        else cout << path[i]->getId() << " -> ";
-    }
-    if(path.empty()){
-        cout << "Empty vector!\n";
-    }
-}
-
-//ver exemplo: https://github.com/aditya1601/kmeans-clustering-cpp/blob/master/kmeans.cpp
-//este algoritmo é baseado neste: https://reasonabledeviations.com/2019/10/02/k-means-in-cpp/
 vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters, double& totalMin, bool firstIt){
     if(k <= 0) return clusters;
 
     if(!clusters.empty() && ((clusters.size()<=3 || haveSimilarDistance(clusters) || k <= 1))){
         vector<Node*> result;
         TriangularApproximationHeuristic(clusters, result,"real", "3");
-        //clusters.clear();
         return result;
     }
 

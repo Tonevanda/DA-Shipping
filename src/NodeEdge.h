@@ -185,7 +185,11 @@ public:
      * @return True if the (this) node is inside the vector, false otherwise.
      * @note Time-complexity -> O(n) with n being the size of the vector
      */
-    bool isInsideVector(const std::vector<Node*>& vector) const;
+    [[nodiscard]] bool isInsideVector(const std::vector<Node*>& vector) const;
+    /**
+     * Deletes the outgoing edges of the (this) node.
+     * @note Time-complexity -> O(n) with n being number of outgoing edges of the (this) node
+     */
     void deleteAdj();
 
 protected:

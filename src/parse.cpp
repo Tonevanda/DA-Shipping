@@ -46,7 +46,7 @@ void fillInBlanks(Graph* graph) {
         Node* currentNode = nodeSet[i];
 
         for (int j = 0; j < numNodes; j++) {
-            if (i == j) continue;  // Skip self-loop
+            if (i == j) continue;
 
             Node* destinationNode = nodeSet[j];
 
@@ -67,7 +67,7 @@ void fillInBlanksWithOne(Graph* graph) {
         Node* currentNode = nodeSet[i];
 
         for (int j = 0; j < numNodes; j++) {
-            if (i == j) continue;  // Skip self-loop
+            if (i == j) continue;
 
             Node* destinationNode = nodeSet[j];
 
@@ -113,9 +113,7 @@ void readRealWorldEdges(Graph* graph, string file){
         node2 = info[1];
         dist = info[2];
         graph->addBidirectionalEdge(stoi(node1), stoi(node2), stod(dist));
-        //cout << node1 << " to " << node2 << " added \n";
     }
-    //fillInBlanks(graph);
     graph->sortEdges();
     fout.close();
 }
