@@ -17,7 +17,7 @@ void toyGraph(Graph* graph,string file){
     bool choosingToyEuristic = true;
     int chooseToyEuristic;
     while (choosingToyEuristic){
-        cout << "Choose a Heuristic:\n"
+        cout << "Choose an algorithm:\n"
                 "1: Backtracking and bounding\n"
                 "2: Triangular Approximation\n"
                 "0: Go Back\n";
@@ -25,7 +25,7 @@ void toyGraph(Graph* graph,string file){
             cout << "Invalid input!\n";
             cin.clear();
             cin.ignore(INT_MAX, '\n');
-            cout << "Choose a Heuristic:\n"
+            cout << "Choose an algorithm:\n"
                     "1: Backtracking and bounding\n"
                     "2: Triangular Approximation\n"
                     "0: Go Back\n";
@@ -192,7 +192,7 @@ void chooseGraph(Graph* graph){
                             readRealWorldNodes(graph,"../Project2Graphs/Real-World-Graphs/graph1/nodes.csv");
                             readRealWorldEdges(graph,"../Project2Graphs/Real-World-Graphs/graph1/edges.csv");
                             std::vector<Node*> mst;
-                            cout << "Choose a Heuristic:\n"
+                            cout << "Choose an algorithm:\n"
                                     "1: Triangular Approximation\n"
                                     "2: Our Heuristic\n"
                                     "0: Go Back\n";
@@ -200,7 +200,7 @@ void chooseGraph(Graph* graph){
                                 cout << "Invalid input!\n";
                                 cin.clear();
                                 cin.ignore(INT_MAX, '\n');
-                                cout << "Choose a Heuristic:\n"
+                                cout << "Choose an algorithm:\n"
                                         "1: Triangular Approximation\n"
                                         "2: Our Heuristic\n"
                                         "0: Go Back\n";
@@ -217,7 +217,7 @@ void chooseGraph(Graph* graph){
                                     std::vector<Node *> path;
                                     double min=0;
                                     vector<Node*> emptyCluster;
-                                    path = graph->kMeansDivideAndConquer(sqrt(graph->getNumNode()), emptyCluster, min);
+                                    path = graph->kMeansDivideAndConquer(sqrt(graph->getNumNode()), emptyCluster, min, true);
                                     printPath(path, min);
                                     break;
                                 }
@@ -324,9 +324,9 @@ void chooseGraph(Graph* graph){
 int main(){
     Graph graph;
     auto start = chrono::steady_clock::now();
-    chooseGraph(&graph);
     //chooseGraph(&graph);
-    /*string filePath = "../Project2Graphs/";
+    //chooseGraph(&graph);
+    string filePath = "../Project2Graphs/";
 
     string toy_shipping = "../Project2Graphs/Toy-Graphs/shipping.csv";
     string toy_stadiums = "../Project2Graphs/Toy-Graphs/stadiums.csv";
@@ -340,7 +340,10 @@ int main(){
     string real_graph2_nodes = "../Project2Graphs/Real-World-Graphs/graph2/nodes.csv";
     string real_graph2_edges = "../Project2Graphs/Real-World-Graphs/graph2/edges.csv";
 
-    //readToyGraph(&graph,toy_shipping); // min: 86.7 | 0 -> 1 -> 11 -> 10 -> 12 -> 13 -> 3 -> 2 -> 4 -> 6 -> 9 -> 7 -> 8 -> 5
+    string real_graph3_nodes = "../Project2Graphs/Real-World-Graphs/graph3/nodes.csv";
+    string real_graph3_edges = "../Project2Graphs/Real-World-Graphs/graph3/edges.csv";
+
+    readToyGraph(&graph,toy_shipping); // min: 86.7 | 0 -> 1 -> 11 -> 10 -> 12 -> 13 -> 3 -> 2 -> 4 -> 6 -> 9 -> 7 -> 8 -> 5
     //readToyGraph(&graph,toy_stadiums); // min: 341 | 0 -> 1 -> 9 -> 6 -> 8 -> 4 -> 7 -> 5 -> 10 -> 2 -> 3
     //readToyGraph(&graph,toy_tourism); // min: 2600 | 0 -> 3 -> 2 -> 1 -> 4
 
@@ -348,28 +351,32 @@ int main(){
 
     //readx(parse.cpp)->tspBT(ex1)toy graphs/TriangularAproximationEuristic(ex2)todos/kmeansDivideAndConquer(ex3)realWorldGraph1
 
-    readRealWorldNodes(&graph,real_graph1_nodes);
-    readRealWorldEdges(&graph,real_graph1_edges); // min: 1.14169e+06
+    //readRealWorldNodes(&graph,real_graph1_nodes);
+    //readRealWorldEdges(&graph,real_graph1_edges); // min: 1.12096e+06
 
 
     //readRealWorldNodes(&graph,real_graph2_nodes);
-    //readRealWorldEdges(&graph,real_graph2_edges); // min: 1.58349e+06
+    //readRealWorldEdges(&graph,real_graph2_edges); // min: 1.58349e+06 | 5.29505e+06
+
+    //readRealWorldNodes(&graph,real_graph3_nodes);
+    //readRealWorldEdges(&graph,real_graph3_edges);
 
 
     double min = 0.0;
     std::vector<Node *> path;
-    //min = graph.tspBT(path);
-    //printPath(path,min);
+    min = graph.tspBT(path);
+    printPath(path,min);
 
 
     std::vector<Node*> mst;
-    //double min2 = graph.TriangularApproximationHeuristic(graph.getNodeSet(),mst,"extra","2");
-    //printPath(mst,min2);
+    double min2 = graph.TriangularApproximationHeuristic(graph.getNodeSet(),mst,"real","2");
+    printPath(mst,min2);
+
 
     vector<Node*> emptyCluster;
-    path = graph.kMeansDivideAndConquer(sqrt(graph.getNumNode()), emptyCluster, min);
-    printPath(path, min);
-    */
+    //path = graph.kMeansDivideAndConquer(sqrt(graph.getNumNode()), emptyCluster, min);
+    //printPath(path, min);
+
     auto end = chrono::steady_clock::now();
     cout << "Finished in: " <<  chrono::duration_cast<chrono::milliseconds > (end - start).count() << " ms";
 

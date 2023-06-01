@@ -77,7 +77,7 @@ public:
      * @note Time-complexity -> O(V) with V being the size of the NodeSet
      */
     bool addBidirectionalEdge(const int &sourc, const int &dest, double w);
-
+    void cleanGraph();
     /**
     * Calculates and adds the missing edges to turn a toy graph into a fully connected graph. Bases the calculations on the triangular inequality property, the sum of the lengths of any two sides must be greater than or equal to the length of the remaining side.
     * @note Time-complexity -> O(V^2 * U) where U is the number of nodes not fully connected
@@ -92,12 +92,13 @@ public:
     double tspBTRec(std::vector<Node *>& path, double min, double curCost, unsigned int i, unsigned int curPathSize, bool ended);
     double tspBT(std::vector<Node *>& path);
 
-    void preOrder(Node* node,std::vector<Node*>& mst, bool firstIt, double& weight);
+    void preOrder(Node* node,std::vector<Node*>& mst, bool firstIt, double& weight, const string& ex);
     double TriangularApproximationHeuristic(vector<Node*> nodeSet, std::vector<Node*>& mst,const std::string& type, const std::string& ex);
     double kruskal();
     void dfsKruskalPath(Node *v);
 
     double kruskalEx3(vector<Node*>& nodeSet);
+    static double getEdgeWeight(Node* first, Node* second);
 
     static vector<Node*> joinSolvedTSP(std::vector<Node*> solved, std::vector<Node*> add, double& weight);
     static void makeClusters(const std::vector<Node*>&centroids, vector<Node*>& cluster);
@@ -105,7 +106,7 @@ public:
     static bool haveSimilarDistance(const vector<Node*>& cluster);
 
 
-    vector<Node*> kMeansDivideAndConquer(int k, std::vector<Node*> clusters, double& totalMin);
+    vector<Node*> kMeansDivideAndConquer(int k, std::vector<Node*> clusters, double& totalMin, bool firstIt);
 protected:
     std::vector<Node *> NodeSet;    // Node set
 

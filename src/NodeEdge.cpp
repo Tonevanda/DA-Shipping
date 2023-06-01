@@ -149,6 +149,13 @@ bool Node::isInsideVector(const std::vector<Node*>& vector) const{
     return false;
 }
 
+void Node::deleteAdj(){
+    for(auto edge : adj){
+        delete edge;
+    }
+    adj.clear();
+}
+
 /********************** Edge  ****************************/
 
 Edge::Edge(Node *orig, Node *dest, double w): orig(orig), dest(dest), weight(w) {}

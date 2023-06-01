@@ -19,9 +19,9 @@ distance computation described in appendix A.
 
 ## T1.2 (1 point)
 - [x] Develop basic functionality to load and parse the provided dataset files.
-- [ ] Accessible through the menu, enables the selection of the dataset to be used in the analysis 
+- [x] Accessible through the menu, enables the selection of the dataset to be used in the analysis 
 of the algorithms developed.
-- [ ] Create one (or more) appropriate graphs upon which you will carry out the requested tasks.
+- [x] Create one (or more) appropriate graphs upon which you will carry out the requested tasks.
 
 ## T1.3 (2 points)
 - [ ] Include documentation for all code implemented in this project, using Doxygen, indicating the corresponding time complexity for each algorithm implemented.
@@ -37,11 +37,11 @@ of the algorithms developed.
 - [x] Add the missing edges on the toy graphs by calculating their distance.
 
 ## Other Heuristics - T2.3 (6 points)
-- [ ] Develop your own “efficient” heuristic for TSP that can leverage, or not, the geographic node data.  The emphasis in this approach should be on efficiency as this algorithm should be feasible even for the large graphs.
-- [ ] Make use of several algorithmic techniques:
-- [ ] Divide-and-conquer to split the graph into multiple geographic sections
-- [ ] Use of clustering
-- [ ] Or both, possibly even in combination with the 2-approximation algorithm.
+- [x] Develop your own “efficient” heuristic for TSP that can leverage, or not, the geographic node data.  The emphasis in this approach should be on efficiency as this algorithm should be feasible even for the large graphs.
+- [x] Make use of several algorithmic techniques:
+- [x] Divide-and-conquer to split the graph into multiple geographic sections
+- [x] Use of clustering
+- [x] Or both, possibly even in combination with the 2-approximation algorithm.
 - [ ] Note though, that in this algorithm the tour has to rely exclusively on “real” or existing edges and cannot be “approximated” as you possibly have done in the 2-approximation algorithm. Nevertheless, you may use the “non-real” approximation solution as a basis for your heuristic.
 - [ ] Compare the quality and run-time performance of your heuristic solution against the 2-approximation algorithm (if you do not rely on it).
 - [ ] Although possible, you are not expected to present multiple heuristics, but rather a heuristic that works well over the basic 2- approximation or one that offers comparable tour length results but with noticeably faster execution time (i.e., time complexity).
@@ -55,20 +55,14 @@ of the algorithms developed.
 ------
 
 ### Class Notes
-- Calcular desvio padrão para provar distâncias equivalentes e utilizar triangular approach no 3 exercicio
 - Adicionar opção de escolher o ficheiro para abrir.
 - Explicar o que o n significa no doxygen
 
 ### Notes
-- O ex2 teoricamente está correto, mas pareceme que dá valores diferentes dos obtidos por outros grupos no 
-discord do leic ptt idk
-- Ver o algoritmo do Christofides (dá para o ex2, talvez nos dê mais pontos por complexidade, mas o stor só sugeriu o da teorica ptt idk)
 #### Estratégia para o 3:
 1. Dar cluster através do divide & conquer por nodes com distância similar (para tentar garantir a cena dos triângulos)
 2. Resolver o TSP para cada cluster com o algoritmo do exercício 2
 3. Juntar os clusters
-#### Known Problems
-- Exercicio 2 a dar weight errado
 
 #### Results
 - Toy Shipping:

@@ -186,6 +186,7 @@ public:
      * @note Time-complexity -> O(n) with n being the size of the vector
      */
     bool isInsideVector(const std::vector<Node*>& vector) const;
+    void deleteAdj();
 
 protected:
     int id;                // identifier

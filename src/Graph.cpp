@@ -31,7 +31,6 @@ void Graph::calculateMissingToyDistances(){
 
                 if(!isAlreadyInEdges(finalNode->getId(), unconnectedNodes[i]->getAdj())){
                     double weight = adj->getWeight() + nextAdj->getWeight();
-                    //cout << "Adding edge from " << curNode->getId() << " to " << finalNode->getId() << " with weight: " << weight << endl;
                     this->addBidirectionalEdge(curNode->getId(),finalNode->getId(), weight);
                 }
             }
@@ -41,6 +40,14 @@ void Graph::calculateMissingToyDistances(){
         else i++;
 
     }
+}
+
+void Graph::cleanGraph(){
+    for(Node* node : NodeSet){
+        node->deleteAdj();
+        delete node;
+    }
+    NodeSet.clear();
 }
 
 int Graph::getNumNode() const {
@@ -165,7 +172,7 @@ double Graph::tspBT(std::vector<Node *>& path){
     return tspBTRec(path,INT_MAX,0,0,0,false);
 }
 
-void Graph::preOrder(Node* node,std::vector<Node*>& mst, bool firstIt, double& weight){
+void Graph::preOrder(Node* node,std::vector<Node*>& mst, bool firstIt, double& weight, const string& ex){
     if(node== nullptr)return;
     if(firstIt) mst.push_back(node);
 
@@ -176,12 +183,18 @@ void Graph::preOrder(Node* node,std::vector<Node*>& mst, bool firstIt, double& w
             if(nextNode->getPath()->getOrig()->getId() == node->getId()){
                 Node* last = mst.back();
                 mst.push_back(nextNode);
+                double dist = getEdgeWeight(last, nextNode);
+                if(dist==INF && ex == "2"){
+                    weight += haversineDistance(last->getLon(), last->getLat(), nextNode->getLon(), nextNode->getLat());
+                } else{
+                    weight += dist;
+                }/*
                 for(auto adj : last->getAdj()){
                     if(nextNode->getId() == adj->getDest()->getId()){
                         weight+=adj->getWeight();
                     }
-                }
-                preOrder(nextNode, mst, false, weight);
+                }*/
+                preOrder(nextNode, mst, false, weight, ex);
             }
         }
 
@@ -225,9 +238,9 @@ double Graph::TriangularApproximationHeuristic(vector<Node*> nodeSet,std::vector
         kruskalEx3(nodeSet);
     }
 
-    if(ex=="2")preOrder(NodeSet[0],L,true, weight);
+    if(ex=="2")preOrder(NodeSet[0],L,true, weight, ex);
     else if(ex=="3"){
-        preOrder(nodeSet[0],L,true, weight);
+        preOrder(nodeSet[0],L,true, weight, ex);
     }
 
     Node* last = L.back();
@@ -353,7 +366,7 @@ double Graph::kruskalEx3(vector<Node*>& nodeSet){
     return totalWeight;
 }
 
-double getEdgeWeight(Node* first, Node* second){
+double Graph::getEdgeWeight(Node* first, Node* second){
     for(Edge* edge : first->getAdj()){
         if(edge->getDest()==second){
             return edge->getWeight();
@@ -362,13 +375,9 @@ double getEdgeWeight(Node* first, Node* second){
     return INF;
 }
 
-//só funciona para o real world graph 1 por causa daquele loop que calcula a distância
 vector<Node*> Graph::joinSolvedTSP(vector<Node*> solved, vector<Node*> add, double& weight){
     if(solved.empty()) return add;
     if(add.empty()) return solved;
-
-    //cout << "Solved front: " << solved.front()->getId() << " solved back: " << solved.back()->getId() << endl;
-    //cout << "Add front: " << add.front()->getId() << " add back: " << add.back()->getId() << endl;
 
     if(solved.size()!=1 && (solved.front()->getId()==solved.back()->getId()))solved.pop_back();
     if(add.size()!=1 && (add.front()->getId()==add.back()->getId()))add.pop_back();
@@ -485,7 +494,7 @@ void printPath2(std::vector<Node*> path, double min){
 
 //ver exemplo: https://github.com/aditya1601/kmeans-clustering-cpp/blob/master/kmeans.cpp
 //este algoritmo é baseado neste: https://reasonabledeviations.com/2019/10/02/k-means-in-cpp/
-vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters, double& totalMin){
+vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters, double& totalMin, bool firstIt){
     if(k <= 0) return clusters;
 
     if(!clusters.empty() && ((clusters.size()<=3 || haveSimilarDistance(clusters) || k <= 1))){
@@ -496,10 +505,14 @@ vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters, doubl
     }
 
     if(clusters.empty()) clusters=NodeSet;
+    vector<Node*> firstSaved;
+    if(firstIt){
+        firstSaved.push_back(clusters[0]);
+        clusters.erase(clusters.begin());
+    }
 
-    //Declaro aqui os centroids e escolho k pontos aleatorios
     vector<Node*> centroids;
-    srand(time(0));  // need to set the random seed
+    srand(time(0));
     for (int i = 0; i < k; i++) {
         Node* random;
         if(clusters.empty()) random = NodeSet[rand() % NodeSet.size()];
@@ -516,21 +529,18 @@ vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters, doubl
     vector<double> sumLon, sumLat;
     bool doing = true;
 
-
-    //este loop seria até deixar de encontrar mudanças. No site onde estava a ver nn falam disto, mas no exemplo e no chat gpt fazem uma cena q eu presumo q seja basicamente isto
     while(doing){
         makeClusters(centroids,clusters);
         nNodes.clear();
         sumLat.clear();
         sumLon.clear();
-        // Initialise with zeroes
+
         for (int j = 0; j < k; ++j) {
             nNodes.push_back(0);
             sumLon.push_back(0.0);
             sumLat.push_back(0.0);
         }
 
-        // Iterate over points to append data to centroids
         for (Node* node : clusters) {
             int clusterId = node->getClusterID();
             nNodes[clusterId] += 1;
@@ -538,7 +548,6 @@ vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters, doubl
             sumLat[clusterId] += node->getLat();
         }
 
-        // Compute the new centroids
         doing = false;
         for(Node* c : centroids){
             int clusterId = c->getClusterID();
@@ -557,8 +566,6 @@ vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters, doubl
                 c->setLat(sumLat[clusterId]/nNodes[clusterId]);
             }
 
-
-            //cout << "Updating centroids -> " << clusterId << " (started at " << c->getIndegree() << ") | it: " << it << " | oldLon: " << oldLon << " newLon: " << c->getLon() << " | oldLat: " << oldLat << " newLat: " << c->getLat() << endl;
             if(oldLat!=c->getLat() || oldLon!=c->getLon())doing=true;
 
         }
@@ -566,24 +573,22 @@ vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters, doubl
 
 
     vector<Node*> solved, centroidCluster, recursion;
-    //double curWeight;
     for(Node* c : centroids){
-        //curWeight=0;
         int clusterId = c->getClusterID();
         centroidCluster = getCentroidCluster(c, clusters);
-        recursion = kMeansDivideAndConquer(sqrt(centroidCluster.size()),centroidCluster, totalMin);
+        recursion = kMeansDivideAndConquer(sqrt(centroidCluster.size()),centroidCluster, totalMin, false);
         for(Node* node : centroidCluster){
             node->setCluster(clusterId);
         }
-        //cout << "Joining two TSP | Solved size: " << solved.size() << " recursion sized: " << recursion.size() << endl;
         solved = joinSolvedTSP(solved,recursion,totalMin);
-        //printPath2(solved, 1);
-        //cout << "Joined two TSP | Solved size: " << solved.size() << endl;
-    }
-    for(auto c : centroids){
         delete c;
     }
     centroids.clear();
+    if(firstIt){
+        solved = joinSolvedTSP(firstSaved, solved, totalMin);
+        solved = joinSolvedTSP(solved, firstSaved, totalMin);
+
+    }
     return solved;
 }
 
