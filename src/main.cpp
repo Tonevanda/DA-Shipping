@@ -11,6 +11,51 @@
 
 using namespace std;
 
+
+void toyGraph(Graph* graph,string file){
+    readToyGraph(graph,file);
+    bool choosingToyEuristic = true;
+    int chooseToyEuristic;
+    while (choosingToyEuristic){
+        cout << "Choose a Heuristic:\n"
+                "1: Backtracking and bounding\n"
+                "2: Triangular Approximation\n"
+                "0: Go Back\n";
+        while (!(cin >> chooseToyEuristic)) {
+            cout << "Invalid input!\n";
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+            cout << "Choose a Heuristic:\n"
+                    "1: Backtracking and bounding\n"
+                    "2: Triangular Approximation\n"
+                    "0: Go Back\n";
+        }
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+        double min = 0;
+        switch (chooseToyEuristic) {
+            case 1: {
+                std::vector<Node *> path;
+                min = graph->tspBT(path);
+                printPath(path, min);
+                break;
+            }
+            case 2: {
+                std::vector<Node*> mst;
+                min = graph->TriangularApproximationHeuristic(graph->getNodeSet(),mst,"toy","2");
+                printPath(mst,min);
+                break;
+            }
+            case 0:
+                choosingToyEuristic= false;
+                break;
+        }
+    }
+}
+/*
+ * toy can only do 1 and 2
+ *
+ */
 void chooseGraph(Graph* graph){
     bool canRun = true;
     while(canRun){
@@ -66,18 +111,15 @@ void chooseGraph(Graph* graph){
                             break;
                         }
                         case 1:{ //shipping
-                            readToyGraph(graph,"../Project2Graphs/Toy-Graphs/shipping.csv");
-                            choosingToy=false;
+                            toyGraph(graph,"../Project2Graphs/Toy-Graphs/shipping.csv");
                             break;
                         }
                         case 2:{ //stadiums
-                            readToyGraph(graph,"../Project2Graphs/Toy-Graphs/stadiums.csv");
-                            choosingToy=false;
+                            toyGraph(graph,"../Project2Graphs/Toy-Graphs/stadiums.csv");
                             break;
                         }
                         case 3:{ // tourism
-                            readToyGraph(graph,"../Project2Graphs/Toy-Graphs/tourism.csv");
-                            choosingToy=false;
+                            toyGraph(graph,"../Project2Graphs/Toy-Graphs/tourism.csv");
                             break;
                         }
                         default:{
@@ -111,6 +153,10 @@ void chooseGraph(Graph* graph){
                     else{
                         cout << "Invalid input!\n";
                     }
+                    std::vector<Node*> mst;
+                    int min=0;
+                    min = graph->TriangularApproximationHeuristic(graph->getNodeSet(),mst,"toy","2");
+                    printPath(mst,min);
                 }
                 break;
             } // end of EFC
@@ -135,27 +181,66 @@ void chooseGraph(Graph* graph){
                     }
                     cin.clear();
                     cin.ignore(INT_MAX, '\n');
+                    int min=0;
                     switch (chooseReal) {
                         case 0:{
                             choosingReal=false;
                             break;
                         }
                         case 1:{ //shipping
+                            int ChooseRealHeuristic =0;
                             readRealWorldNodes(graph,"../Project2Graphs/Real-World-Graphs/graph1/nodes.csv");
                             readRealWorldEdges(graph,"../Project2Graphs/Real-World-Graphs/graph1/edges.csv");
-                            choosingReal=false;
-                            break;
+                            std::vector<Node*> mst;
+                            cout << "Choose a Heuristic:\n"
+                                    "1: Triangular Approximation\n"
+                                    "2: Our Heuristic\n"
+                                    "0: Go Back\n";
+                            while (!(cin >> ChooseRealHeuristic)) {
+                                cout << "Invalid input!\n";
+                                cin.clear();
+                                cin.ignore(INT_MAX, '\n');
+                                cout << "Choose a Heuristic:\n"
+                                        "1: Triangular Approximation\n"
+                                        "2: Our Heuristic\n"
+                                        "0: Go Back\n";
+                            }
+                            cin.clear();
+                            cin.ignore(INT_MAX, '\n');
+                            switch (ChooseRealHeuristic) {
+                                case 1:{
+                                    min = graph->TriangularApproximationHeuristic(graph->getNodeSet(),mst,"real","2");
+                                    printPath(mst,min);
+                                    break;
+                                }
+                                case 2:{
+                                    std::vector<Node *> path;
+                                    double min=0;
+                                    vector<Node*> emptyCluster;
+                                    path = graph->kMeansDivideAndConquer(sqrt(graph->getNumNode()), emptyCluster, min);
+                                    printPath(path, min);
+                                    break;
+                                }
+                                case 0:{
+                                    break;
+                                }
+                            }
+
                         }
                         case 2:{ //stadiums
                             readRealWorldNodes(graph,"../Project2Graphs/Real-World-Graphs/graph2/nodes.csv");
                             readRealWorldEdges(graph,"../Project2Graphs/Real-World-Graphs/graph2/edges.csv");
-                            choosingReal=false;
+                            std::vector<Node*> mst;
+                            min = graph->TriangularApproximationHeuristic(graph->getNodeSet(),mst,"toy","2");
+                            printPath(mst,min);
                             break;
                         }
                         case 3:{ // tourism
                             readRealWorldNodes(graph,"../Project2Graphs/Real-World-Graphs/graph3/nodes.csv");
                             readRealWorldEdges(graph,"../Project2Graphs/Real-World-Graphs/graph3/edges.csv");
-                            choosingReal=false;
+                            std::vector<Node*> mst;
+                            min = graph->TriangularApproximationHeuristic(graph->getNodeSet(),mst,"toy","2");
+                            printPath(mst,min);
                             break;
                         }
                         default:{
@@ -168,6 +253,64 @@ void chooseGraph(Graph* graph){
             } // end of real world
             case 4:{ // my own
                 //should ask what type of graph it is first and do actions accordingly
+                //ask user if they want to use the toy,bonus or real
+                string path;
+                cout << "input graph file path:\n";
+                while (!(cin >> path)) {
+                    cout << "Invalid input!\n";
+                    cin.clear();
+                    cin.ignore(INT_MAX, '\n');
+                    cout << "input graph file path:\n";
+                }
+                cin.clear();
+                cin.ignore(INT_MAX, '\n');
+                int chooseGraphType;
+                bool choosingGraphType= true;
+                while(choosingGraphType){
+                    cout << "What type of file do you input?:\n"
+                            "1: Toy\n"
+                            "2: Extra fully connected\n"
+                            "3: Real World\n"
+                            "0: Go Back\n";
+                    while (!(cin >> chooseGraphType)) {
+                        cout << "Invalid input!\n";
+                        cin.clear();
+                        cin.ignore(INT_MAX, '\n');
+                        cout << "What type of file do you wish to input?:\n"
+                                "1: Toy\n"
+                                "2: Extra fully connected\n"
+                                "3: Real World\n"
+                                "0: Go Back\n";
+                    }
+                    cin.clear();
+                    cin.ignore(INT_MAX, '\n');
+                    double min=0;
+                    switch (chooseGraphType) {
+                        case 1:{
+                            toyGraph(graph,path);
+                            break;
+                        }
+                        case 2:{
+                            readExtraFullyConnectedGraph(graph, path);
+                            std::vector<Node*> mst;
+                            min = graph->TriangularApproximationHeuristic(graph->getNodeSet(),mst,"toy","2");
+                            printPath(mst,min);
+                            break;
+                        }
+                        case 3:{
+                            readRealWorldNodes(graph,"../Project2Graphs/Real-World-Graphs/graph1/nodes.csv");
+                            readRealWorldEdges(graph,"../Project2Graphs/Real-World-Graphs/graph1/edges.csv");
+                            std::vector<Node*> mst;
+                            min = graph->TriangularApproximationHeuristic(graph->getNodeSet(),mst,"toy","2");
+                            printPath(mst,min);
+                            break;
+                        }
+                        case 0:{
+                            choosingGraphType=false;
+                            break;
+                        }
+                    }
+                }
                 break;
             } // end of my own
             default:{
@@ -181,9 +324,9 @@ void chooseGraph(Graph* graph){
 int main(){
     Graph graph;
     auto start = chrono::steady_clock::now();
-
+    chooseGraph(&graph);
     //chooseGraph(&graph);
-    string filePath = "../Project2Graphs/";
+    /*string filePath = "../Project2Graphs/";
 
     string toy_shipping = "../Project2Graphs/Toy-Graphs/shipping.csv";
     string toy_stadiums = "../Project2Graphs/Toy-Graphs/stadiums.csv";
@@ -203,8 +346,11 @@ int main(){
 
     //readExtraFullyConnectedGraph(&graph, extra_fc); // min: 364937 | 0, 22, 12, 23, 9, 15, 18, 10, 19, 3, 21, 13, 1, 2, 16, 14, 5, 4, 24, 8, 17, 7, 11, 6, 20, 0
 
+    //readx(parse.cpp)->tspBT(ex1)toy graphs/TriangularAproximationEuristic(ex2)todos/kmeansDivideAndConquer(ex3)realWorldGraph1
+
     readRealWorldNodes(&graph,real_graph1_nodes);
     readRealWorldEdges(&graph,real_graph1_edges); // min: 1.14169e+06
+
 
     //readRealWorldNodes(&graph,real_graph2_nodes);
     //readRealWorldEdges(&graph,real_graph2_edges); // min: 1.58349e+06
@@ -223,8 +369,9 @@ int main(){
     vector<Node*> emptyCluster;
     path = graph.kMeansDivideAndConquer(sqrt(graph.getNumNode()), emptyCluster, min);
     printPath(path, min);
-
+    */
     auto end = chrono::steady_clock::now();
     cout << "Finished in: " <<  chrono::duration_cast<chrono::milliseconds > (end - start).count() << " ms";
+
     return 0;
 }
