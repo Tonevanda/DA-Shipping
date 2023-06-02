@@ -15,7 +15,7 @@ distance computation described in appendix A.
 -----------------------
 
 ## T1.1 (1 point)
-- [ ] Create a simple interface menu exposing all the implemented functionalities in a user-friendly interface 
+- [x] Create a simple interface menu exposing all the implemented functionalities in a user-friendly interface 
 
 ## T1.2 (1 point)
 - [x] Develop basic functionality to load and parse the provided dataset files.
@@ -29,11 +29,11 @@ of the algorithms developed.
 ## Backtracking Algorithm - T2.1 (4 points)
 - [x] Develop a backtracking algorithmic approach to the TSP for a graph starting and ending the node tour on node labelled with the zero-identifier label
 - [x] You are expected to use the small graphs to validate this approach and to observe that for the larger graphs this approach is not really feasible.
-- [ ] To this extent, you are suggested to plot the execution time (or other performance metrics you find significant) to illustrate the feasibility or not of this approach for larger graphs.
+- [x] To this extent, you are suggested to plot the execution time (or other performance metrics you find significant) to illustrate the feasibility or not of this approach for larger graphs.
 
 ## Triangular Approximation Heuristic - T2.2 (4 points)
 - [x] Use the geographic node data, and implement the approximation algorithm for TSP that relies on the triangular inequality to ensure a 2-approximation algorithm for this problem again starting and ending the node tour on node with the zero-identifier label
-- [ ] Compare with the backtracking algorithm for the same small graphs.
+- [x] Compare with the backtracking algorithm for the same small graphs.
 - [x] Add the missing edges on the toy graphs by calculating their distance.
 
 ## Other Heuristics - T2.3 (6 points)
@@ -43,14 +43,14 @@ of the algorithms developed.
 - [x] Use of clustering
 - [x] Or both, possibly even in combination with the 2-approximation algorithm.
 - [x] Note though, that in this algorithm the tour has to rely exclusively on “real” or existing edges and cannot be “approximated” as you possibly have done in the 2-approximation algorithm. Nevertheless, you may use the “non-real” approximation solution as a basis for your heuristic.
-- [ ] Compare the quality and run-time performance of your heuristic solution against the 2-approximation algorithm (if you do not rely on it).
+- [x] Compare the quality and run-time performance of your heuristic solution against the 2-approximation algorithm (if you do not rely on it).
 - [x] Although possible, you are not expected to present multiple heuristics, but rather a heuristic that works well over the basic 2- approximation or one that offers comparable tour length results but with noticeably faster execution time (i.e., time complexity).
 
 ## Demonstration & Presentation - T4.1 (2 points)
-- [ ] Prepare a presentation of your work with the main conclusions about your implementation of the TSP applied to the scenario of urban deliveries.
-- [ ] Your presentation should focus on the explanation and analysis of the heuristics developed for the graphs represented in the dataset, using illustrative examples
-- [ ] In addition to the rationale of your heuristics, you should discuss which heuristics are more adequate to a given graph in the dataset. In this discussion, you should also analyse the trade-offs between the efficiency and the optimality of your solution for all graphs provided in the datasets. The optimality of your heuristics can be analysed by comparing their results with the results produced by the backtracking algorithm
-- [ ] In addition to the heuristics, your presentation should also explain the implemented backtracking algorithm for the toy example graphs.
+- [x] Prepare a presentation of your work with the main conclusions about your implementation of the TSP applied to the scenario of urban deliveries.
+- [x] Your presentation should focus on the explanation and analysis of the heuristics developed for the graphs represented in the dataset, using illustrative examples
+- [x] In addition to the rationale of your heuristics, you should discuss which heuristics are more adequate to a given graph in the dataset. In this discussion, you should also analyse the trade-offs between the efficiency and the optimality of your solution for all graphs provided in the datasets. The optimality of your heuristics can be analysed by comparing their results with the results produced by the backtracking algorithm
+- [x] In addition to the heuristics, your presentation should also explain the implemented backtracking algorithm for the toy example graphs.
 
 ------
 
@@ -59,6 +59,7 @@ of the algorithms developed.
 - Explicar o que o n significa no doxygen
 
 ### Notes
+- Se for fully connected, remover a verification da função de juntar paths.
 #### Estratégia para o 3:
 1. Dar cluster através do divide & conquer por nodes com distância similar (para tentar garantir a cena dos triângulos)
 2. Resolver o TSP para cada cluster com o algoritmo do exercício 2

@@ -39,16 +39,24 @@ void toyGraph(Graph* graph,const string& file){
             }
             case 1: {
                 std::vector<Node *> path;
+                auto start = chrono::steady_clock::now();
                 min = graph->tspBT(path);
                 printPath(path, min);
+                auto end = chrono::steady_clock::now();
+                cout << "Finished in: " <<  chrono::duration_cast<chrono::milliseconds > (end - start).count() << " ms\n";
                 break;
             }
             case 2: {
                 std::vector<Node*> mst;
+                auto start = chrono::steady_clock::now();
+
                 min = graph->TriangularApproximationHeuristic(graph->getNodeSet(),mst,"toy","2");
                 printPath(mst,min);
                 graph->cleanGraph();
                 readToyGraph(graph,file);
+
+                auto end = chrono::steady_clock::now();
+                cout << "Finished in: " <<  chrono::duration_cast<chrono::milliseconds > (end - start).count() << " ms\n";
                 break;
             }
             default:{
@@ -95,6 +103,13 @@ void efcGraph(Graph* graph,const string& file){
                 std::vector<Node*> mst;
                 min = graph->TriangularApproximationHeuristic(graph->getNodeSet(),mst,"extra","2");
                 printPath(mst,min);
+                break;
+            }
+            case 3: {
+                std::vector<Node *> path;
+                vector<Node*> emptyCluster;
+                path = graph->kMeansDivideAndConquer(sqrt(graph->getNumNode()), emptyCluster, min, true);
+                printPath(path, min);
                 break;
             }
             default:{
@@ -468,10 +483,9 @@ void chooseGraph(Graph* graph){
 
 int main(){
     Graph graph;
-    auto start = chrono::steady_clock::now();
+
     chooseGraph(&graph);
-    auto end = chrono::steady_clock::now();
-    cout << "Finished in: " <<  chrono::duration_cast<chrono::milliseconds > (end - start).count() << " ms";
+
 
     return 0;
 }

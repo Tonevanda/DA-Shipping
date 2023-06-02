@@ -51,7 +51,6 @@ void fillInBlanks(Graph* graph) {
             Node* destinationNode = nodeSet[j];
 
             if (!isAlreadyInEdges(destinationNode->getId(), currentNode->getAdj())) {
-                cout << "Adding from " << currentNode->getId() << " to " << destinationNode->getId() << endl;
                 double distance = haversineDistance(currentNode->getLon(), currentNode->getLat(), destinationNode->getLon(),destinationNode->getLat());
                 graph->addBidirectionalEdge(currentNode->getId(), destinationNode->getId(), distance);
             }
@@ -120,7 +119,6 @@ void readRealWorldEdges(Graph* graph, string file){
 
 
 void readToyGraph(Graph* graph, string file){
-    cout << "reading toy graph\n";
     ifstream fout;
     fout.open(file);
     if(!fout.is_open()) {
@@ -144,7 +142,6 @@ void readToyGraph(Graph* graph, string file){
 }
 
 void readToyGraphWith1Distance(Graph* graph, string file){
-    cout << "reading toy graph\n";
     ifstream fout;
     fout.open(file);
     if(!fout.is_open()) {

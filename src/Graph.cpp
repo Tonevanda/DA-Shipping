@@ -126,7 +126,14 @@ double Graph::tspBTRec(std::vector<Node *>& path, double min, double curCost, un
     if(zeroHasNoEdgesLeft()) return min;
     if(!NodeSet[i]->isVisited()){
         if(curPathSize == NodeSet.size()-1){
-            double sum = tspBTRec(path,min,curCost+NodeSet[i]->getAdj()[0]->getWeight(),0,curPathSize,true);
+            double distToZero;
+            for(Edge* e : NodeSet[i]->getAdj()){
+                if(e->getDest()->getId()==0){
+                    distToZero=e->getWeight();
+                    break;
+                }
+            }
+            double sum = tspBTRec(path,min,curCost+distToZero,0,curPathSize,true);
             if(sum < min && NodeSet[i]->getAdj()[0]->getDest()->getId()==0){
                 min = sum;
                 path[curPathSize] = NodeSet[i];
@@ -160,7 +167,9 @@ double Graph::tspBT(std::vector<Node *>& path){
     for(int i = 0; i < NodeSet.size()-1; i++){
         NodeSet[i]->setVisited(false);
     }
-    return tspBTRec(path,INT_MAX,0,0,0,false);
+    double mean = tspBTRec(path,INT_MAX,0,0,0,false);
+    path.push_back(NodeSet[0]);
+    return mean;
 }
 
 void Graph::preOrder(Node* node,std::vector<Node*>& mst, bool firstIt, double& weight, const string& ex){
@@ -209,18 +218,18 @@ double Graph::TriangularApproximationHeuristic(vector<Node*> nodeSet,std::vector
         node->setVisited(false);
     }
 
-    if(type == "toy" && ex=="2"){
-        calculateMissingToyDistances();
-        for(Node* node : NodeSet){
-            node->setVisited(false);
-        }
-    }
-
     double weight = 0;
 
     if (ex=="2") kruskal();
     else{
         kruskalEx3(nodeSet);
+    }
+
+    if(type == "toy" && ex=="2"){
+        for(Node* node : NodeSet){
+            node->setVisited(false);
+        }
+        calculateMissingToyDistances();
     }
 
     if(ex=="2")preOrder(NodeSet[0],L,true, weight, ex);
@@ -362,7 +371,6 @@ double Graph::getEdgeWeight(Node* first, Node* second){
 bool areAdj(Node* first, Node* second){
     for(Edge* edge : first->getAdj()){
         if(edge->getDest()==second){
-            //cout << "First: " << first->getId() << " and Second: " << second->getId() << " are adj\n";
             return true;
         }
     }
@@ -388,11 +396,11 @@ vector<Node*> Graph::joinSolvedTSP(vector<Node*> solved, vector<Node*> add, doub
         for(Node* second : add){
             dist = getEdgeWeight(first, second);
             if(dist < min){
+                //Eliminar caso assumamos que é fully connected
                 int temp = i+1, tempJ = j-1;
                 if(temp==solved.size()) temp = 0;
                 if(tempJ < 0) tempJ =add.size()-1;
                 if(!areAdj(solved[temp],add[tempJ])){
-                    cout << "temp: " << temp << " | tempJ: " << tempJ << endl;
                     continue;
                 }
                 min = dist;
@@ -509,15 +517,6 @@ vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters, doubl
     if(k <= 0) return clusters;
 
     if(!clusters.empty() && ((clusters.size()<=3 || haveSimilarDistance(clusters) || k <= 1))){
-        if(isFullyConnected(clusters)){
-            cout << "Yes!\n";
-        }
-        else{
-            for(auto node : clusters){
-                cout << node->getId() << ", ";
-            }
-            cout << " are not fully connected\n";
-        }
         vector<Node*> result;
         TriangularApproximationHeuristic(clusters, result,"real", "3");
         return result;

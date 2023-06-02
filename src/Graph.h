@@ -104,7 +104,7 @@ public:
      * @param curPathSize Represents the current path size
      * @param ended Checks if the end of the path has been reached
      * @return The minimum cost of the paths travelled
-     * @note Time-complexity -> O((n-1)!) with n being the number of nodes in the graph
+     * @note Time-complexity -> O((n-1)!*E) with n being the number of nodes in the graph
      */
     double tspBTRec(std::vector<Node *>& path, double min, double curCost, unsigned int i, unsigned int curPathSize, bool ended);
     /**
@@ -113,7 +113,7 @@ public:
      * that implements the backtracking algorithm.
      * @param path Is initially sent as an empty vector. At the end of the function call, represents the optimal path.
      * @return The weight of the optimal path
-     * @note Time-complexity -> O((n-1)!) with n being the number of nodes in the graph
+     * @note Time-complexity -> O((n-1)!*E) with n being the number of nodes in the graph
      */
     double tspBT(std::vector<Node *>& path);
     /**
