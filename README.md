@@ -24,7 +24,7 @@ of the algorithms developed.
 - [x] Create one (or more) appropriate graphs upon which you will carry out the requested tasks.
 
 ## T1.3 (2 points)
-- [ ] Include documentation for all code implemented in this project, using Doxygen, indicating the corresponding time complexity for each algorithm implemented.
+- [x] Include documentation for all code implemented in this project, using Doxygen, indicating the corresponding time complexity for each algorithm implemented.
 
 ## Backtracking Algorithm - T2.1 (4 points)
 - [x] Develop a backtracking algorithmic approach to the TSP for a graph starting and ending the node tour on node labelled with the zero-identifier label
@@ -42,9 +42,9 @@ of the algorithms developed.
 - [x] Divide-and-conquer to split the graph into multiple geographic sections
 - [x] Use of clustering
 - [x] Or both, possibly even in combination with the 2-approximation algorithm.
-- [ ] Note though, that in this algorithm the tour has to rely exclusively on “real” or existing edges and cannot be “approximated” as you possibly have done in the 2-approximation algorithm. Nevertheless, you may use the “non-real” approximation solution as a basis for your heuristic.
+- [x] Note though, that in this algorithm the tour has to rely exclusively on “real” or existing edges and cannot be “approximated” as you possibly have done in the 2-approximation algorithm. Nevertheless, you may use the “non-real” approximation solution as a basis for your heuristic.
 - [ ] Compare the quality and run-time performance of your heuristic solution against the 2-approximation algorithm (if you do not rely on it).
-- [ ] Although possible, you are not expected to present multiple heuristics, but rather a heuristic that works well over the basic 2- approximation or one that offers comparable tour length results but with noticeably faster execution time (i.e., time complexity).
+- [x] Although possible, you are not expected to present multiple heuristics, but rather a heuristic that works well over the basic 2- approximation or one that offers comparable tour length results but with noticeably faster execution time (i.e., time complexity).
 
 ## Demonstration & Presentation - T4.1 (2 points)
 - [ ] Prepare a presentation of your work with the main conclusions about your implementation of the TSP applied to the scenario of urban deliveries.
