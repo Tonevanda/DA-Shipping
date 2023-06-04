@@ -1,0 +1,190 @@
+\doxysection{Edge Class Reference}
+\hypertarget{class_edge}{}\label{class_edge}\index{Edge@{Edge}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_edge_abdd628dd626fefea2ac47d25ca708b8f}{Edge}} (\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*}orig, \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*}dest, double w)
+\item 
+\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_edge_af2cd0f7cba34228f76c4b20a84a2de9d}{get\+Dest}} () const
+\item 
+double \mbox{\hyperlink{class_edge_a1caaffca117bab3ff5b7387623a356f8}{get\+Weight}} () const
+\item 
+bool \mbox{\hyperlink{class_edge_a52967cf488bb7185a512cd111420215d}{is\+Selected}} () const
+\item 
+\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_edge_af999c2a84d2da0e46eabe8674bc68b91}{get\+Orig}} () const
+\item 
+\mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_edge_a756d2d246aa5445d0f396626c7d4fd56}{get\+Reverse}} () const
+\item 
+double \mbox{\hyperlink{class_edge_a30ff9f3127097db8dce20f5e8b15e6dc}{get\+Flow}} () const
+\item 
+void \mbox{\hyperlink{class_edge_a8ab1cf2fe7fd16152d1dba3822853894}{set\+Selected}} (bool selected)
+\item 
+void \mbox{\hyperlink{class_edge_a64881280015bd83702fe3b2c6234b7e5}{set\+Reverse}} (\mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*}reverse)
+\item 
+void \mbox{\hyperlink{class_edge_a788cfe1f98772af4e7bbfe6310d0ccaa}{set\+Flow}} (double flow)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_edge_a70eb1c0683ec0a252fbeff0cdf7403ef}\label{class_edge_a70eb1c0683ec0a252fbeff0cdf7403ef} 
+\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} {\bfseries dest}
+\item 
+\Hypertarget{class_edge_a6d0148402e635354c03a151c77fcbdd8}\label{class_edge_a6d0148402e635354c03a151c77fcbdd8} 
+double {\bfseries weight}
+\item 
+\Hypertarget{class_edge_a3af6d278c4ddcb2589e1aa66e52f4efb}\label{class_edge_a3af6d278c4ddcb2589e1aa66e52f4efb} 
+bool {\bfseries selected} = false
+\item 
+\Hypertarget{class_edge_adfb0179295b1791c95016f43132398c6}\label{class_edge_adfb0179295b1791c95016f43132398c6} 
+\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} {\bfseries orig}
+\item 
+\Hypertarget{class_edge_abcadfaa8985d0d593a124d0fea39130a}\label{class_edge_abcadfaa8985d0d593a124d0fea39130a} 
+\mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*} {\bfseries reverse} = nullptr
+\item 
+\Hypertarget{class_edge_adbe59333b5a49cbb85b39ce1272e6098}\label{class_edge_adbe59333b5a49cbb85b39ce1272e6098} 
+double {\bfseries flow}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_edge_abdd628dd626fefea2ac47d25ca708b8f}\label{class_edge_abdd628dd626fefea2ac47d25ca708b8f} 
+\index{Edge@{Edge}!Edge@{Edge}}
+\index{Edge@{Edge}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{Edge()}{Edge()}}
+{\footnotesize\ttfamily Edge\+::\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*}}]{orig,  }\item[{\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*}}]{dest,  }\item[{double}]{w }\end{DoxyParamCaption})}
+
+Default constructor of \doxylink{class_edge}{Edge} class. 
+\begin{DoxyParams}{Parameters}
+{\em orig} & Represents the origin node of the edge \\
+\hline
+{\em dest} & Represents the destination node of the edge \\
+\hline
+{\em w} & Represents the weight of the edge \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_edge_af2cd0f7cba34228f76c4b20a84a2de9d}\label{class_edge_af2cd0f7cba34228f76c4b20a84a2de9d} 
+\index{Edge@{Edge}!getDest@{getDest}}
+\index{getDest@{getDest}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{getDest()}{getDest()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} Edge\+::get\+Dest (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the destination node of the (this) edge. \begin{DoxyReturn}{Returns}
+The destination node of (this) edge 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_edge_a30ff9f3127097db8dce20f5e8b15e6dc}\label{class_edge_a30ff9f3127097db8dce20f5e8b15e6dc} 
+\index{Edge@{Edge}!getFlow@{getFlow}}
+\index{getFlow@{getFlow}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{getFlow()}{getFlow()}}
+{\footnotesize\ttfamily double Edge\+::get\+Flow (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the flow of the (this) edge. \begin{DoxyReturn}{Returns}
+The flow of the edge 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_edge_af999c2a84d2da0e46eabe8674bc68b91}\label{class_edge_af999c2a84d2da0e46eabe8674bc68b91} 
+\index{Edge@{Edge}!getOrig@{getOrig}}
+\index{getOrig@{getOrig}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{getOrig()}{getOrig()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} Edge\+::get\+Orig (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the origin node of the (this) edge. \begin{DoxyReturn}{Returns}
+The origin node of the edge 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_edge_a756d2d246aa5445d0f396626c7d4fd56}\label{class_edge_a756d2d246aa5445d0f396626c7d4fd56} 
+\index{Edge@{Edge}!getReverse@{getReverse}}
+\index{getReverse@{getReverse}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{getReverse()}{getReverse()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*} Edge\+::get\+Reverse (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the reverse of the (this) edge. \begin{DoxyReturn}{Returns}
+The reverse of the edge 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_edge_a1caaffca117bab3ff5b7387623a356f8}\label{class_edge_a1caaffca117bab3ff5b7387623a356f8} 
+\index{Edge@{Edge}!getWeight@{getWeight}}
+\index{getWeight@{getWeight}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{getWeight()}{getWeight()}}
+{\footnotesize\ttfamily double Edge\+::get\+Weight (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the weight of the (this) edge. \begin{DoxyReturn}{Returns}
+The weight of (this) edge 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_edge_a52967cf488bb7185a512cd111420215d}\label{class_edge_a52967cf488bb7185a512cd111420215d} 
+\index{Edge@{Edge}!isSelected@{isSelected}}
+\index{isSelected@{isSelected}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{isSelected()}{isSelected()}}
+{\footnotesize\ttfamily bool Edge\+::is\+Selected (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Checks if the (this) edge is selected. \begin{DoxyReturn}{Returns}
+True if the edge is selected, false otherwise 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_edge_a788cfe1f98772af4e7bbfe6310d0ccaa}\label{class_edge_a788cfe1f98772af4e7bbfe6310d0ccaa} 
+\index{Edge@{Edge}!setFlow@{setFlow}}
+\index{setFlow@{setFlow}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setFlow()}{setFlow()}}
+{\footnotesize\ttfamily void Edge\+::set\+Flow (\begin{DoxyParamCaption}\item[{double}]{flow }\end{DoxyParamCaption})}
+
+Sets the flow field of (this) edge to the value given in the parameter. 
+\begin{DoxyParams}{Parameters}
+{\em flow} & The new value of the flow field \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_edge_a64881280015bd83702fe3b2c6234b7e5}\label{class_edge_a64881280015bd83702fe3b2c6234b7e5} 
+\index{Edge@{Edge}!setReverse@{setReverse}}
+\index{setReverse@{setReverse}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setReverse()}{setReverse()}}
+{\footnotesize\ttfamily void Edge\+::set\+Reverse (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*}}]{reverse }\end{DoxyParamCaption})}
+
+Sets the reverse field of (this) edge to the value given in the parameter. 
+\begin{DoxyParams}{Parameters}
+{\em reverse} & The new value of the reverse field \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_edge_a8ab1cf2fe7fd16152d1dba3822853894}\label{class_edge_a8ab1cf2fe7fd16152d1dba3822853894} 
+\index{Edge@{Edge}!setSelected@{setSelected}}
+\index{setSelected@{setSelected}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setSelected()}{setSelected()}}
+{\footnotesize\ttfamily void Edge\+::set\+Selected (\begin{DoxyParamCaption}\item[{bool}]{selected }\end{DoxyParamCaption})}
+
+Sets the selected field of (this) edge to the value given in the parameter. 
+\begin{DoxyParams}{Parameters}
+{\em selected} & The new value of the select field \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Node\+Edge.\+h\item 
+src/Node\+Edge.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,27 @@
+\doxysection{print.\+h}
+\hypertarget{print_8h_source}{}\label{print_8h_source}\index{src/print.h@{src/print.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ tiago\ on\ 26/05/2023.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ PROJETO\_DA\_2\_PRINT\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ PROJETO\_DA\_2\_PRINT\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}Graph.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}NodeEdge.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00018\ \textcolor{keywordtype}{void}\ printPath(std::vector<Node*>\ path,\ \textcolor{keywordtype}{double}\ min)\{}
+\DoxyCodeLine{00019\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Path\ size:\ "{}}\ <<\ path.size()\ <<\ endl;}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ path.size();i++)\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(i\ ==\ path.size()-\/1)\ cout\ <<\ path[i]-\/>getId()\ <<\ endl;}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ cout\ <<\ path[i]-\/>getId()\ <<\ \textcolor{stringliteral}{"{},\ "{}};}
+\DoxyCodeLine{00023\ \ \ \ \ \}}
+\DoxyCodeLine{00024\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Minimum\ total\ distance\ value:\ "{}}\ <<\ min\ <<\ endl;}
+\DoxyCodeLine{00025\ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//PROJETO\_DA\_2\_PRINT\_H}}
+
+\end{DoxyCode}

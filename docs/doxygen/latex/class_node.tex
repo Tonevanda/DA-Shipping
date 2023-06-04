@@ -1,0 +1,485 @@
+\doxysection{Node Class Reference}
+\hypertarget{class_node}{}\label{class_node}\index{Node@{Node}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_node_abb2490a62808bc228a6ba1d41b3816bd}{Node}} (int id, double longitude, double latitude)
+\item 
+bool \mbox{\hyperlink{class_node_a53d6bc446575b5a6e472e347964d9b34}{operator$<$}} (\mbox{\hyperlink{class_node}{Node}} \&node) const
+\item 
+int \mbox{\hyperlink{class_node_a04d6761bf0ead66eb628a6ef5abc34e1}{get\+Id}} () const
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_node_a5ac9a56b483c1393d5da874344766bad}{get\+Adj}} () const
+\item 
+bool \mbox{\hyperlink{class_node_a97dd8f95e09a0516f8939627f94bd58e}{is\+Visited}} () const
+\item 
+bool \mbox{\hyperlink{class_node_a8e30dd2ee8ec2cbff1f1900d7d20624d}{is\+Processing}} () const
+\item 
+unsigned int \mbox{\hyperlink{class_node_a72a0f9bd8f283c3fb536cda8fb30173a}{get\+Indegree}} () const
+\item 
+double \mbox{\hyperlink{class_node_aef2fab11e82901b2a35af6c4837d18b2}{get\+Dist}} () const
+\item 
+\mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_node_aa65cdeade5f183eea5b8642b9a37acbe}{get\+Path}} () const
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_node_ad7b5e67fe2ca67716aea305bffa0e84f}{get\+Incoming}} () const
+\item 
+double \mbox{\hyperlink{class_node_a9cc3d31604ee69dcb4438e7986268d81}{get\+Lon}} () const
+\item 
+double \mbox{\hyperlink{class_node_a92ad9ade2f0618ecc3900df419bfe2b5}{get\+Lat}} () const
+\item 
+int \mbox{\hyperlink{class_node_ac2376db1cde4f565bc0afd418f134886}{get\+Cluster\+ID}} () const
+\item 
+void \mbox{\hyperlink{class_node_ac17b560382aa82df1f7de67155d5f5f9}{set\+Id}} (int info)
+\item 
+void \mbox{\hyperlink{class_node_a6fe3ebcd0eaf9fece72dfbc0ffc257bb}{set\+Visited}} (bool visited)
+\item 
+void \mbox{\hyperlink{class_node_a9d5eba6a4a40e04cb1ac06740766bd54}{set\+Processing}} (bool processing)
+\item 
+void \mbox{\hyperlink{class_node_a32ae13821030bd224e31a1bf4cd6880c}{set\+Indegree}} (unsigned int indegree)
+\item 
+void \mbox{\hyperlink{class_node_a2b362ede276752ef43c1cc45eeb64b79}{set\+Dist}} (double dist)
+\item 
+void \mbox{\hyperlink{class_node_acf6663d813e9acfc2bbc09001f1cb29e}{set\+Path}} (\mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*}path)
+\item 
+\mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_node_ac7b3541b7d40a80cdd1f60d21140a8e2}{add\+Edge}} (\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*}dest, double w)
+\item 
+bool \mbox{\hyperlink{class_node_afab71e914cbec8baba7f522bf79b8502}{remove\+Edge}} (int dest\+ID)
+\item 
+void \mbox{\hyperlink{class_node_aa579ab57a53873488d535779e43ac983}{set\+Lon}} (double lon)
+\item 
+void \mbox{\hyperlink{class_node_abafe0b21004dedeb9afe735fca4f3138}{set\+Lat}} (double lat)
+\item 
+void \mbox{\hyperlink{class_node_ab81a563b620350403b2c4f253beafdad}{set\+Cluster}} (int cluster\+ID)
+\item 
+void \mbox{\hyperlink{class_node_ac343bb1c160616c7980ddc52522c90ee}{sort\+Edges}} ()
+\item 
+void \mbox{\hyperlink{class_node_a69e268d7f12212500f6b2011b68a1cbf}{sort\+Edges\+By\+ID}} ()
+\item 
+bool \mbox{\hyperlink{class_node_a89f49fc387edbe9503fbc2dc355b08c0}{is\+Inside\+Vector}} (const std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \&vector) const
+\item 
+void \mbox{\hyperlink{class_node_a60cfaf90106307339e06ad13aebdcd53}{delete\+Adj}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_node_a59a543130a10c95f1e8642cf8c5645e8}\label{class_node_a59a543130a10c95f1e8642cf8c5645e8} 
+int {\bfseries id}
+\item 
+\Hypertarget{class_node_a190ef381d0909f2677a0a96461cf2228}\label{class_node_a190ef381d0909f2677a0a96461cf2228} 
+std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries adj}
+\item 
+\Hypertarget{class_node_aa1bdec4e775fc578632e6a2dced9e251}\label{class_node_aa1bdec4e775fc578632e6a2dced9e251} 
+bool {\bfseries visited} = false
+\item 
+\Hypertarget{class_node_ac54c0bde41664161566c30ccf4f8a53e}\label{class_node_ac54c0bde41664161566c30ccf4f8a53e} 
+bool {\bfseries processing} = false
+\item 
+\Hypertarget{class_node_a85c5f12ea43de89ef93912bf68b4b5c5}\label{class_node_a85c5f12ea43de89ef93912bf68b4b5c5} 
+unsigned int {\bfseries indegree}
+\item 
+\Hypertarget{class_node_acb43bb8f558e3bac6fcc6801ce763402}\label{class_node_acb43bb8f558e3bac6fcc6801ce763402} 
+double {\bfseries dist} = std\+::numeric\+\_\+limits$<$double$>$\+::max()
+\item 
+\Hypertarget{class_node_ad77c743a8b6440d9d4f4f80050df6c2e}\label{class_node_ad77c743a8b6440d9d4f4f80050df6c2e} 
+\mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*} {\bfseries path} = nullptr
+\item 
+\Hypertarget{class_node_a18e537ee3be0b0f494e54d19486b532b}\label{class_node_a18e537ee3be0b0f494e54d19486b532b} 
+double {\bfseries latitude} = 0
+\item 
+\Hypertarget{class_node_af1772ed9e687d1e230f21c8fdf955ee9}\label{class_node_af1772ed9e687d1e230f21c8fdf955ee9} 
+double {\bfseries longitude} = 0
+\item 
+\Hypertarget{class_node_ac95609d05b6fd5abf4456b1e3f0be9b5}\label{class_node_ac95609d05b6fd5abf4456b1e3f0be9b5} 
+int {\bfseries cluster\+ID}
+\item 
+\Hypertarget{class_node_a2ce3b44e46cc4fbb18966a6d66277753}\label{class_node_a2ce3b44e46cc4fbb18966a6d66277753} 
+std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries incoming}
+\item 
+\Hypertarget{class_node_a01788c18aef94f986ec563e8233365c1}\label{class_node_a01788c18aef94f986ec563e8233365c1} 
+int {\bfseries queue\+Index} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_node_abb2490a62808bc228a6ba1d41b3816bd}\label{class_node_abb2490a62808bc228a6ba1d41b3816bd} 
+\index{Node@{Node}!Node@{Node}}
+\index{Node@{Node}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{Node()}{Node()}}
+{\footnotesize\ttfamily Node\+::\+Node (\begin{DoxyParamCaption}\item[{int}]{id,  }\item[{double}]{longitude,  }\item[{double}]{latitude }\end{DoxyParamCaption})}
+
+Default constructor of the \doxylink{class_node}{Node} class. 
+\begin{DoxyParams}{Parameters}
+{\em id} & Represents the ID of the node to be created \\
+\hline
+{\em longitude} & Represents the longitude of the node to be created \\
+\hline
+{\em latitude} & Represents the latitude of the node to be created \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_node_ac7b3541b7d40a80cdd1f60d21140a8e2}\label{class_node_ac7b3541b7d40a80cdd1f60d21140a8e2} 
+\index{Node@{Node}!addEdge@{addEdge}}
+\index{addEdge@{addEdge}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{addEdge()}{addEdge()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*} Node\+::add\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*}}]{dest,  }\item[{double}]{w }\end{DoxyParamCaption})}
+
+Adds edge from (this) node to node\texorpdfstring{$\ast$}{*} dest given as parameter with weight w. 
+\begin{DoxyParams}{Parameters}
+{\em dest} & Represents the destination of the added edge \\
+\hline
+{\em w} & Represents the weight of the added edge \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The added edge\texorpdfstring{$\ast$}{*} 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_a60cfaf90106307339e06ad13aebdcd53}\label{class_node_a60cfaf90106307339e06ad13aebdcd53} 
+\index{Node@{Node}!deleteAdj@{deleteAdj}}
+\index{deleteAdj@{deleteAdj}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{deleteAdj()}{deleteAdj()}}
+{\footnotesize\ttfamily void Node\+::delete\+Adj (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Deletes the outgoing edges of the (this) node. \begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(n) with n being number of outgoing edges of the (this) node 
+\end{DoxyNote}
+\Hypertarget{class_node_a5ac9a56b483c1393d5da874344766bad}\label{class_node_a5ac9a56b483c1393d5da874344766bad} 
+\index{Node@{Node}!getAdj@{getAdj}}
+\index{getAdj@{getAdj}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getAdj()}{getAdj()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*} $>$ Node\+::get\+Adj (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the node\textquotesingle{}s (this) outgoing edges. \begin{DoxyReturn}{Returns}
+vector\&lt Edge\texorpdfstring{$\ast$}{*}\texorpdfstring{$>$}{>} with the node\textquotesingle{}s outgoing edges 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_ac2376db1cde4f565bc0afd418f134886}\label{class_node_ac2376db1cde4f565bc0afd418f134886} 
+\index{Node@{Node}!getClusterID@{getClusterID}}
+\index{getClusterID@{getClusterID}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getClusterID()}{getClusterID()}}
+{\footnotesize\ttfamily int Node\+::get\+Cluster\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the node\textquotesingle{}s (this) cluster id. \begin{DoxyReturn}{Returns}
+The node\textquotesingle{}s cluster id 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_aef2fab11e82901b2a35af6c4837d18b2}\label{class_node_aef2fab11e82901b2a35af6c4837d18b2} 
+\index{Node@{Node}!getDist@{getDist}}
+\index{getDist@{getDist}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getDist()}{getDist()}}
+{\footnotesize\ttfamily double Node\+::get\+Dist (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the node\textquotesingle{}s (this) distance. \begin{DoxyReturn}{Returns}
+The node\textquotesingle{}s distance 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_a04d6761bf0ead66eb628a6ef5abc34e1}\label{class_node_a04d6761bf0ead66eb628a6ef5abc34e1} 
+\index{Node@{Node}!getId@{getId}}
+\index{getId@{getId}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getId()}{getId()}}
+{\footnotesize\ttfamily int Node\+::get\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the node\textquotesingle{}s (this) ID. \begin{DoxyReturn}{Returns}
+\doxylink{class_node}{Node}\textquotesingle{}s ID 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_ad7b5e67fe2ca67716aea305bffa0e84f}\label{class_node_ad7b5e67fe2ca67716aea305bffa0e84f} 
+\index{Node@{Node}!getIncoming@{getIncoming}}
+\index{getIncoming@{getIncoming}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getIncoming()}{getIncoming()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*} $>$ Node\+::get\+Incoming (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the node\textquotesingle{}s (this) incoming edges. \begin{DoxyReturn}{Returns}
+vector\&lt Edge\texorpdfstring{$\ast$}{*}\texorpdfstring{$>$}{>} with the node\textquotesingle{}s incoming edges 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_a72a0f9bd8f283c3fb536cda8fb30173a}\label{class_node_a72a0f9bd8f283c3fb536cda8fb30173a} 
+\index{Node@{Node}!getIndegree@{getIndegree}}
+\index{getIndegree@{getIndegree}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getIndegree()}{getIndegree()}}
+{\footnotesize\ttfamily unsigned int Node\+::get\+Indegree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the node\textquotesingle{}s (this) indegree. \begin{DoxyReturn}{Returns}
+The node\textquotesingle{}s indegree 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_a92ad9ade2f0618ecc3900df419bfe2b5}\label{class_node_a92ad9ade2f0618ecc3900df419bfe2b5} 
+\index{Node@{Node}!getLat@{getLat}}
+\index{getLat@{getLat}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getLat()}{getLat()}}
+{\footnotesize\ttfamily double Node\+::get\+Lat (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the node\textquotesingle{}s (this) latitude \begin{DoxyReturn}{Returns}
+The node\textquotesingle{}s latitude 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_a9cc3d31604ee69dcb4438e7986268d81}\label{class_node_a9cc3d31604ee69dcb4438e7986268d81} 
+\index{Node@{Node}!getLon@{getLon}}
+\index{getLon@{getLon}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getLon()}{getLon()}}
+{\footnotesize\ttfamily double Node\+::get\+Lon (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the node\textquotesingle{}s (this) longitude \begin{DoxyReturn}{Returns}
+The node\textquotesingle{}s longitude 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_aa65cdeade5f183eea5b8642b9a37acbe}\label{class_node_aa65cdeade5f183eea5b8642b9a37acbe} 
+\index{Node@{Node}!getPath@{getPath}}
+\index{getPath@{getPath}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getPath()}{getPath()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*} Node\+::get\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the node\textquotesingle{}s (this) path. \begin{DoxyReturn}{Returns}
+the node\textquotesingle{}s path 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_a89f49fc387edbe9503fbc2dc355b08c0}\label{class_node_a89f49fc387edbe9503fbc2dc355b08c0} 
+\index{Node@{Node}!isInsideVector@{isInsideVector}}
+\index{isInsideVector@{isInsideVector}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{isInsideVector()}{isInsideVector()}}
+{\footnotesize\ttfamily bool Node\+::is\+Inside\+Vector (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \&}]{vector }\end{DoxyParamCaption}) const}
+
+Checks if node (this) is inside the vector passed as parameter. 
+\begin{DoxyParams}{Parameters}
+{\em vector} & Represents the vector which we wish to check the presence of the (this) node. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the (this) node is inside the vector, false otherwise. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(n) with n being the size of the vector 
+\end{DoxyNote}
+\Hypertarget{class_node_a8e30dd2ee8ec2cbff1f1900d7d20624d}\label{class_node_a8e30dd2ee8ec2cbff1f1900d7d20624d} 
+\index{Node@{Node}!isProcessing@{isProcessing}}
+\index{isProcessing@{isProcessing}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{isProcessing()}{isProcessing()}}
+{\footnotesize\ttfamily bool Node\+::is\+Processing (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Checks if the node (this) is processing. \begin{DoxyReturn}{Returns}
+True if it is processing, false otherwise 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_a97dd8f95e09a0516f8939627f94bd58e}\label{class_node_a97dd8f95e09a0516f8939627f94bd58e} 
+\index{Node@{Node}!isVisited@{isVisited}}
+\index{isVisited@{isVisited}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{isVisited()}{isVisited()}}
+{\footnotesize\ttfamily bool Node\+::is\+Visited (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Checks if the node (this) was already visited. \begin{DoxyReturn}{Returns}
+True if it was already visited, false otherwise 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_a53d6bc446575b5a6e472e347964d9b34}\label{class_node_a53d6bc446575b5a6e472e347964d9b34} 
+\index{Node@{Node}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{operator$<$()}{operator<()}}
+{\footnotesize\ttfamily bool Node\+::operator$<$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_node}{Node}} \&}]{node }\end{DoxyParamCaption}) const}
+
+Operator\texorpdfstring{$<$}{<} overrider. Used to compare nodes by distance. 
+\begin{DoxyParams}{Parameters}
+{\em node} & Represents the node to be compared \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the distance of (this) is lower than the distance of the node given as parameter, false otherwise. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_afab71e914cbec8baba7f522bf79b8502}\label{class_node_afab71e914cbec8baba7f522bf79b8502} 
+\index{Node@{Node}!removeEdge@{removeEdge}}
+\index{removeEdge@{removeEdge}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{removeEdge()}{removeEdge()}}
+{\footnotesize\ttfamily bool Node\+::remove\+Edge (\begin{DoxyParamCaption}\item[{int}]{dest\+ID }\end{DoxyParamCaption})}
+
+Removes the edge from (this) node to the node with dest\+ID. 
+\begin{DoxyParams}{Parameters}
+{\em dest\+ID} & Represents the id of the destination node of the edge to be removed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, false if such \doxylink{class_edge}{Edge} does not exist 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(n\texorpdfstring{$^\wedge$}{\string^}2) 
+\end{DoxyNote}
+\Hypertarget{class_node_ab81a563b620350403b2c4f253beafdad}\label{class_node_ab81a563b620350403b2c4f253beafdad} 
+\index{Node@{Node}!setCluster@{setCluster}}
+\index{setCluster@{setCluster}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setCluster()}{setCluster()}}
+{\footnotesize\ttfamily void Node\+::set\+Cluster (\begin{DoxyParamCaption}\item[{int}]{cluster\+ID }\end{DoxyParamCaption})}
+
+Sets the node\textquotesingle{}s (this) cluster ID 
+\begin{DoxyParams}{Parameters}
+{\em cluster\+ID} & Represents the ID of the cluster the node belongs to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_a2b362ede276752ef43c1cc45eeb64b79}\label{class_node_a2b362ede276752ef43c1cc45eeb64b79} 
+\index{Node@{Node}!setDist@{setDist}}
+\index{setDist@{setDist}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setDist()}{setDist()}}
+{\footnotesize\ttfamily void Node\+::set\+Dist (\begin{DoxyParamCaption}\item[{double}]{dist }\end{DoxyParamCaption})}
+
+Sets the node\textquotesingle{}s dist field with the value given in the parameter. 
+\begin{DoxyParams}{Parameters}
+{\em dist} & Represents the node\textquotesingle{}s new dist \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_ac17b560382aa82df1f7de67155d5f5f9}\label{class_node_ac17b560382aa82df1f7de67155d5f5f9} 
+\index{Node@{Node}!setId@{setId}}
+\index{setId@{setId}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setId()}{setId()}}
+{\footnotesize\ttfamily void Node\+::set\+Id (\begin{DoxyParamCaption}\item[{int}]{info }\end{DoxyParamCaption})}
+
+Sets the node\textquotesingle{}s ID 
+\begin{DoxyParams}{Parameters}
+{\em info} & Represents the node\textquotesingle{}s new ID \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_a32ae13821030bd224e31a1bf4cd6880c}\label{class_node_a32ae13821030bd224e31a1bf4cd6880c} 
+\index{Node@{Node}!setIndegree@{setIndegree}}
+\index{setIndegree@{setIndegree}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setIndegree()}{setIndegree()}}
+{\footnotesize\ttfamily void Node\+::set\+Indegree (\begin{DoxyParamCaption}\item[{unsigned int}]{indegree }\end{DoxyParamCaption})}
+
+Sets the node\textquotesingle{}s indegree field with the value given in the parameter. 
+\begin{DoxyParams}{Parameters}
+{\em indegree} & Represents the node\textquotesingle{}s new indegree \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_abafe0b21004dedeb9afe735fca4f3138}\label{class_node_abafe0b21004dedeb9afe735fca4f3138} 
+\index{Node@{Node}!setLat@{setLat}}
+\index{setLat@{setLat}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setLat()}{setLat()}}
+{\footnotesize\ttfamily void Node\+::set\+Lat (\begin{DoxyParamCaption}\item[{double}]{lat }\end{DoxyParamCaption})}
+
+Sets the node\textquotesingle{}s (this) latitude with the value given as parameter. 
+\begin{DoxyParams}{Parameters}
+{\em lat} & Represents the node\textquotesingle{}s new latitude \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_aa579ab57a53873488d535779e43ac983}\label{class_node_aa579ab57a53873488d535779e43ac983} 
+\index{Node@{Node}!setLon@{setLon}}
+\index{setLon@{setLon}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setLon()}{setLon()}}
+{\footnotesize\ttfamily void Node\+::set\+Lon (\begin{DoxyParamCaption}\item[{double}]{lon }\end{DoxyParamCaption})}
+
+Sets the node\textquotesingle{}s (this) longitude with the value given as parameter. 
+\begin{DoxyParams}{Parameters}
+{\em lon} & Represents the node\textquotesingle{}s new longitude \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_acf6663d813e9acfc2bbc09001f1cb29e}\label{class_node_acf6663d813e9acfc2bbc09001f1cb29e} 
+\index{Node@{Node}!setPath@{setPath}}
+\index{setPath@{setPath}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setPath()}{setPath()}}
+{\footnotesize\ttfamily void Node\+::set\+Path (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*}}]{path }\end{DoxyParamCaption})}
+
+Sets the node\textquotesingle{}s path field with the value given in the parameter. 
+\begin{DoxyParams}{Parameters}
+{\em path} & Represents the node\textquotesingle{}s new path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_a9d5eba6a4a40e04cb1ac06740766bd54}\label{class_node_a9d5eba6a4a40e04cb1ac06740766bd54} 
+\index{Node@{Node}!setProcessing@{setProcessing}}
+\index{setProcessing@{setProcessing}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setProcessing()}{setProcessing()}}
+{\footnotesize\ttfamily void Node\+::set\+Processing (\begin{DoxyParamCaption}\item[{bool}]{processing }\end{DoxyParamCaption})}
+
+Sets the node\textquotesingle{}s processing field with the 
+\begin{DoxyParams}{Parameters}
+{\em processing} & Represents the node\textquotesingle{}s processing status(true or false) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_a6fe3ebcd0eaf9fece72dfbc0ffc257bb}\label{class_node_a6fe3ebcd0eaf9fece72dfbc0ffc257bb} 
+\index{Node@{Node}!setVisited@{setVisited}}
+\index{setVisited@{setVisited}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setVisited()}{setVisited()}}
+{\footnotesize\ttfamily void Node\+::set\+Visited (\begin{DoxyParamCaption}\item[{bool}]{visited }\end{DoxyParamCaption})}
+
+Sets the node\textquotesingle{}s visited field with the value given in the parameter. 
+\begin{DoxyParams}{Parameters}
+{\em visited} & Represents the node\textquotesingle{}s visited status(true or false) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_node_ac343bb1c160616c7980ddc52522c90ee}\label{class_node_ac343bb1c160616c7980ddc52522c90ee} 
+\index{Node@{Node}!sortEdges@{sortEdges}}
+\index{sortEdges@{sortEdges}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{sortEdges()}{sortEdges()}}
+{\footnotesize\ttfamily void Node\+::sort\+Edges (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Sorts the node\textquotesingle{}s (this) outgoing edges by their weight, in increasing order. \begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(n\texorpdfstring{$\ast$}{*}log(n)) with n being the size of the Node\+Set 
+\end{DoxyNote}
+\Hypertarget{class_node_a69e268d7f12212500f6b2011b68a1cbf}\label{class_node_a69e268d7f12212500f6b2011b68a1cbf} 
+\index{Node@{Node}!sortEdgesByID@{sortEdgesByID}}
+\index{sortEdgesByID@{sortEdgesByID}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{sortEdgesByID()}{sortEdgesByID()}}
+{\footnotesize\ttfamily void Node\+::sort\+Edges\+By\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Sorts the node\textquotesingle{}s (this) outgoing edges by their ID, in increasing order. \begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(n\texorpdfstring{$\ast$}{*}log(n)) with n being the size of the Node\+Set 
+\end{DoxyNote}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Node\+Edge.\+h\item 
+src/Node\+Edge.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,26 @@
+\doxysection{UFDS.\+h}
+\hypertarget{_u_f_d_s_8h_source}{}\label{_u_f_d_s_8h_source}\index{src/UFDS.h@{src/UFDS.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifndef\ DA\_TP\_CLASSES\_UFDS}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ DA\_TP\_CLASSES\_UFDS}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_u_f_d_s}{UFDS}}\ \{}
+\DoxyCodeLine{00009\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{class_u_f_d_s}{UFDS}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ N);}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{class_u_f_d_s_afe161413e4cd6702b2ca2f475eddeca0}{findSet}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i);}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_u_f_d_s_a793b0e0337223456401318c652f0cdd0}{isSameSet}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ j);}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_u_f_d_s_a0955e92d417b1bfbba94dc8c660f86d3}{linkSets}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ j);}
+\DoxyCodeLine{00038\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00039\ \ \ \ \ std::vector<unsigned\ int>\ path;\ \textcolor{comment}{//\ Ancestor\ of\ node\ i\ (which\ can\ be\ itself).\ It\ is\ used\ to\ determine\ if\ two\ nodes\ are\ part\ of\ the\ same\ set.}}
+\DoxyCodeLine{00040\ \ \ \ \ std::vector<unsigned\ int>\ rank;\ \textcolor{comment}{//\ Upper\ bound\ for\ the\ height\ of\ a\ tree\ whose\ root\ is\ node\ i.}}
+\DoxyCodeLine{00041\ \};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//DA\_TP\_CLASSES\_UFDS}}
+
+\end{DoxyCode}

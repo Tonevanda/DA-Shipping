@@ -1,0 +1,91 @@
+\doxysection{UFDS Class Reference}
+\hypertarget{class_u_f_d_s}{}\label{class_u_f_d_s}\index{UFDS@{UFDS}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_u_f_d_s_a9daac3830c0769f08aceb6236f407248}{UFDS}} (unsigned int N)
+\item 
+unsigned long \mbox{\hyperlink{class_u_f_d_s_afe161413e4cd6702b2ca2f475eddeca0}{find\+Set}} (unsigned int i)
+\item 
+bool \mbox{\hyperlink{class_u_f_d_s_a793b0e0337223456401318c652f0cdd0}{is\+Same\+Set}} (unsigned int i, unsigned int j)
+\item 
+void \mbox{\hyperlink{class_u_f_d_s_a0955e92d417b1bfbba94dc8c660f86d3}{link\+Sets}} (unsigned int i, unsigned int j)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_u_f_d_s_a9daac3830c0769f08aceb6236f407248}\label{class_u_f_d_s_a9daac3830c0769f08aceb6236f407248} 
+\index{UFDS@{UFDS}!UFDS@{UFDS}}
+\index{UFDS@{UFDS}!UFDS@{UFDS}}
+\doxysubsubsection{\texorpdfstring{UFDS()}{UFDS()}}
+{\footnotesize\ttfamily UFDS\+::\+UFDS (\begin{DoxyParamCaption}\item[{unsigned int}]{N }\end{DoxyParamCaption})}
+
+Constructor for the \doxylink{class_u_f_d_s}{UFDS} class. Creates a \doxylink{class_u_f_d_s}{UFDS} object with path and rank with N size. 
+\begin{DoxyParams}{Parameters}
+{\em N} & Represents the size of the path and rank field \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(\+N) with N being the variable N passed as parameter 
+\end{DoxyNote}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_u_f_d_s_afe161413e4cd6702b2ca2f475eddeca0}\label{class_u_f_d_s_afe161413e4cd6702b2ca2f475eddeca0} 
+\index{UFDS@{UFDS}!findSet@{findSet}}
+\index{findSet@{findSet}!UFDS@{UFDS}}
+\doxysubsubsection{\texorpdfstring{findSet()}{findSet()}}
+{\footnotesize\ttfamily unsigned long UFDS\+::find\+Set (\begin{DoxyParamCaption}\item[{unsigned int}]{i }\end{DoxyParamCaption})}
+
+Finds the set which the node i is contained in. 
+\begin{DoxyParams}{Parameters}
+{\em i} & Represents a node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The path of node i 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(n), where n is the number of elements in the set. 
+\end{DoxyNote}
+\Hypertarget{class_u_f_d_s_a793b0e0337223456401318c652f0cdd0}\label{class_u_f_d_s_a793b0e0337223456401318c652f0cdd0} 
+\index{UFDS@{UFDS}!isSameSet@{isSameSet}}
+\index{isSameSet@{isSameSet}!UFDS@{UFDS}}
+\doxysubsubsection{\texorpdfstring{isSameSet()}{isSameSet()}}
+{\footnotesize\ttfamily bool UFDS\+::is\+Same\+Set (\begin{DoxyParamCaption}\item[{unsigned int}]{i,  }\item[{unsigned int}]{j }\end{DoxyParamCaption})}
+
+Checks if i and j, passed as parameters, are in the same set. 
+\begin{DoxyParams}{Parameters}
+{\em i} & Represents one of the nodes \\
+\hline
+{\em j} & Represents one of the nodes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the nodes are in the same set, false otherwise. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(n), where n is the number of elements in the set. 
+\end{DoxyNote}
+\Hypertarget{class_u_f_d_s_a0955e92d417b1bfbba94dc8c660f86d3}\label{class_u_f_d_s_a0955e92d417b1bfbba94dc8c660f86d3} 
+\index{UFDS@{UFDS}!linkSets@{linkSets}}
+\index{linkSets@{linkSets}!UFDS@{UFDS}}
+\doxysubsubsection{\texorpdfstring{linkSets()}{linkSets()}}
+{\footnotesize\ttfamily void UFDS\+::link\+Sets (\begin{DoxyParamCaption}\item[{unsigned int}]{i,  }\item[{unsigned int}]{j }\end{DoxyParamCaption})}
+
+Checks if the node i and j belong to the same set, if they don\textquotesingle{}t then links them together. 
+\begin{DoxyParams}{Parameters}
+{\em i} & Represents one of the nodes \\
+\hline
+{\em j} & Represents one of the nodes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(n), where n is the number of elements in the set. 
+\end{DoxyNote}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/UFDS.\+h\item 
+src/UFDS.\+cpp\end{DoxyCompactItemize}

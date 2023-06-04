@@ -1,0 +1,62 @@
+\doxysection{Graph.\+h}
+\hypertarget{_graph_8h_source}{}\label{_graph_8h_source}\index{src/Graph.h@{src/Graph.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ By:\ Gonçalo\ Leão}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifndef\ DA\_TP\_CLASSES\_GRAPH}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ DA\_TP\_CLASSES\_GRAPH}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}calculations.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}NodeEdge.h"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graph}{Graph}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{class_graph_a902c5b3eacb66d60752525ab23297a95}{\string~Graph}}();}
+\DoxyCodeLine{00031\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{class_node}{Node}}*\ \mbox{\hyperlink{class_graph_a46dcb9c77cd9059a139d482940c796d3}{findNode}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\textcolor{keywordtype}{id})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_graph_ae41ff5ab9cb4ba4ef492b7f2c4e72717}{addNode}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\textcolor{keywordtype}{id},\ \textcolor{keywordtype}{double}\ longitude\ =\ 0,\ \textcolor{keywordtype}{double}\ latitude=0);}
+\DoxyCodeLine{00046\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_aa48074436e005feac5fac47e42e97c67}{getNumNode}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00052\ \ \ \ \ [[nodiscard]]\ vector<Node\ *>\ \mbox{\hyperlink{class_graph_ab252b7e4456aeb7c60a43be11630bb00}{getNodeSet}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_a64ea0d41e669493235b2505adb014057}{sortNodes}}();}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_a2f9d70013c2acf9038596792edbd1ec5}{sortEdges}}();}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_graph_a516f4487d70f4b15e413447afa8c2310}{addEdge}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&sourc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&dest,\ \textcolor{keywordtype}{double}\ w);}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_graph_a5d6b6b10ebe49cc0191ab45151cd49e7}{addBidirectionalEdge}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&sourc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&dest,\ \textcolor{keywordtype}{double}\ w);}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_aee17f9865abe0de32b3daee62c3c1b42}{cleanGraph}}();}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_a442f159eb669e072165392704864b7cd}{calculateMissingToyDistances}}();}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_graph_a6dbb021cbaf6a916083627f898e307e3}{zeroHasNoEdgesLeft}}();}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_graph_a271f1fe38e931ced533a73cbc51f95e6}{tspBTRec}}(std::vector<Node\ *>\&\ path,\ \textcolor{keywordtype}{double}\ min,\ \textcolor{keywordtype}{double}\ curCost,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ curPathSize,\ \textcolor{keywordtype}{bool}\ ended);}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_graph_a4965fa94e4e14ada673db2046b53a3cf}{tspBT}}(std::vector<Node\ *>\&\ path);}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_a07536cab1c52f5aa372ca301b01c4954}{preOrder}}(\mbox{\hyperlink{class_node}{Node}}*\ node,std::vector<Node*>\&\ mst,\ \textcolor{keywordtype}{bool}\ firstIt,\ \textcolor{keywordtype}{double}\&\ weight,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ ex);}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_graph_a32be3a6726ef44df4e0d41683d051b55}{TriangularApproximationHeuristic}}(vector<Node*>\ nodeSet,\ std::vector<Node*>\&\ mst,\textcolor{keyword}{const}\ std::string\&\ type,\ \textcolor{keyword}{const}\ std::string\&\ ex);}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_graph_a818dfec6a108ff92bac49fc83559f2af}{kruskal}}();}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_a13d4976ab98e0261ca9659659a8b59b1}{dfsKruskalPath}}(\mbox{\hyperlink{class_node}{Node}}\ *v);}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_graph_acbebfe07a97cd88eec79b4cbc2764445}{kruskalEx3}}(vector<Node*>\&\ nodeSet);}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_graph_a63bd22d689fa71accfd714a28ecdc644}{getEdgeWeight}}(\mbox{\hyperlink{class_node}{Node}}*\ first,\ \mbox{\hyperlink{class_node}{Node}}*\ second);}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keyword}{static}\ vector<Node*>\ \mbox{\hyperlink{class_graph_ae29aeb5bfe8776d845aaa7ccc5cc746a}{joinSolvedTSP}}(std::vector<Node*>\ solved,\ std::vector<Node*>\ add,\ \textcolor{keywordtype}{double}\&\ weight);}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_a74b70a2f1f7529abfde56fcb401aedc2}{makeClusters}}(\textcolor{keyword}{const}\ std::vector<Node*>\&centroids,\ vector<Node*>\&\ cluster);}
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keyword}{static}\ vector<Node*>\ \mbox{\hyperlink{class_graph_a46e3438b61f5f74a3b4d60c68cbcc267}{getCentroidCluster}}(\mbox{\hyperlink{class_node}{Node}}*\ centroid,\ vector<Node*>\ \textcolor{keyword}{const}\&\ cluster);}
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_graph_af94fff9fa0d4cf05e3593d2999a2d0e1}{haveSimilarDistance}}(\textcolor{keyword}{const}\ vector<Node*>\&\ cluster);}
+\DoxyCodeLine{00209\ \ \ \ \ vector<Node*>\ \mbox{\hyperlink{class_graph_a6fc89c9e49148b2368425f0b3046c439}{kMeansDivideAndConquer}}(\textcolor{keywordtype}{int}\ k,\ std::vector<Node*>\ clusters,\ \textcolor{keywordtype}{double}\&\ totalMin,\ \textcolor{keywordtype}{bool}\ firstIt);}
+\DoxyCodeLine{00210\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00211\ \ \ \ \ std::vector<Node\ *>\ NodeSet;\ \ \ \ \textcolor{comment}{//\ Node\ set}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordtype}{double}\ **\ distMatrix\ =\ \textcolor{keyword}{nullptr};\ \ \ \textcolor{comment}{//\ dist\ matrix\ for\ Floyd-\/Warshall}}
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keywordtype}{int}\ **pathMatrix\ =\ \textcolor{keyword}{nullptr};\ \ \ \textcolor{comment}{//\ path\ matrix\ for\ Floyd-\/Warshall}}
+\DoxyCodeLine{00215\ \};}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \textcolor{keywordtype}{void}\ deleteMatrix(\textcolor{keywordtype}{int}\ **m,\ \textcolor{keywordtype}{int}\ n);}
+\DoxyCodeLine{00218\ \textcolor{keywordtype}{void}\ deleteMatrix(\textcolor{keywordtype}{double}\ **m,\ \textcolor{keywordtype}{int}\ n);}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ DA\_TP\_CLASSES\_GRAPH\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,487 @@
+\doxysection{Graph Class Reference}
+\hypertarget{class_graph}{}\label{class_graph}\index{Graph@{Graph}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_graph_a902c5b3eacb66d60752525ab23297a95}{\texorpdfstring{$\sim$}{\string~}\+Graph}} ()
+\item 
+\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_graph_a46dcb9c77cd9059a139d482940c796d3}{find\+Node}} (const int \&id) const
+\item 
+bool \mbox{\hyperlink{class_graph_ae41ff5ab9cb4ba4ef492b7f2c4e72717}{add\+Node}} (const int \&id, double longitude=0, double latitude=0)
+\item 
+int \mbox{\hyperlink{class_graph_aa48074436e005feac5fac47e42e97c67}{get\+Num\+Node}} () const
+\item 
+vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_graph_ab252b7e4456aeb7c60a43be11630bb00}{get\+Node\+Set}} () const
+\item 
+void \mbox{\hyperlink{class_graph_a64ea0d41e669493235b2505adb014057}{sort\+Nodes}} ()
+\item 
+void \mbox{\hyperlink{class_graph_a2f9d70013c2acf9038596792edbd1ec5}{sort\+Edges}} ()
+\item 
+bool \mbox{\hyperlink{class_graph_a516f4487d70f4b15e413447afa8c2310}{add\+Edge}} (const int \&sourc, const int \&dest, double w)
+\item 
+bool \mbox{\hyperlink{class_graph_a5d6b6b10ebe49cc0191ab45151cd49e7}{add\+Bidirectional\+Edge}} (const int \&sourc, const int \&dest, double w)
+\item 
+void \mbox{\hyperlink{class_graph_aee17f9865abe0de32b3daee62c3c1b42}{clean\+Graph}} ()
+\item 
+void \mbox{\hyperlink{class_graph_a442f159eb669e072165392704864b7cd}{calculate\+Missing\+Toy\+Distances}} ()
+\item 
+bool \mbox{\hyperlink{class_graph_a6dbb021cbaf6a916083627f898e307e3}{zero\+Has\+No\+Edges\+Left}} ()
+\item 
+double \mbox{\hyperlink{class_graph_a271f1fe38e931ced533a73cbc51f95e6}{tsp\+BTRec}} (std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \&path, double min, double cur\+Cost, unsigned int i, unsigned int cur\+Path\+Size, bool ended)
+\item 
+double \mbox{\hyperlink{class_graph_a4965fa94e4e14ada673db2046b53a3cf}{tsp\+BT}} (std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \&path)
+\item 
+void \mbox{\hyperlink{class_graph_a07536cab1c52f5aa372ca301b01c4954}{pre\+Order}} (\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*}node, std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \&mst, bool first\+It, double \&weight, const string \&ex)
+\item 
+double \mbox{\hyperlink{class_graph_a32be3a6726ef44df4e0d41683d051b55}{Triangular\+Approximation\+Heuristic}} (vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ node\+Set, std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \&mst, const std\+::string \&type, const std\+::string \&ex)
+\item 
+double \mbox{\hyperlink{class_graph_a818dfec6a108ff92bac49fc83559f2af}{kruskal}} ()
+\item 
+void \mbox{\hyperlink{class_graph_a13d4976ab98e0261ca9659659a8b59b1}{dfs\+Kruskal\+Path}} (\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*}v)
+\item 
+double \mbox{\hyperlink{class_graph_acbebfe07a97cd88eec79b4cbc2764445}{kruskal\+Ex3}} (vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \&node\+Set)
+\item 
+vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_graph_a6fc89c9e49148b2368425f0b3046c439}{k\+Means\+Divide\+And\+Conquer}} (int k, std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ clusters, double \&total\+Min, bool first\+It)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static double \mbox{\hyperlink{class_graph_a63bd22d689fa71accfd714a28ecdc644}{get\+Edge\+Weight}} (\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*}first, \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*}second)
+\item 
+static vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_graph_ae29aeb5bfe8776d845aaa7ccc5cc746a}{join\+Solved\+TSP}} (std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ solved, std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ add, double \&weight)
+\item 
+static void \mbox{\hyperlink{class_graph_a74b70a2f1f7529abfde56fcb401aedc2}{make\+Clusters}} (const std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \&centroids, vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \&cluster)
+\item 
+static vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_graph_a46e3438b61f5f74a3b4d60c68cbcc267}{get\+Centroid\+Cluster}} (\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*}centroid, vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ const \&cluster)
+\item 
+static bool \mbox{\hyperlink{class_graph_af94fff9fa0d4cf05e3593d2999a2d0e1}{have\+Similar\+Distance}} (const vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \&cluster)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_graph_a77d4b80fea3603f2414f135e15a22b57}\label{class_graph_a77d4b80fea3603f2414f135e15a22b57} 
+std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries Node\+Set}
+\item 
+\Hypertarget{class_graph_a9e61864da69191c1896a25a708d1a02d}\label{class_graph_a9e61864da69191c1896a25a708d1a02d} 
+double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} {\bfseries dist\+Matrix} = nullptr
+\item 
+\Hypertarget{class_graph_a3ae09699c3616af3ebfcb1eb045f2b62}\label{class_graph_a3ae09699c3616af3ebfcb1eb045f2b62} 
+int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} {\bfseries path\+Matrix} = nullptr
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_graph_a902c5b3eacb66d60752525ab23297a95}\label{class_graph_a902c5b3eacb66d60752525ab23297a95} 
+\index{Graph@{Graph}!````~Graph@{\texorpdfstring{$\sim$}{\string~}Graph}}
+\index{````~Graph@{\texorpdfstring{$\sim$}{\string~}Graph}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Graph()}{\string~Graph()}}
+{\footnotesize\ttfamily Graph\+::\texorpdfstring{$\sim$}{\string~}\+Graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Default destructor of the \doxylink{class_graph}{Graph} class. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_graph_a5d6b6b10ebe49cc0191ab45151cd49e7}\label{class_graph_a5d6b6b10ebe49cc0191ab45151cd49e7} 
+\index{Graph@{Graph}!addBidirectionalEdge@{addBidirectionalEdge}}
+\index{addBidirectionalEdge@{addBidirectionalEdge}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{addBidirectionalEdge()}{addBidirectionalEdge()}}
+{\footnotesize\ttfamily bool Graph\+::add\+Bidirectional\+Edge (\begin{DoxyParamCaption}\item[{const int \&}]{sourc,  }\item[{const int \&}]{dest,  }\item[{double}]{w }\end{DoxyParamCaption})}
+
+Adds a bidirectional edge to the (this) graph, with origin, destination and weight passed as parameters. 
+\begin{DoxyParams}{Parameters}
+{\em sourc} & Represents one of the nodes of the edge \\
+\hline
+{\em dest} & Represents one of the nodes of the edge \\
+\hline
+{\em w} & Represents the weight of the edge \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if an edge with that information doesn\textquotesingle{}t exist in the Node\+Set, false otherwise. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(\+V) with V being the size of the Node\+Set 
+\end{DoxyNote}
+\Hypertarget{class_graph_a516f4487d70f4b15e413447afa8c2310}\label{class_graph_a516f4487d70f4b15e413447afa8c2310} 
+\index{Graph@{Graph}!addEdge@{addEdge}}
+\index{addEdge@{addEdge}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{addEdge()}{addEdge()}}
+{\footnotesize\ttfamily bool Graph\+::add\+Edge (\begin{DoxyParamCaption}\item[{const int \&}]{sourc,  }\item[{const int \&}]{dest,  }\item[{double}]{w }\end{DoxyParamCaption})}
+
+Adds an edge to the (this) graph, with origin, destination and weight passed as parameters. 
+\begin{DoxyParams}{Parameters}
+{\em sourc} & Represents the origin of the edge \\
+\hline
+{\em dest} & Represents the destination of the edge \\
+\hline
+{\em w} & Represents the weight of the edge \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if an edge with that information doesn\textquotesingle{}t exist in the Node\+Set, false otherwise. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(\+V) with V being the size of the Node\+Set 
+\end{DoxyNote}
+\Hypertarget{class_graph_ae41ff5ab9cb4ba4ef492b7f2c4e72717}\label{class_graph_ae41ff5ab9cb4ba4ef492b7f2c4e72717} 
+\index{Graph@{Graph}!addNode@{addNode}}
+\index{addNode@{addNode}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{addNode()}{addNode()}}
+{\footnotesize\ttfamily bool Graph\+::add\+Node (\begin{DoxyParamCaption}\item[{const int \&}]{id,  }\item[{double}]{longitude = {\ttfamily 0},  }\item[{double}]{latitude = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+Adds a node with id, longitude and latitude passed as parameter to the Node\+Set. 
+\begin{DoxyParams}{Parameters}
+{\em id} & Represents the id of the node to be added \\
+\hline
+{\em longitude} & Represents the longitude of the node to be added. Default is 0 \\
+\hline
+{\em latitude} & Represents the latitude of the node to be added. Default is 0 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the node with those values does not exist in the Node\+Set, false otherwise. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(\+V) with V being the size of the Node\+Set 
+\end{DoxyNote}
+\Hypertarget{class_graph_a442f159eb669e072165392704864b7cd}\label{class_graph_a442f159eb669e072165392704864b7cd} 
+\index{Graph@{Graph}!calculateMissingToyDistances@{calculateMissingToyDistances}}
+\index{calculateMissingToyDistances@{calculateMissingToyDistances}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{calculateMissingToyDistances()}{calculateMissingToyDistances()}}
+{\footnotesize\ttfamily void Graph\+::calculate\+Missing\+Toy\+Distances (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Calculates and adds the missing edges to turn a toy graph into a fully connected graph. Bases the calculations on the triangular inequality property, the sum of the lengths of any two sides must be greater than or equal to the length of the remaining side. \begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(\+V\texorpdfstring{$^\wedge$}{\string^}2 \texorpdfstring{$\ast$}{*} U) where U is the number of nodes not fully connected 
+\end{DoxyNote}
+\Hypertarget{class_graph_aee17f9865abe0de32b3daee62c3c1b42}\label{class_graph_aee17f9865abe0de32b3daee62c3c1b42} 
+\index{Graph@{Graph}!cleanGraph@{cleanGraph}}
+\index{cleanGraph@{cleanGraph}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{cleanGraph()}{cleanGraph()}}
+{\footnotesize\ttfamily void Graph\+::clean\+Graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Deletes the nodes and edges of the (this) graph. \begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(V+E) with V being the size of the Node\+Set and E being the number of edges of each node 
+\end{DoxyNote}
+\Hypertarget{class_graph_a13d4976ab98e0261ca9659659a8b59b1}\label{class_graph_a13d4976ab98e0261ca9659659a8b59b1} 
+\index{Graph@{Graph}!dfsKruskalPath@{dfsKruskalPath}}
+\index{dfsKruskalPath@{dfsKruskalPath}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{dfsKruskalPath()}{dfsKruskalPath()}}
+{\footnotesize\ttfamily void Graph\+::dfs\+Kruskal\+Path (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*}}]{v }\end{DoxyParamCaption})}
+
+Depth-\/first Search used in the implementation of the kruskal algorithm. 
+\begin{DoxyParams}{Parameters}
+{\em v} & Represents a node which edges will be used in the DFS \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(\+E) where E is the number of edges of the v node 
+\end{DoxyNote}
+\Hypertarget{class_graph_a46dcb9c77cd9059a139d482940c796d3}\label{class_graph_a46dcb9c77cd9059a139d482940c796d3} 
+\index{Graph@{Graph}!findNode@{findNode}}
+\index{findNode@{findNode}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{findNode()}{findNode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} Graph\+::find\+Node (\begin{DoxyParamCaption}\item[{const int \&}]{id }\end{DoxyParamCaption}) const}
+
+Loops through the Node\+Set to check if a node with the id given as parameter exists. 
+\begin{DoxyParams}{Parameters}
+{\em id} & Represents the id of the node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Node\texorpdfstring{$\ast$}{*} if it exists in the Node\+Set, nullptr otherwise. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(\+V) with V being the size of the Node\+Set 
+\end{DoxyNote}
+\Hypertarget{class_graph_a46e3438b61f5f74a3b4d60c68cbcc267}\label{class_graph_a46e3438b61f5f74a3b4d60c68cbcc267} 
+\index{Graph@{Graph}!getCentroidCluster@{getCentroidCluster}}
+\index{getCentroidCluster@{getCentroidCluster}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{getCentroidCluster()}{getCentroidCluster()}}
+{\footnotesize\ttfamily vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ Graph\+::get\+Centroid\+Cluster (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*}}]{centroid,  }\item[{vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ const \&}]{cluster }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Returns the cluster of a centroid 
+\begin{DoxyParams}{Parameters}
+{\em centroid} & Represents the centroid of a cluster \\
+\hline
+{\em cluster} & Represents a cluster of nodes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector\&lt Node\texorpdfstring{$\ast$}{*}\texorpdfstring{$>$}{>} with every node pertaining to the cluster of a centroid 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(n) with n being the size of the cluster vector 
+\end{DoxyNote}
+\Hypertarget{class_graph_a63bd22d689fa71accfd714a28ecdc644}\label{class_graph_a63bd22d689fa71accfd714a28ecdc644} 
+\index{Graph@{Graph}!getEdgeWeight@{getEdgeWeight}}
+\index{getEdgeWeight@{getEdgeWeight}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{getEdgeWeight()}{getEdgeWeight()}}
+{\footnotesize\ttfamily double Graph\+::get\+Edge\+Weight (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*}}]{first,  }\item[{\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*}}]{second }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Returns the weight of the edge between the two nodes passed as parameters. 
+\begin{DoxyParams}{Parameters}
+{\em first} & Represents one of the nodes of the edge \\
+\hline
+{\em second} & Represents one of the nodes of the edge \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The weight of the edge if it exists, INF otherwise 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(\+E) with E being the number of outgoing edges of the first node 
+\end{DoxyNote}
+\Hypertarget{class_graph_ab252b7e4456aeb7c60a43be11630bb00}\label{class_graph_ab252b7e4456aeb7c60a43be11630bb00} 
+\index{Graph@{Graph}!getNodeSet@{getNodeSet}}
+\index{getNodeSet@{getNodeSet}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{getNodeSet()}{getNodeSet()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ Graph\+::get\+Node\+Set (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the vector Node\+Set of the (this) graph. \begin{DoxyReturn}{Returns}
+vector with the nodes belonging to the (this) graph 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_graph_aa48074436e005feac5fac47e42e97c67}\label{class_graph_aa48074436e005feac5fac47e42e97c67} 
+\index{Graph@{Graph}!getNumNode@{getNumNode}}
+\index{getNumNode@{getNumNode}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{getNumNode()}{getNumNode()}}
+{\footnotesize\ttfamily int Graph\+::get\+Num\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the number of nodes in the (this) graph. \begin{DoxyReturn}{Returns}
+The size of the Node\+Set 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_graph_af94fff9fa0d4cf05e3593d2999a2d0e1}\label{class_graph_af94fff9fa0d4cf05e3593d2999a2d0e1} 
+\index{Graph@{Graph}!haveSimilarDistance@{haveSimilarDistance}}
+\index{haveSimilarDistance@{haveSimilarDistance}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{haveSimilarDistance()}{haveSimilarDistance()}}
+{\footnotesize\ttfamily bool Graph\+::have\+Similar\+Distance (\begin{DoxyParamCaption}\item[{const vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \&}]{cluster }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Checks if the nodes of a cluster have similar distance by analysing the mean and standard deviation of their distances. 
+\begin{DoxyParams}{Parameters}
+{\em cluster} & Represents a cluster of nodes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the standard deviation is less or equal than 10\% of the mean of the nodes\textquotesingle{} distances 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(1) 
+\end{DoxyNote}
+\Hypertarget{class_graph_ae29aeb5bfe8776d845aaa7ccc5cc746a}\label{class_graph_ae29aeb5bfe8776d845aaa7ccc5cc746a} 
+\index{Graph@{Graph}!joinSolvedTSP@{joinSolvedTSP}}
+\index{joinSolvedTSP@{joinSolvedTSP}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{joinSolvedTSP()}{joinSolvedTSP()}}
+{\footnotesize\ttfamily vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ Graph\+::join\+Solved\+TSP (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$}]{solved,  }\item[{std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$}]{add,  }\item[{double \&}]{weight }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Calculates the best nodes to link two clusters with solved hamiltonian cycles and merges the two clusters. Stores the weight of the hamiltonian cycle in the variable weight passed as parameter. 
+\begin{DoxyParams}{Parameters}
+{\em solved} & Represents one of the clusters to be merged \\
+\hline
+{\em add} & Represents one of the clusters to be merged \\
+\hline
+{\em weight} & Represents the weight of the hamiltonian cycle of the merged clusters \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Merged cluster of the solved and add clusters 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(S \texorpdfstring{$\ast$}{*} A + S + A) with S being the size of solved vector and A the size of the add vector 
+\end{DoxyNote}
+\Hypertarget{class_graph_a6fc89c9e49148b2368425f0b3046c439}\label{class_graph_a6fc89c9e49148b2368425f0b3046c439} 
+\index{Graph@{Graph}!kMeansDivideAndConquer@{kMeansDivideAndConquer}}
+\index{kMeansDivideAndConquer@{kMeansDivideAndConquer}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{kMeansDivideAndConquer()}{kMeansDivideAndConquer()}}
+{\footnotesize\ttfamily vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ Graph\+::k\+Means\+Divide\+And\+Conquer (\begin{DoxyParamCaption}\item[{int}]{k,  }\item[{std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$}]{clusters,  }\item[{double \&}]{total\+Min,  }\item[{bool}]{first\+It }\end{DoxyParamCaption})}
+
+Implementation of the k-\/means algorithm using a divide and conquer approach. 
+\begin{DoxyParams}{Parameters}
+{\em k} & Represents the number of clusters created in each iteration of this algorithm \\
+\hline
+{\em clusters} & Represents the current cluster of nodes \\
+\hline
+{\em total\+Min} & Represents the total weight of the path of the clusters variable \\
+\hline
+{\em first\+It} & Checks if the function is in its first iteration. True if it is, false otherwise \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The path solved by the approximation heuristic 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O((C + K \texorpdfstring{$\ast$}{*} C) \texorpdfstring{$\ast$}{*} log(\+K)) with C being the size of the clusters vector and K the size of the centroids vector 
+\end{DoxyNote}
+\Hypertarget{class_graph_a818dfec6a108ff92bac49fc83559f2af}\label{class_graph_a818dfec6a108ff92bac49fc83559f2af} 
+\index{Graph@{Graph}!kruskal@{kruskal}}
+\index{kruskal@{kruskal}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{kruskal()}{kruskal()}}
+{\footnotesize\ttfamily double Graph\+::kruskal (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Implementation of the kruskal algorithm. Creates an MST and returns the sum of the weight of the selected edges. \begin{DoxyReturn}{Returns}
+The sum of the weight of the edges of the MST 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(N\texorpdfstring{$\ast$}{*}E + E\texorpdfstring{$\ast$}{*}log(E)), where N is the number of nodes and E is the number of edges 
+\end{DoxyNote}
+\Hypertarget{class_graph_acbebfe07a97cd88eec79b4cbc2764445}\label{class_graph_acbebfe07a97cd88eec79b4cbc2764445} 
+\index{Graph@{Graph}!kruskalEx3@{kruskalEx3}}
+\index{kruskalEx3@{kruskalEx3}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{kruskalEx3()}{kruskalEx3()}}
+{\footnotesize\ttfamily double Graph\+::kruskal\+Ex3 (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \&}]{node\+Set }\end{DoxyParamCaption})}
+
+Implementation of the kruskal algorithm, specific to the 3rd exercise. 
+\begin{DoxyParams}{Parameters}
+{\em node\+Set} & Represents a cluster of nodes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The sum of the weight of the edges of the MST 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(N\texorpdfstring{$\ast$}{*}E + E\texorpdfstring{$\ast$}{*}log(E)), where N is the number of nodes and E is the number of edges 
+\end{DoxyNote}
+\Hypertarget{class_graph_a74b70a2f1f7529abfde56fcb401aedc2}\label{class_graph_a74b70a2f1f7529abfde56fcb401aedc2} 
+\index{Graph@{Graph}!makeClusters@{makeClusters}}
+\index{makeClusters@{makeClusters}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{makeClusters()}{makeClusters()}}
+{\footnotesize\ttfamily void Graph\+::make\+Clusters (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \&}]{centroids,  }\item[{vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \&}]{cluster }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Creates clusters with a centroid in the center of each cluster. 
+\begin{DoxyParams}{Parameters}
+{\em centroids} & Represents the centroids created randomly \\
+\hline
+{\em cluster} & Represents the cluster in which the clusters will be created \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(C + K \texorpdfstring{$\ast$}{*} C) with C being the size of the cluster vector and K the size of the centroids vector 
+\end{DoxyNote}
+\Hypertarget{class_graph_a07536cab1c52f5aa372ca301b01c4954}\label{class_graph_a07536cab1c52f5aa372ca301b01c4954} 
+\index{Graph@{Graph}!preOrder@{preOrder}}
+\index{preOrder@{preOrder}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{preOrder()}{preOrder()}}
+{\footnotesize\ttfamily void Graph\+::pre\+Order (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*}}]{node,  }\item[{std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \&}]{mst,  }\item[{bool}]{first\+It,  }\item[{double \&}]{weight,  }\item[{const string \&}]{ex }\end{DoxyParamCaption})}
+
+Creates an MST by visiting the (this) graph in pre\+Order, starting with the node provided as parameter. Stores the sum of the edges of the MST in the weight variable passed as parameter. 
+\begin{DoxyParams}{Parameters}
+{\em node} & Represents the first node to be visited \\
+\hline
+{\em mst} & Represents the nodes belonging to the MST \\
+\hline
+{\em first\+It} & Checks if the function is in its first iteration. True if it is, false otherwise \\
+\hline
+{\em weight} & Represents the sum of the edges of the MST \\
+\hline
+{\em ex} & Represents which exercise this function is being used for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(E+N) with E being the outgoing edges of the node parameter and N the number of nodes in the graph 
+\end{DoxyNote}
+\Hypertarget{class_graph_a2f9d70013c2acf9038596792edbd1ec5}\label{class_graph_a2f9d70013c2acf9038596792edbd1ec5} 
+\index{Graph@{Graph}!sortEdges@{sortEdges}}
+\index{sortEdges@{sortEdges}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{sortEdges()}{sortEdges()}}
+{\footnotesize\ttfamily void Graph\+::sort\+Edges (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Sorts the edges of the (this) graph from lowest to highest \begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(n\texorpdfstring{$\ast$}{*}log(n)) 
+\end{DoxyNote}
+\Hypertarget{class_graph_a64ea0d41e669493235b2505adb014057}\label{class_graph_a64ea0d41e669493235b2505adb014057} 
+\index{Graph@{Graph}!sortNodes@{sortNodes}}
+\index{sortNodes@{sortNodes}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{sortNodes()}{sortNodes()}}
+{\footnotesize\ttfamily void Graph\+::sort\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Sorts the nodes of the (this) graph from lowest to highest \begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(n\texorpdfstring{$\ast$}{*}log(n)) 
+\end{DoxyNote}
+\Hypertarget{class_graph_a32be3a6726ef44df4e0d41683d051b55}\label{class_graph_a32be3a6726ef44df4e0d41683d051b55} 
+\index{Graph@{Graph}!TriangularApproximationHeuristic@{TriangularApproximationHeuristic}}
+\index{TriangularApproximationHeuristic@{TriangularApproximationHeuristic}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{TriangularApproximationHeuristic()}{TriangularApproximationHeuristic()}}
+{\footnotesize\ttfamily double Graph\+::\+Triangular\+Approximation\+Heuristic (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$}]{node\+Set,  }\item[{std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \&}]{mst,  }\item[{const std\+::string \&}]{type,  }\item[{const std\+::string \&}]{ex }\end{DoxyParamCaption})}
+
+Implementation of the triangular approximation heuristic. Utilizes the triangular inequality law to approximate a value close to the optimal one, in return for more efficiency. 
+\begin{DoxyParams}{Parameters}
+{\em node\+Set} & Represents the Node\+Set of the (this) graph \\
+\hline
+{\em mst} & Represents the nodes belonging to the MST \\
+\hline
+{\em type} & Represents the type of graph \\
+\hline
+{\em ex} & Represents which exercise this function is being used for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The weight of the path taken 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(N\texorpdfstring{$\ast$}{*}E + E\texorpdfstring{$\ast$}{*}log(E)), where N is the size of the node\+Set vector and E is the number of edges in the graph. 
+\end{DoxyNote}
+\Hypertarget{class_graph_a4965fa94e4e14ada673db2046b53a3cf}\label{class_graph_a4965fa94e4e14ada673db2046b53a3cf} 
+\index{Graph@{Graph}!tspBT@{tspBT}}
+\index{tspBT@{tspBT}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{tspBT()}{tspBT()}}
+{\footnotesize\ttfamily double Graph\+::tsp\+BT (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \&}]{path }\end{DoxyParamCaption})}
+
+Fills the vector path with the size of the Node\+Set and initialises it with 0\textquotesingle{}s, also iterates over the Node\+Set and sets every node\textquotesingle{}s visited field as false. Returns the result of the tsp\+BTRec, a.\+k.\+a the recursive function that implements the backtracking algorithm. 
+\begin{DoxyParams}{Parameters}
+{\em path} & Is initially sent as an empty vector. At the end of the function call, represents the optimal path. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The weight of the optimal path 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O((n-\/1)!\texorpdfstring{$\ast$}{*}E) with n being the number of nodes in the graph 
+\end{DoxyNote}
+\Hypertarget{class_graph_a271f1fe38e931ced533a73cbc51f95e6}\label{class_graph_a271f1fe38e931ced533a73cbc51f95e6} 
+\index{Graph@{Graph}!tspBTRec@{tspBTRec}}
+\index{tspBTRec@{tspBTRec}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{tspBTRec()}{tspBTRec()}}
+{\footnotesize\ttfamily double Graph\+::tsp\+BTRec (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} \texorpdfstring{$\ast$}{*} $>$ \&}]{path,  }\item[{double}]{min,  }\item[{double}]{cur\+Cost,  }\item[{unsigned int}]{i,  }\item[{unsigned int}]{cur\+Path\+Size,  }\item[{bool}]{ended }\end{DoxyParamCaption})}
+
+Implementation of the backtracking algorithm. Calculates the optimal path for the (this) graph and returns the weight of said path. 
+\begin{DoxyParams}{Parameters}
+{\em path} & Represents the path taken \\
+\hline
+{\em min} & Represents the minimum cost of the paths travelled so far \\
+\hline
+{\em cur\+Cost} & Represents the current cost of the path taken \\
+\hline
+{\em i} & Represents the id of the node \\
+\hline
+{\em cur\+Path\+Size} & Represents the current path size \\
+\hline
+{\em ended} & Checks if the end of the path has been reached \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The minimum cost of the paths travelled 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O((n-\/1)!\texorpdfstring{$\ast$}{*}E) with n being the number of nodes in the graph 
+\end{DoxyNote}
+\Hypertarget{class_graph_a6dbb021cbaf6a916083627f898e307e3}\label{class_graph_a6dbb021cbaf6a916083627f898e307e3} 
+\index{Graph@{Graph}!zeroHasNoEdgesLeft@{zeroHasNoEdgesLeft}}
+\index{zeroHasNoEdgesLeft@{zeroHasNoEdgesLeft}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{zeroHasNoEdgesLeft()}{zeroHasNoEdgesLeft()}}
+{\footnotesize\ttfamily bool Graph\+::zero\+Has\+No\+Edges\+Left (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Checks if node 0 has any adjacent edge that is yet to be visited. \begin{DoxyReturn}{Returns}
+False if it finds any unvisited node, true otherwise. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time-\/complexity -\/\texorpdfstring{$>$}{>} O(\+E) with E being the number of outgoing edges from node 0 
+\end{DoxyNote}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Graph.\+h\item 
+src/Graph.\+cpp\end{DoxyCompactItemize}

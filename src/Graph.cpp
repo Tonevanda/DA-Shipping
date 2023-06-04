@@ -67,12 +67,6 @@ Node * Graph::findNode(const int &id) const {
 }
 
 
-int Graph::findNodeIdx(const int &id) const {
-    for (unsigned i = 0; i < NodeSet.size(); i++)
-        if (NodeSet[i]->getId() == id)
-            return i;
-    return -1;
-}
 
 bool Graph::addNode(const int &id, double longitude, double latitude) {
     if (findNode(id) != nullptr)

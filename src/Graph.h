@@ -212,13 +212,6 @@ protected:
 
     double ** distMatrix = nullptr;   // dist matrix for Floyd-Warshall
     int **pathMatrix = nullptr;   // path matrix for Floyd-Warshall
-
-    /**
-     * Finds the index of the node with a given content.
-     * @param id Represents the id of the node
-     * @return The index of the node with the given id
-     */
-    [[nodiscard]] int findNodeIdx(const int &id) const;
 };
 
 void deleteMatrix(int **m, int n);
