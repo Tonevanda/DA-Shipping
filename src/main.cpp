@@ -105,13 +105,6 @@ void efcGraph(Graph* graph,const string& file){
                 printPath(mst,min);
                 break;
             }
-            case 3: {
-                std::vector<Node *> path;
-                vector<Node*> emptyCluster;
-                path = graph->kMeansDivideAndConquer(sqrt(graph->getNumNode()), emptyCluster, min, true);
-                printPath(path, min);
-                break;
-            }
             default:{
                 cout << "Invalid input!\n";
                 break;
@@ -440,7 +433,7 @@ void chooseGraph(Graph* graph){
                         }
                         case 3:{
                             string node, edge;
-                            cout << "Please input your graph's nodes file path (Note: Our heuristic will not work for graphs without a hamiltonian path):\n";
+                            cout << "Please input your graph's nodes file path (Note: Our heuristic will not work as intended for graphs without coordinates and not fully connected):\n";
                             while (!(cin >> node)) {
                                 cout << "Invalid input!\n";
                                 cin.clear();
@@ -449,9 +442,10 @@ void chooseGraph(Graph* graph){
                             }
                             cin.clear();
                             cin.ignore(INT_MAX, '\n');
-                            readRealWorldNodes(graph,edge);
+                            cout << node << endl;
+                            readRealWorldNodes(graph,node);
                             cout << "Please input your graph's edge file path:\n";
-                            while (!(cin >> node)) {
+                            while (!(cin >> edge)) {
                                 cout << "Invalid input!\n";
                                 cin.clear();
                                 cin.ignore(INT_MAX, '\n');
@@ -459,6 +453,7 @@ void chooseGraph(Graph* graph){
                             }
                             cin.clear();
                             cin.ignore(INT_MAX, '\n');
+                            cout << edge << endl;
                             readRealWorldEdges(graph,edge);
                             realGraph1(graph);
                             graph->cleanGraph();

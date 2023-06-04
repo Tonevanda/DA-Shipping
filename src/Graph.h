@@ -197,7 +197,6 @@ public:
      * @note Time-complexity -> O(1)
      */
     static bool haveSimilarDistance(const vector<Node*>& cluster);
-    bool isFullyConnected(vector<Node*> cluster);
     /**
      * Implementation of the k-means algorithm using a divide and conquer approach.
      * @param k Represents the number of clusters created in each iteration of this algorithm

@@ -368,15 +368,6 @@ double Graph::getEdgeWeight(Node* first, Node* second){
     return INF;
 }
 
-bool areAdj(Node* first, Node* second){
-    for(Edge* edge : first->getAdj()){
-        if(edge->getDest()==second){
-            return true;
-        }
-    }
-    return false;
-}
-
 vector<Node*> Graph::joinSolvedTSP(vector<Node*> solved, vector<Node*> add, double& weight){
     if(solved.empty()) return add;
     if(add.empty()) return solved;
@@ -396,13 +387,6 @@ vector<Node*> Graph::joinSolvedTSP(vector<Node*> solved, vector<Node*> add, doub
         for(Node* second : add){
             dist = getEdgeWeight(first, second);
             if(dist < min){
-                //Eliminar caso assumamos que é fully connected
-                int temp = i+1, tempJ = j-1;
-                if(temp==solved.size()) temp = 0;
-                if(tempJ < 0) tempJ =add.size()-1;
-                if(!areAdj(solved[temp],add[tempJ])){
-                    continue;
-                }
                 min = dist;
                 k=i;
                 minNode = first->getId();
@@ -448,7 +432,7 @@ vector<Node*> Graph::joinSolvedTSP(vector<Node*> solved, vector<Node*> add, doub
         }
     }
 
-    curWeight+= getEdgeWeight(solved.back(), solved.front());
+    curWeight+= getEdgeWeight(joined.back(), joined.front());
     Node* newFront = joined[0];
     joined.push_back(newFront);
 
@@ -487,30 +471,6 @@ bool Graph::haveSimilarDistance(vector<Node*> const& cluster){
     double long mean = calculateMean(cluster) * 0.1;
 
     return se <= mean;
-}
-
-bool Graph::isFullyConnected(vector<Node*> cluster){
-    int cur = 0;
-    while(cur!=cluster.size()){
-        bool isFullyConnected = true;
-        Node* curNode = cluster[cur];
-        for(int i = cur+1; i < cluster.size(); i++){
-            bool isConnected = false;
-            for(auto e : cluster[i]->getAdj()){
-                if (e->getDest() == curNode) {
-                    isConnected = true;
-                    break;
-                }
-            }
-            if (!isConnected) {
-                isFullyConnected = false;
-                break;
-            }
-        }
-        if (!isFullyConnected) return false;
-        cur++;
-    }
-    return true;
 }
 
 vector<Node*> Graph::kMeansDivideAndConquer(int k, vector<Node*> clusters, double& totalMin, bool firstIt){

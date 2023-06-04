@@ -27,18 +27,6 @@ vector<string> read(std::string filename);
  */
 bool isAlreadyInEdges(int id, std::vector<Edge*> edges);
 /**
- * Connects every node in a graph with each other, used to make a real-world graph fully connected.
- * @param graph Represents a not fully connected graph
- * @note Time-complexity -> O(n^3) with n being the number of nodes in the graph
- */
-void fillInBlanks(Graph* graph);
-/**
- * Connects every node in a graph with each other, with weight 1 on every edge, used to make a toy graph fully connected.
- * @param graph Represents a not fully connected graph
- * @note Time-complexity -> O(n^3) with n being the number of nodes in the graph
- */
-void fillInBlanksWithOne(Graph* graph);
-/**
  * Opens the file given, parses the nodes from the provided file, assuming it's in the Real World graphs' format and closes the file
  * @param graph
  * @param file
@@ -60,19 +48,11 @@ void readRealWorldEdges(Graph* graph, std::string filename);
  */
 void readToyGraph(Graph* graph, std::string filename);
 /**
- * Opens the file given, parses the nodes and edges from the provided file, assuming it's in the Toy graphs' format, but instead of adding it's real distance, sets it as 1 instead, then it fully connects the rest of the nodes with assigned distance of 1, orders the nodes through their id's and closes the file
- * @param graph
- * @param file
- * @note Time-complexity -> O( n log(n) )
- */
-void readToyGraphWith1Distance(Graph* graph, string file);
-/**
  * Opens the file given, parses the nodes and edges from the provided file, assuming it's in the Extra Fully Connected graphs' format, orders the nodes through their id's and closes the file
  * @param graph
  * @param file
  * @note Time-complexity -> O(n log(n))
  */
 void readExtraFullyConnectedGraph(Graph* graph, std::string filename);
-
 
 #endif //PROJETO_DA_1_PARSE
